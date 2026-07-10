@@ -1,0 +1,17 @@
+/*
+Theme Name: Fasdent Theme
+Theme URI: https://fasdent.ir/
+Author: Fasdent Dev Team
+Author URI: https://fasdent.ir/
+Description: قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی. راست‌چین کامل (RTL)، سئو تکنیکال داخلی (Schema: Dentist, MedicalProcedure, FAQPage, BreadcrumbList, Physician)، سازگار با المنتور و المنتور پرو، فونت وزیرمتن و Font Awesome کاملاً لوکال، بهینه برای Core Web Vitals.
+Version: 1.0.0
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 8.2
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: fasdent
+Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready, blog, e-commerce
+*/
+
+/* استایل‌های اصلی در assets/css/main.css بارگذاری می‌شوند (fasdent_enqueue_scripts) */
