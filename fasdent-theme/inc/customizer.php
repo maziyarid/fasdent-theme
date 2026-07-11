@@ -115,5 +115,57 @@ function fasdent_customize_register( WP_Customize_Manager $wp_customize ): void 
 		'section' => 'fasdent_emergency',
 		'type'    => 'text',
 	) );
+
+	/* ── Analytics & Integrations ─────────────────────── */
+	$wp_customize->add_section( 'fasdent_analytics', array(
+		'title' => __( 'آنالیتیکس و یکپارچگی', 'fasdent' ),
+		'panel' => 'fasdent_panel',
+	) );
+
+	$analytics_fields = array(
+		'fasdent_ga4_id'          => array( '', __( 'Google Analytics 4 ID (G-XXXXXXXXXX)', 'fasdent' ) ),
+		'fasdent_clarity_id'      => array( '', __( 'Microsoft Clarity ID', 'fasdent' ) ),
+		'fasdent_turnstile_key'   => array( '', __( 'Cloudflare Turnstile Site Key', 'fasdent' ) ),
+		'fasdent_turnstile_secret' => array( '', __( 'Cloudflare Turnstile Secret Key', 'fasdent' ) ),
+		'fasdent_cookie_text'     => array( 'این سایت از کوکی برای بهبود تجربه استفاده می‌کند.', __( 'متن بنر کوکی', 'fasdent' ) ),
+	);
+	foreach ( $analytics_fields as $id => $data ) {
+		$wp_customize->add_setting( $id, array(
+			'default'           => $data[0],
+			'sanitize_callback' => 'sanitize_text_field',
+		) );
+		$wp_customize->add_control( $id, array(
+			'label'   => $data[1],
+			'section' => 'fasdent_analytics',
+			'type'    => 'text',
+		) );
+	}
 }
 add_action( 'customize_register', 'fasdent_customize_register' );
+
+/**
+	* تزریق Google Analytics 4 در head.
+	*/
+function fasdent_inject_analytics(): void {
+	$ga4_id = get_theme_mod( 'fasdent_ga4_id', '' );
+	if ( ! $ga4_id ) {
+		return;
+	}
+	$ga4_id = esc_js( $ga4_id );
+	echo "<script async src=\"https://www.googletagmanager.com/gtag/js?id={$ga4_id}\"></script>\n";
+	echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{$ga4_id}');</script>\n";
+}
+add_action( 'wp_head', 'fasdent_inject_analytics', 10 );
+
+/**
+	* تزریق Microsoft Clarity در head.
+	*/
+function fasdent_inject_clarity(): void {
+	$cid = get_theme_mod( 'fasdent_clarity_id', '' );
+	if ( ! $cid ) {
+		return;
+	}
+	$cid = esc_js( $cid );
+	echo "<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script','{$cid}');</script>\n";
+}
+add_action( 'wp_head', 'fasdent_inject_clarity', 11 );

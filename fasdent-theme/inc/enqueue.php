@@ -43,6 +43,15 @@ function fasdent_enqueue_scripts(): void {
 	// ۴) style.css (هدر قالب — برای شناسایی وردپرس).
 	wp_enqueue_style( 'fasdent-style', get_stylesheet_uri(), array( 'fasdent-main' ), FASDENT_VERSION );
 
+	// ۵) Print CSS.
+	wp_enqueue_style(
+		'fasdent-print',
+		FASDENT_URI . '/assets/css/print.css',
+		array( 'fasdent-main' ),
+		FASDENT_VERSION,
+		'print'
+	);
+
 	// ۵) اسکریپت اصلی (defer — غیرحیاتی).
 	$main_js = file_exists( FASDENT_DIR . '/assets/js/main.min.js' ) ? 'main.min.js' : 'main.js';
 	wp_enqueue_script(

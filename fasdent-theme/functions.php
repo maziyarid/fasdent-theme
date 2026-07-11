@@ -28,6 +28,11 @@ require FASDENT_DIR . '/inc/security.php';     // هاردنینگ امنیتی
 require FASDENT_DIR . '/inc/performance.php';  // Defer JS, Lazy Load, Preload
 require FASDENT_DIR . '/inc/forms.php';        // فرم تماس و رزرو نوبت (Nonce + Sanitize)
 require FASDENT_DIR . '/inc/elementor.php';    // سازگاری المنتور / Theme Builder
+require FASDENT_DIR . '/inc/toc.php';          // فهرست مطالب (ToC)
+require FASDENT_DIR . '/inc/post-meta.php';    // زمان مطالعه، بازدید، واکنش‌ها
+require FASDENT_DIR . '/inc/related-posts.php'; // مطالب مرتبط
+require FASDENT_DIR . '/inc/cookies.php';      // رضایت کوکی GDPR
+require FASDENT_DIR . '/inc/dashboard.php';    // ویجت‌های داشبورد ادمین
 
 /* ── توابع کمکی سراسری ─────────────────────────── */
 

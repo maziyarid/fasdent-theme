@@ -31,14 +31,5 @@ function fasdent_remove_wp_version(): void {
 }
 add_action( 'init', 'fasdent_remove_wp_version' );
 
-/**
- * افزودن دستورات preload برای فونت و CSS حیاتی.
- * این نسخه فقط از دارایی‌های لوکال استفاده می‌کند و از CDN خارج نمی‌شود.
- */
-function fasdent_preload_assets(): void {
-	$asset = FASDENT_URI . '/assets/fonts/vazirmatn/Vazirmatn-Regular.woff2';
-	if ( file_exists( FASDENT_DIR . '/assets/fonts/vazirmatn/Vazirmatn-Regular.woff2' ) ) {
-		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $asset ) );
-	}
-}
-add_action( 'wp_head', 'fasdent_preload_assets', 1 );
+// BUG-002 FIX: تابع fasdent_preload_assets() حذف شد — تکراری با fasdent_preload_fonts() در inc/enqueue.php.
+// Preload فونت‌های حیاتی را fasdent_preload_fonts() در enqueue.php با priority 1 مدیریت می‌کند.

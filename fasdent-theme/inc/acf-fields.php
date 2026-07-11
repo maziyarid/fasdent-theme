@@ -107,6 +107,19 @@ function fasdent_register_acf_fields(): void {
 				'type'  => 'wysiwyg',
 				'media_upload' => false,
 			),
+			array(
+				'key'          => 'field_fasdent_key_takeaways',
+				'name'         => 'key_takeaways',
+				'label'        => 'نکات کلیدی',
+				'type'         => 'repeater',
+				'layout'       => 'table',
+				'max'          => 5,
+				'button_label' => 'افزودن نکته',
+				'sub_fields'   => array(
+					array( 'key' => 'field_fasdent_kt_icon', 'name' => 'icon', 'label' => 'آیکون FA', 'type' => 'text', 'placeholder' => 'fa-solid fa-check-circle', 'default_value' => 'fa-solid fa-check-circle' ),
+					array( 'key' => 'field_fasdent_kt_text', 'name' => 'text', 'label' => 'متن نکته', 'type' => 'text' ),
+				),
+			),
 		),
 		'location' => array(
 			array(

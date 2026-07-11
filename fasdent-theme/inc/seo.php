@@ -166,3 +166,56 @@ function fasdent_sitemap_post_types( array $post_types ): array {
 	return $post_types;
 }
 add_filter( 'wp_sitemaps_post_types', 'fasdent_sitemap_post_types' );
+
+/* ═══════════════════════════════════════════════════
+ * بهینه‌سازی بودجه خزش (Crawl Budget Optimization)
+ * ═══════════════════════════════════════════════════ */
+
+/**
+ * ریدایرکت آرشیو تاریخ → خانه.
+ */
+function fasdent_redirect_date_archives(): void {
+	if ( is_date() ) {
+		wp_redirect( home_url( '/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'fasdent_redirect_date_archives' );
+
+/**
+ * ریدایرکت صفحات پیوست → پست والد.
+ */
+function fasdent_redirect_attachment_pages(): void {
+	if ( is_attachment() ) {
+		$parent = get_post_parent();
+		wp_redirect( $parent ? get_permalink( $parent ) : home_url( '/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'fasdent_redirect_attachment_pages' );
+
+/**
+ * noindex برای جستجو، برچسب‌های کم‌محتوا، صفحات بعدی.
+ */
+function fasdent_crawl_budget_noindex(): void {
+	if ( fasdent_seo_plugin_active() ) {
+		return;
+	}
+	if ( is_search() ) {
+		echo '<meta name="robots" content="noindex, nofollow">' . "\n";
+	} elseif ( is_tag() ) {
+		$tag = get_queried_object();
+		if ( $tag && ( $tag->count ?? 0 ) < 5 ) {
+			echo '<meta name="robots" content="noindex, follow">' . "\n";
+		}
+	} elseif ( is_paged() && get_query_var( 'paged' ) > 1 ) {
+		echo '<link rel="prev" href="' . esc_url( get_previous_posts_page_link() ) . '">' . "\n";
+		echo '<link rel="next" href="' . esc_url( get_next_posts_page_link() ) . '">' . "\n";
+	}
+}
+add_action( 'wp_head', 'fasdent_crawl_budget_noindex', 3 );
+
+/* حذف لینک‌های غیرضروری از head برای کاهش crawler signals. */
+remove_action( 'wp_head', 'rest_output_link_wp_head' );
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );

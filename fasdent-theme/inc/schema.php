@@ -284,14 +284,104 @@ function fasdent_schema_emergency_hours(): void {
 }
 
 /**
+ * اسکیمای BlogPosting برای پست‌های بلاگ.
+ */
+function fasdent_schema_blog_posting(): void {
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
+	$author_name = get_the_author_meta( 'display_name' );
+	$schema      = array(
+		'@context'         => 'https://schema.org',
+		'@type'            => array( 'BlogPosting', 'Article' ),
+		'headline'         => get_the_title(),
+		'url'              => get_permalink(),
+		'datePublished'    => get_the_date( 'c' ),
+		'dateModified'     => get_the_modified_date( 'c' ),
+		'description'      => wp_strip_all_tags( get_the_excerpt() ),
+		'author'           => array(
+			'@type' => 'Person',
+			'name'  => $author_name,
+			'url'   => get_author_posts_url( get_the_author_meta( 'ID' ) ),
+		),
+		'publisher'        => array(
+			'@type' => 'Organization',
+			'name'  => get_theme_mod( 'fasdent_clinic_name', 'کلینیک دندانپزشکی فس‌دنت' ),
+			'url'   => home_url( '/' ),
+		),
+		'isPartOf'         => array( '@id' => home_url( '/#website' ) ),
+		'inLanguage'       => 'fa-IR',
+	);
+	if ( has_post_thumbnail() ) {
+		$schema['image'] = get_the_post_thumbnail_url( null, 'large' );
+	}
+	fasdent_print_schema( $schema );
+}
+
+/**
+ * اسکیمای WebSite با Sitelinks Searchbox.
+ */
+function fasdent_schema_website(): void {
+	if ( ! is_front_page() ) {
+		return;
+	}
+	fasdent_print_schema( array(
+		'@context'        => 'https://schema.org',
+		'@type'           => 'WebSite',
+		'@id'             => home_url( '/#website' ),
+		'url'             => home_url( '/' ),
+		'name'            => get_theme_mod( 'fasdent_clinic_name', 'کلینیک دندانپزشکی فس‌دنت' ),
+		'inLanguage'      => 'fa-IR',
+		'potentialAction' => array(
+			'@type'       => 'SearchAction',
+			'target'      => array(
+				'@type'       => 'EntryPoint',
+				'urlTemplate' => home_url( '/?s={search_term_string}' ),
+			),
+			'query-input' => 'required name=search_term_string',
+		),
+	) );
+}
+
+/**
+ * اسکیمای MedicalWebPage برای صفحات خدمت.
+ */
+function fasdent_schema_medical_webpage(): void {
+	if ( ! is_singular( 'service' ) ) {
+		return;
+	}
+	fasdent_print_schema( array(
+		'@context'          => 'https://schema.org',
+		'@type'             => 'MedicalWebPage',
+		'url'               => get_permalink(),
+		'name'              => get_the_title(),
+		'description'       => wp_strip_all_tags( get_the_excerpt() ),
+		'datePublished'     => get_the_date( 'c' ),
+		'dateModified'      => get_the_modified_date( 'c' ),
+		'inLanguage'        => 'fa-IR',
+		'medicalAudience'   => array(
+			'@type'           => 'MedicalAudience',
+			'audienceType'    => 'Patient',
+		),
+		'reviewedBy'        => array(
+			'@type' => 'Dentist',
+			'@id'   => home_url( '/#dentist' ),
+		),
+	) );
+}
+
+/**
  * خروجی همه اسکیماها در head.
  */
 function fasdent_output_schemas(): void {
 	fasdent_schema_dentist();
+	fasdent_schema_website();
 	fasdent_schema_medical_procedure();
+	fasdent_schema_medical_webpage();
 	fasdent_schema_faq();
 	fasdent_schema_physician();
 	fasdent_schema_reviews();
 	fasdent_schema_emergency_hours();
+	fasdent_schema_blog_posting();
 }
 add_action( 'wp_head', 'fasdent_output_schemas', 5 );

@@ -1,0 +1,60 @@
+﻿/**
+ * Print Styles — Fasdent
+ * @package Fasdent
+ */
+@media print {
+  /* پنهان کردن عناصر غیرضروری */
+  .topbar,
+  .site-header,
+  .breadcrumb,
+  .site-nav,
+  .mobile-toggle,
+  .back-to-top,
+  .reading-progress,
+  .cookie-banner,
+  .social-share,
+  .comment-form-section,
+  .cta-banner-section,
+  footer,
+  .btn,
+  .button,
+  nav,
+  .toc-nav { display: none !important; }
+
+  /* بهینه‌سازی صفحه برای چاپ */
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    direction: rtl;
+  }
+
+  .container { max-width: 100%; margin: 0; padding: 0; }
+  .section { padding: 1rem 0; }
+  .card, .service-card { box-shadow: none; border: 1px solid #ccc; }
+
+  /* نمایش URL لینک‌ها */
+  a[href]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  a[href^="tel"]::after, a[href^="mailto"]::after { content: ""; }
+
+  /* تصویر */
+  img { max-width: 100%; page-break-inside: avoid; }
+
+  /* عنوان‌ها */
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  p { orphans: 3; widows: 3; }
+
+  /* اطلاعات کلینیک در سربرگ */
+  body::before {
+    content: "کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی";
+    display: block;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
+  }
+}
