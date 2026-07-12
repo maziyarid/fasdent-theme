@@ -294,3 +294,76 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--color-prima
 /* ── Accessibility: Focus ────────────────────────────── */
 :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
 a:focus-visible, button:focus-visible { border-radius: 4px; }
+
+/* ── Booking Form ────────────────────────────────── */
+.booking-steps { margin-bottom: 2rem; }
+.step-indicator { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: .5rem; }
+.step-dot { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--border); color: var(--color-muted); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; transition: background .3s, color .3s; flex-shrink: 0; }
+.step-dot.active, .step-dot.done { background: var(--color-primary); color: #fff; }
+.step-line { flex: 1; height: 2px; background: var(--border); max-width: 80px; transition: background .3s; }
+.step-line.done { background: var(--color-primary); }
+.step-labels { display: flex; justify-content: space-around; font-size: .75rem; color: var(--color-muted); }
+.booking-form fieldset { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; }
+.booking-form legend { font-weight: 700; color: var(--color-primary); padding: 0 .5rem; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: .3rem; font-size: .9rem; font-weight: 600; }
+.form-field input, .form-field select, .form-field textarea { font-weight: 400; }
+.form-field--full { grid-column: 1 / -1; }
+.booking-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 1rem; }
+.booking-summary { font-size: .9rem; line-height: 2; }
+.booking-summary dt { font-weight: 700; color: var(--color-muted); font-size: .78rem; }
+.booking-summary dd { margin: 0 0 .35rem; }
+.booking-success { text-align: center; padding: 3rem 2rem; }
+.booking-success i { display: block; margin-bottom: 1rem; }
+.privacy-note { font-size: .8rem; color: var(--color-muted); margin-top: .5rem; }
+.privacy-check a { color: var(--color-primary); }
+.hp-field { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* ── Pricing Table ───────────────────────────────── */
+.pricing-table { width: 100%; border-collapse: collapse; }
+.pricing-table th { text-align: right; padding: .65rem .85rem; background: var(--surface); border-bottom: 2px solid var(--border); font-size: .82rem; color: var(--color-muted); font-weight: 700; }
+.pricing-table td { padding: .65rem .85rem; border-bottom: 1px solid var(--border); font-size: .9rem; }
+.pricing-table tr:last-child td { border-bottom: 0; }
+.pricing-table tr:hover td { background: #f8fafc; }
+
+/* ── Poll Widget ─────────────────────────────────── */
+.poll-widget { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin: 1.5rem 0; }
+.poll-question { font-weight: 700; margin-bottom: 1rem; }
+.poll-options { display: flex; flex-direction: column; gap: .65rem; }
+.poll-option-btn { justify-content: flex-start; border-radius: 8px; }
+.poll-result-row { display: flex; flex-direction: column; gap: .2rem; }
+.poll-label { font-size: .88rem; font-weight: 600; }
+.poll-bar { background: var(--border); border-radius: 999px; height: 1.5rem; position: relative; overflow: hidden; }
+.poll-bar::before { content: ''; position: absolute; right: 0; top: 0; height: 100%; width: var(--pct, 0%); background: var(--color-primary); border-radius: 999px; transition: width .6s ease; }
+.poll-bar span { position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); font-size: .75rem; font-weight: 700; color: #fff; z-index: 1; }
+.poll-total { font-size: .8rem; color: var(--color-muted); margin-top: .75rem; }
+
+/* ── Live Search ─────────────────────────────────── */
+.live-search-wrapper { position: relative; }
+.live-search-results { position: absolute; top: calc(100% + 4px); right: 0; left: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); z-index: 500; max-height: 380px; overflow-y: auto; }
+.live-search-results:empty { display: none; }
+.search-result-item { display: flex; align-items: center; gap: .75rem; padding: .65rem 1rem; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--color-dark); transition: background .15s; }
+.search-result-item:last-child { border-bottom: 0; }
+.search-result-item:hover { background: #f0fdfa; }
+.search-result-item img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.search-result-item__body { flex: 1; min-width: 0; }
+.search-result-item__title { font-weight: 700; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.search-result-item__type { font-size: .72rem; color: var(--color-muted); }
+.search-result-item__excerpt { font-size: .78rem; color: var(--color-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.search-no-results { padding: 1rem; text-align: center; color: var(--color-muted); font-size: .88rem; }
+
+/* ── Search Results Page ─────────────────────────── */
+.search-result-card .search-result-inner { display: flex; gap: 1rem; }
+.search-thumb img { width: 100px; height: 80px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.search-result-body { flex: 1; min-width: 0; }
+.search-excerpt { font-size: .88rem; color: var(--color-muted); margin: .35rem 0; }
+.search-read-more { font-size: .82rem; font-weight: 700; color: var(--color-primary); text-decoration: none; }
+.pagination { margin-top: 2rem; }
+.pagination .nav-links { display: flex; gap: .5rem; flex-wrap: wrap; }
+.pagination .page-numbers { padding: .4rem .85rem; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--color-dark); }
+.pagination .page-numbers.current { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+@media (max-width: 640px) { .search-thumb { display: none; } }
+
+/* ── sr-only (screen reader only) ───────────────── */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
