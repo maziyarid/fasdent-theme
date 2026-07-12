@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // دسترسی مستقیم ممنوع.
 }
 
-define( 'FASDENT_VERSION', '1.0.0' );
+define( 'FASDENT_VERSION', '2.0.0' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
 

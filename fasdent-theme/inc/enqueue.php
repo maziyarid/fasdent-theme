@@ -15,18 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function fasdent_enqueue_scripts(): void {
 
-	// ۱) فونت فارسی وزیرمتن — کاملاً لوکال با font-display: swap.
+	// ۱) فونت فارسی ایرانسل — کاملاً لوکال با font-display: swap.
 	wp_enqueue_style(
-		'fasdent-vazirmatn',
-		FASDENT_URI . '/assets/fonts/vazirmatn/vazirmatn.css',
+		'fasdent-irancell',
+		FASDENT_URI . '/assets/fonts/Irancell/irancell.css',
 		array(),
 		FASDENT_VERSION
 	);
 
-	// ۲) Font Awesome — کاملاً لوکال (بدون CDN).
+	// ۲) Font Awesome 7 Pro — کاملاً لوکال (بدون CDN).
 	wp_enqueue_style(
 		'fasdent-fontawesome',
-		FASDENT_URI . '/assets/fonts/fontawesome/css/all.min.css',
+		FASDENT_URI . '/assets/fonts/FontAwesome/css/all.css',
 		array(),
 		FASDENT_VERSION
 	);
@@ -36,7 +36,7 @@ function fasdent_enqueue_scripts(): void {
 	wp_enqueue_style(
 		'fasdent-main',
 		FASDENT_URI . '/assets/css/' . $main_css,
-		array( 'fasdent-vazirmatn', 'fasdent-fontawesome' ),
+		array( 'fasdent-irancell', 'fasdent-fontawesome' ),
 		FASDENT_VERSION
 	);
 
@@ -84,9 +84,9 @@ add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_scripts' );
  */
 function fasdent_preload_fonts(): void {
 	$fonts = array(
-		'/assets/fonts/vazirmatn/Vazirmatn-Regular.woff2',
-		'/assets/fonts/vazirmatn/Vazirmatn-Bold.woff2',
-		'/assets/fonts/fontawesome/webfonts/fa-solid-900.woff2',
+		'/assets/fonts/Irancell/Irancell_Regular.woff2',
+		'/assets/fonts/Irancell/Irancell_Bold.woff2',
+		'/assets/fonts/FontAwesome/webfonts/fa-solid-900.woff2',
 	);
 	foreach ( $fonts as $font ) {
 		printf(
