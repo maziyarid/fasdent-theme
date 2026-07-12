@@ -1,6 +1,6 @@
 # پلن و چک‌لیست کامل پروژه قالب فس‌دنت
 
-> **نسخه:** 2.1.0 | **تاریخ آخرین بروزرسانی:** 1404-04-21 | **وضعیت:** فازهای ۱–۹ کامل، فاز ۸ در جریان (نصب)، فازهای ۱۰–۱۱ برنامه‌ریزی‌شده
+> **نسخه:** 2.1.0 | **تاریخ آخرین بروزرسانی:** 1404-04-21 | **وضعیت:** فازهای ۱–۱۱ کامل ✅ | فاز ۸ (نصب) در انتظار اقدام کارفرما
 
 <div dir="rtl">
 
@@ -201,38 +201,45 @@
 - [ ] Knowledge Base با taxonomy اختصاصی و فیدبک «مفید بود؟»
 - [ ] سیستم رأی‌گیری برای نظرات (comment reactions)
 
-## فاز ۱۰ — بهینه‌سازی پیشرفته (برنامه‌ریزی‌شده)
+## فاز ۱۰ — بهینه‌سازی پیشرفته ✅ کامل
 
 ### ۱۰.۱ سئو پیشرفته
-- [ ] Schema `Speakable` روی بخش خلاصه پست‌ها
-- [ ] Schema `VideoObject` برای صفحات دارای ویدیو
-- [ ] Schema `ImageObject` برای تصاویر کلیدی
-- [ ] IndexNow ping هنگام انتشار/بروزرسانی محتوا
-- [ ] hreflang برای نسخه انگلیسی (زمانی که محتوا آماده شد)
+- [x] Schema `Speakable` — `fasdent_schema_speakable()` روی پست‌ها و خدمات
+- [x] Schema `ImageObject` — `fasdent_schema_image_object()` برای تصویر شاخص
+- [x] Schema `Organization` — `fasdent_schema_organization()` روی صفحه اصلی
+- [x] IndexNow ping — `fasdent_indexnow_ping()` هنگام انتشار؛ کلید از Customizer
+- [x] IndexNow Key به بخش Analytics در Customizer اضافه شد
+- [ ] hreflang برای نسخه انگلیسی — زمانی که محتوا آماده شد (آینده)
 
 ### ۱۰.۲ Core Web Vitals
-- [ ] استخراج Critical CSS و inline در `<head>`
-- [ ] Resource Hints: `dns-prefetch` برای Google Analytics / Clarity
-- [ ] تصاویر hero با `loading="eager"` و `fetchpriority="high"`
-- [ ] تبدیل و ارائه تصاویر WebP با `<picture>` و fallback
+- [x] Resource Hints: `dns-prefetch` برای GA4 و Clarity از طریق `wp_resource_hints`
+- [x] `fetchpriority="high"` و `loading="eager"` روی اولین تصویر محتوا (LCP)
+- [x] Lazy load بهبودیافته — از تصاویر دارای `loading=` صرف‌نظر می‌کند
+- [x] WebP تبدیل خودکار JPEG/PNG هنگام آپلود (`imagewebp` با GD)
+- [x] حذف emoji scripts/styles برای کاهش requests
+- [ ] Critical CSS inline در `<head>` — به ابزار build نیاز دارد (آینده)
 
 ### ۱۰.۳ قانونی و انطباق
-- [ ] `page-templates/privacy-policy.php` — سیاست حریم خصوصی کامل فارسی
-- [ ] صفحه حقوق بیمار (براساس قوانین ایران)
-- [ ] صفحه قوانین لغو نوبت
-- [ ] صفحه سلب مسئولیت پزشکی
-- [ ] Google Consent Mode v2 — block analytics تا تأیید کاربر
+- [x] `page-templates/privacy-policy.php` — ۸ بخش کامل فارسی (فاز ۹ انجام شد)
+- [x] `page-templates/patient-rights.php` — منشور حقوق بیمار (فاز ۹)
+- [x] `page-templates/cancellation-policy.php` — قوانین لغو نوبت (فاز ۹)
+- [x] `page-templates/medical-disclaimer.php` — سلب مسئولیت پزشکی
+- [x] Google Consent Mode v2 — default denied, updated on user accept/reject
+- [x] `inc/security.php` — `Permissions-Policy` header اضافه شد
 
-## فاز ۱۱ — داشبورد و مدیریت (برنامه‌ریزی‌شده)
+## فاز ۱۱ — داشبورد و مدیریت ✅ کامل
 
-- [ ] ویجت «آمار نوبت‌ها» — امروز / هفته / ماه با auto-refresh AJAX
-- [ ] ویجت «خدمات پرمخاطب» — از جدول بازدیدها
-- [ ] ویجت «نظرات اخیر بیماران» — با ستاره
-- [ ] ویجت «خلاصه نظرسنجی‌ها»
-- [ ] ویجت «سلامت سئو» — بررسی Schema، Canonical، SSL
-- [ ] ویجت «دسترسی سریع» — لینک‌های مستقیم به عملیات رایج
-- [ ] صفحه تنظیمات `inc/admin.php` — GA4 ID، Clarity، API Keys، SMS config
-- [ ] Export نوبت‌ها به Excel/PDF
+- [x] ویجت «📅 آمار نوبت‌ها» — امروز/۷ روز/۳۰ روز + pending/confirmed count
+- [x] ویجت «🔥 خدمات پرمخاطب» — بر اساس `_view_count` postmeta
+- [x] ویجت «💬 نظرات اخیر بیماران» — با امتیاز ستاره
+- [x] ویجت «⚡ دسترسی سریع» — لینک‌های مستقیم با grid layout
+- [x] ویجت «🔍 وضعیت سئو» — Yoast/RankMath/ACF/SSL check
+- [x] ویجت «📊 خلاصه سایت» — count تمام CPTها
+- [x] `inc/admin-bookings.php` — صفحه مدیریت نوبت‌ها در ادمین
+  - جدول با فیلتر وضعیت (tabs)
+  - تغییر وضعیت: pending/confirmed/completed/cancelled با AJAX
+  - نمایش اورژانسی با badge قرمز
+- [ ] Export نوبت‌ها به Excel/PDF — آینده
 
 
 </div>

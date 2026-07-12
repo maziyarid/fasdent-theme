@@ -8,12 +8,40 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 add_action( 'wp_dashboard_setup', 'fasdent_register_dashboard_widgets' );
 
 function fasdent_register_dashboard_widgets(): void {
-	wp_add_dashboard_widget( 'fasdent_submissions', __( '📩 فرم‌های دریافتی', 'fasdent' ), 'fasdent_widget_submissions' );
-	wp_add_dashboard_widget( 'fasdent_popular',     __( '🔥 خدمات پرمخاطب', 'fasdent' ),   'fasdent_widget_popular_services' );
-	wp_add_dashboard_widget( 'fasdent_feedback',    __( '💬 نظرات اخیر بیماران', 'fasdent' ), 'fasdent_widget_recent_feedback' );
-	wp_add_dashboard_widget( 'fasdent_quick',       __( '⚡ دسترسی سریع', 'fasdent' ),      'fasdent_widget_quick_actions' );
-	wp_add_dashboard_widget( 'fasdent_seo',         __( '🔍 وضعیت سئو', 'fasdent' ),        'fasdent_widget_seo_health' );
-	wp_add_dashboard_widget( 'fasdent_overview',    __( '📊 خلاصه سایت', 'fasdent' ),       'fasdent_widget_site_overview' );
+	wp_add_dashboard_widget( 'fasdent_bookings',    __( '📅 آمار نوبت‌ها', 'fasdent' ),      'fasdent_widget_booking_stats' );
+	wp_add_dashboard_widget( 'fasdent_submissions', __( '📩 فرم‌های دریافتی', 'fasdent' ),   'fasdent_widget_submissions' );
+	wp_add_dashboard_widget( 'fasdent_popular',     __( '🔥 خدمات پرمخاطب', 'fasdent' ),    'fasdent_widget_popular_services' );
+	wp_add_dashboard_widget( 'fasdent_feedback',    __( '💬 نظرات اخیر بیماران', 'fasdent' ),'fasdent_widget_recent_feedback' );
+	wp_add_dashboard_widget( 'fasdent_quick',       __( '⚡ دسترسی سریع', 'fasdent' ),       'fasdent_widget_quick_actions' );
+	wp_add_dashboard_widget( 'fasdent_seo',         __( '🔍 وضعیت سئو', 'fasdent' ),         'fasdent_widget_seo_health' );
+	wp_add_dashboard_widget( 'fasdent_overview',    __( '📊 خلاصه سایت', 'fasdent' ),        'fasdent_widget_site_overview' );
+}
+
+function fasdent_widget_booking_stats(): void {
+	global $wpdb;
+	$table = $wpdb->prefix . 'fasdent_bookings';
+	// Table may not exist yet before first activation.
+	if ( ! $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) ) {
+		echo '<p>' . esc_html__( 'جدول نوبت‌ها هنوز ایجاد نشده.', 'fasdent' ) . '</p>';
+		return;
+	}
+	$today  = wp_date( 'Y-m-d' );
+	$week   = wp_date( 'Y-m-d', strtotime( '-7 days' ) );
+	$month  = wp_date( 'Y-m-d', strtotime( '-30 days' ) );
+	$counts = [
+		'امروز'    => $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE DATE(created_at)=%s", $today ) ),
+		'۷ روز'   => $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE created_at>=%s", $week ) ),
+		'۳۰ روز'  => $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE created_at>=%s", $month ) ),
+	];
+	$pending   = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='pending'" );
+	$confirmed = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='confirmed'" );
+	echo '<table width="100%" style="border-collapse:collapse;margin-bottom:.75rem;">';
+	foreach ( $counts as $lbl => $cnt ) {
+		echo '<tr><td>' . esc_html( $lbl ) . '</td><td style="text-align:left;font-weight:700;font-size:1.1rem;">' . esc_html( (int) $cnt ) . '</td></tr>';
+	}
+	echo '</table>';
+	echo '<p>⏳ در انتظار: <strong>' . esc_html( $pending ) . '</strong> &nbsp; ✅ تأیید: <strong>' . esc_html( $confirmed ) . '</strong></p>';
+	echo '<a href="' . esc_url( admin_url( 'admin.php?page=fasdent-bookings' ) ) . '" class="button button-primary">' . esc_html__( 'مشاهده همه نوبت‌ها', 'fasdent' ) . '</a>';
 }
 
 function fasdent_widget_submissions(): void {

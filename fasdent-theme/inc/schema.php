@@ -371,10 +371,116 @@ function fasdent_schema_medical_webpage(): void {
 }
 
 /**
+ * اسکیمای Organization — سازمان مجزا از Dentist.
+ * فقط روی صفحه اصلی خروجی می‌دهد.
+ */
+function fasdent_schema_organization(): void {
+	if ( ! is_front_page() ) {
+		return;
+	}
+	$socials = array_values( array_filter( array(
+		get_theme_mod( 'fasdent_instagram', '' ),
+		get_theme_mod( 'fasdent_telegram',  '' ),
+		get_theme_mod( 'fasdent_whatsapp',  '' ),
+	) ) );
+	fasdent_print_schema( array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'Organization',
+		'@id'      => home_url( '/#organization' ),
+		'name'     => get_theme_mod( 'fasdent_clinic_name', 'کلینیک دندانپزشکی فس‌دنت' ),
+		'url'      => home_url( '/' ),
+		'logo'     => array(
+			'@type'  => 'ImageObject',
+			'url'    => get_custom_logo() ? wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) : FASDENT_URI . '/assets/images/logo.png',
+		),
+		'sameAs'   => $socials,
+		'parentOrganization' => array(
+			'@type' => 'Dentist',
+			'@id'   => home_url( '/#dentist' ),
+		),
+	) );
+}
+
+/**
+ * اسکیمای Speakable — بخش‌های قابل خواندن با صدا (voice search).
+ * روی پست‌ها و صفحات خدمت فعال است.
+ */
+function fasdent_schema_speakable(): void {
+	if ( ! is_singular( array( 'post', 'service' ) ) ) {
+		return;
+	}
+	fasdent_print_schema( array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'WebPage',
+		'@id'      => get_permalink() . '#webpage',
+		'url'      => get_permalink(),
+		'name'     => get_the_title(),
+		'speakable' => array(
+			'@type'      => 'SpeakableSpecification',
+			'cssSelector' => array( '.post-header h1', '.key-takeaways', '.entry-summary', 'h1' ),
+		),
+	) );
+}
+
+/**
+ * اسکیمای ImageObject برای تصویر شاخص — به سرچ گوگل کمک می‌کند.
+ */
+function fasdent_schema_image_object(): void {
+	if ( ! is_singular() || ! has_post_thumbnail() ) {
+		return;
+	}
+	$img_id  = get_post_thumbnail_id();
+	$img_url = get_the_post_thumbnail_url( null, 'large' );
+	$img_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+	$meta    = wp_get_attachment_metadata( $img_id );
+	$schema  = array(
+		'@context'          => 'https://schema.org',
+		'@type'             => 'ImageObject',
+		'url'               => $img_url,
+		'contentUrl'        => $img_url,
+		'caption'           => $img_alt ?: get_the_title(),
+		'name'              => $img_alt ?: get_the_title(),
+		'inLanguage'        => 'fa-IR',
+	);
+	if ( ! empty( $meta['width'] ) ) {
+		$schema['width']  = $meta['width'];
+		$schema['height'] = $meta['height'] ?? 0;
+	}
+	fasdent_print_schema( $schema );
+}
+
+/**
+ * IndexNow ping هنگام انتشار یا بروزرسانی پست.
+ * از نوشتن key روی دیسک جلوگیری می‌شود — key از Customizer خوانده می‌شود.
+ *
+ * @param string   $new_status وضعیت جدید.
+ * @param string   $old_status وضعیت قبلی.
+ * @param \WP_Post $post       شی پست.
+ */
+function fasdent_indexnow_ping( string $new_status, string $old_status, \WP_Post $post ): void {
+	if ( 'publish' !== $new_status ) {
+		return;
+	}
+	if ( ! in_array( $post->post_type, array( 'post', 'service', 'page' ), true ) ) {
+		return;
+	}
+	$key = get_theme_mod( 'fasdent_indexnow_key', '' );
+	if ( ! $key ) {
+		return;
+	}
+	$url      = get_permalink( $post );
+	$host     = wp_parse_url( home_url(), PHP_URL_HOST );
+	$endpoint = 'https://api.indexnow.org/indexnow?url=' . rawurlencode( $url ) . '&key=' . rawurlencode( $key ) . '&host=' . rawurlencode( $host );
+	wp_remote_get( $endpoint, array( 'timeout' => 5, 'blocking' => false ) );
+}
+add_action( 'transition_post_status', 'fasdent_indexnow_ping', 10, 3 );
+
+/**
  * خروجی همه اسکیماها در head.
  */
 function fasdent_output_schemas(): void {
 	fasdent_schema_dentist();
+	fasdent_schema_organization();
 	fasdent_schema_website();
 	fasdent_schema_medical_procedure();
 	fasdent_schema_medical_webpage();
@@ -383,5 +489,7 @@ function fasdent_output_schemas(): void {
 	fasdent_schema_reviews();
 	fasdent_schema_emergency_hours();
 	fasdent_schema_blog_posting();
+	fasdent_schema_speakable();
+	fasdent_schema_image_object();
 }
 add_action( 'wp_head', 'fasdent_output_schemas', 5 );

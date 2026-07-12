@@ -123,11 +123,12 @@ function fasdent_customize_register( WP_Customize_Manager $wp_customize ): void 
 	) );
 
 	$analytics_fields = array(
-		'fasdent_ga4_id'          => array( '', __( 'Google Analytics 4 ID (G-XXXXXXXXXX)', 'fasdent' ) ),
-		'fasdent_clarity_id'      => array( '', __( 'Microsoft Clarity ID', 'fasdent' ) ),
-		'fasdent_turnstile_key'   => array( '', __( 'Cloudflare Turnstile Site Key', 'fasdent' ) ),
+		'fasdent_ga4_id'           => array( '', __( 'Google Analytics 4 ID (G-XXXXXXXXXX)', 'fasdent' ) ),
+		'fasdent_clarity_id'       => array( '', __( 'Microsoft Clarity ID', 'fasdent' ) ),
+		'fasdent_turnstile_key'    => array( '', __( 'Cloudflare Turnstile Site Key', 'fasdent' ) ),
 		'fasdent_turnstile_secret' => array( '', __( 'Cloudflare Turnstile Secret Key', 'fasdent' ) ),
-		'fasdent_cookie_text'     => array( 'این سایت از کوکی برای بهبود تجربه استفاده می‌کند.', __( 'متن بنر کوکی', 'fasdent' ) ),
+		'fasdent_cookie_text'      => array( 'این سایت از کوکی برای بهبود تجربه استفاده می‌کند.', __( 'متن بنر کوکی', 'fasdent' ) ),
+		'fasdent_indexnow_key'     => array( '', __( 'IndexNow API Key (برای ارسال سریع به Bing/Google)', 'fasdent' ) ),
 	);
 	foreach ( $analytics_fields as $id => $data ) {
 		$wp_customize->add_setting( $id, array(

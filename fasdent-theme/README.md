@@ -1,127 +1,172 @@
-# قالب وردپرس فس‌دنت (Fasdent Theme)
+﻿# Fasdent Theme v2.1.0
 
-قالب اختصاصی، کامل و آماده‌ی نصب وردپرس برای **کلینیک دندانپزشکی دکتر کیوان علی‌پسندی** — [fasdent.ir](https://fasdent.ir/)
+> قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
+> RTL کامل، بدون CDN، 12 نوع Schema.org، WCAG 2.1 AA، PHP 8.2+، WordPress 6.5+
 
-<div dir="rtl">
+---
 
-## 📌 معرفی پروژه
+## نصب سریع
 
-- **نام قالب:** `fasdent-theme`
-- **نسخه:** 1.0.0
-- **سازگاری:** WordPress 6.5+ / 7.0 — PHP 8.2+
-- **زبان:** فارسی (fa-IR) — راست‌چین کامل (RTL)
-- **فونت:** وزیرمتن (Vazirmatn) — کاملاً لوکال (woff2)
-- **آیکون:** Font Awesome — کاملاً لوکال (بدون CDN)
-- **سازگار با:** المنتور / المنتور پرو (Theme Builder, Nav Menu, Popup Builder)
-- **شماره تماس کلینیک:** `09201441469` (Click-to-Call در همه صفحات)
+1. کپی پوشه asdent-theme در wp-content/themes/`n2. فعال‌سازی در ادمین > نمایش > پوسته‌ها
+3. ذخیره Permalink: Settings > Permalinks > Save
+4. Appearance > Menus: اختصاص به main-menu / footer-menu / legal-menu
+5. Appearance > Customize > Clinic Information
 
-## 📂 ساختار مخزن
+---
 
-```
-├── fasdent-theme/                 ← پوشه قالب (برای نصب، همین پوشه را ZIP کنید)
-│   ├── style.css                  ← هدر قالب + استایل پایه
-│   ├── functions.php              ← بوت‌استرپ قالب
-│   ├── header.php / footer.php
-│   ├── index.php / front-page.php / page.php / single.php / 404.php / search.php
-│   ├── single-service.php         ← قالب صفحه تک‌خدمت (قالب B و C)
-│   ├── archive-service.php        ← آرشیو کل خدمات (گرید ۱۰ دسته)
-│   ├── taxonomy-service_category.php  ← قالب Pillar Page (قالب A)
-│   ├── single-doctor.php
-│   ├── page-templates/            ← قالب‌های اختصاصی صفحات (رزرو نوبت، تماس، تعرفه‌ها و ...)
-│   ├── template-parts/            ← بخش‌های تکرارشونده (کارت خدمت، FAQ، CTA، Breadcrumb و ...)
-│   ├── inc/                       ← ماژول‌های PHP
-│   │   ├── setup.php              ← تنظیمات پایه، منوها، پشتیبانی‌ها
-│   │   ├── enqueue.php            ← فراخوانی CSS/JS/فونت لوکال
-│   │   ├── post-types.php         ← CPT های service, doctor, testimonial, faq
-│   │   ├── taxonomies.php         ← service_category (هرارشیک)
-│   │   ├── acf-fields.php         ← فیلدهای ACF + متاباکس فال‌بک بدون ACF
-│   │   ├── customizer.php         ← تنظیمات قالب (تلفن، آدرس، ساعات کاری و ...)
-│   │   ├── seo.php                ← Meta Title/Description, Canonical, OG, Twitter
-│   │   ├── schema.php             ← Dentist, MedicalProcedure, FAQPage, BreadcrumbList, Physician, Review
-│   │   ├── security.php           ← حذف نسخه WP، هاردنینگ، Sanitize helpers
-│   │   ├── performance.php        ← defer JS، lazy load، preload فونت
-│   │   ├── breadcrumb.php         ← تولید Breadcrumb + Schema
-│   │   ├── forms.php              ← هندلر فرم تماس و رزرو نوبت (Nonce + Sanitize + ایمیل)
-│   │   └── elementor.php          ← سازگاری و لوکیشن‌های Theme Builder المنتور
-│   └── assets/
-│       ├── css/main.css           ← استایل اصلی RTL ریسپانسیو (minified: main.min.css)
-│       ├── js/main.js             ← منو، آکاردئون FAQ، لایت‌باکس، فرم چندمرحله‌ای
-│       ├── images/                ← لوگو و تصاویر پایه
-│       └── fonts/
-│           ├── vazirmatn/         ← فونت وزیرمتن woff2 + css
-│           └── fontawesome/       ← Font Awesome لوکال (css/all.min.css + webfonts)
-├── import/
-│   ├── wordpress-import.xml       ← فایل WXR شامل تمام صفحات/خدمات/بلاگ/منو/دسته‌ها
-│   └── customizer-settings.json   ← تنظیمات ظاهری قالب برای بازگردانی
-├── tools/
-│   └── generate_wxr.py            ← اسکریپت تولید فایل WXR (برای توسعه‌دهنده)
-├── PLAN.md                        ← پلن و چک‌لیست کامل تحویل پروژه
-└── README.md
-```
+## پیش‌نیازها
 
-## 🚀 راهنمای نصب گام‌به‌گام
+| مورد | نسخه |
+|------|------|
+| WordPress | 6.5+ |
+| PHP | 8.2+ |
+| MySQL | 8.0+ |
+| ACF Pro | اختیاری — fallback داخلی وجود دارد |
+| Elementor | اختیاری |
 
-### گام ۱ — نصب قالب
-1. پوشه `fasdent-theme/` را ZIP کنید (یا فایل ZIP آماده در Releases).
-2. در پیشخوان وردپرس: **نمایش ← پوسته‌ها ← افزودن ← بارگذاری پوسته** → فایل ZIP را آپلود و **فعال** کنید.
-3. زبان سایت را در **تنظیمات ← عمومی** روی «فارسی» بگذارید (RTL خودکار فعال می‌شود).
+بدون CDN — همه فونت‌ها و آیکون‌ها از assets/fonts/ سرو می‌شوند.
+---
 
-### گام ۲ — نصب افزونه‌های پیشنهادی
-| افزونه | ضرورت | توضیح |
-|---|---|---|
-| Advanced Custom Fields (ACF) | پیشنهادی | فیلدهای قیمت/مراحل/FAQ/گالری خدمات (قالب بدون ACF هم با متاباکس داخلی کار می‌کند) |
-| Elementor + Elementor Pro | اختیاری | ویرایش بصری، Theme Builder، Popup فرم رزرو |
-| Yoast SEO یا Rank Math | پیشنهادی | Sitemap XML خودکار (قالب Canonical/OG/Schema داخلی دارد) |
+## ساختار فایل‌ها
 
-### گام ۳ — Import محتوا
-1. **ابزارها ← درون‌ریزی ← WordPress** → افزونه Importer را نصب و اجرا کنید.
-2. فایل `import/wordpress-import.xml` را انتخاب کنید.
-3. گزینه‌ی «Download and import file attachments» را فعال کنید و Import را بزنید.
-4. بعد از Import: تمام ۱۰ دسته خدمات + ۵۹ زیرخدمت + صفحات ثابت + ۱۰ مقاله بلاگ + نظرات بیماران + منوی اصلی وارد می‌شوند.
+fasdent-theme/
+  style.css                    v2.1.0
+  functions.php                Bootstrap + 18 require()
+  header.php / footer.php      Skip link, ARIA, widgets
+  404.php                      404 Hub
+  front-page.php               صفحه اصلی 9 بخش
+  single.php                   پست بلاگ (ToC, reactions, share)
+  single-service.php           Template B+C (emergency)
+  single-doctor.php            پروفایل پزشک
+  taxonomy-service_category.php  Pillar Page Template A
+  archive-service.php / author.php / tag.php
+  comments.php / search.php / index.php / page.php
 
-### گام ۴ — تنظیم Permalink
-- **تنظیمات ← پیوندهای یکتا** → گزینه «ساختار سفارشی» → مقدار: `/%category%/%postname%/` → ذخیره.
-- (قالب به‌صورت خودکار rewrite خدمات را روی `/services/{category}/{service}/` تنظیم می‌کند — فقط یک‌بار Save Permalinks بزنید.)
+  inc/
+    setup.php / enqueue.php / post-types.php / taxonomies.php
+    acf-fields.php / customizer.php / seo.php / schema.php
+    breadcrumb.php / security.php / performance.php / forms.php
+    elementor.php / toc.php / post-meta.php / related-posts.php
+    cookies.php / dashboard.php / booking.php / polls.php
+    ajax-search.php / admin-bookings.php
 
-### گام ۵ — تنظیم منو
-- **نمایش ← فهرست‌ها** → منوی «منوی اصلی» (main-menu) که Import شده را به جایگاه **Primary Menu** اختصاص دهید.
-- دکمه «رزرو نوبت آنلاین» به‌صورت خودکار استایل CTA می‌گیرد (کلاس `menu-cta`).
+  page-templates/
+    appointment.php      رزرو نوبت 4 مرحله
+    contact.php          تماس + نقشه + فرم
+    faq.php              FAQ با جستجو
+    gallery.php          گالری + lightbox
+    pricing.php          تعرفه جدول دسته‌بندی
+    sitemap.php          نقشه سایت بصری
+    knowledge-base.php   مرکز آموزش
+    privacy-policy.php   حریم خصوصی
+    patient-rights.php   حقوق بیمار
+    cancellation-policy.php  لغو نوبت
+    medical-disclaimer.php   سلب مسئولیت
 
-### گام ۶ — تنظیمات قالب (Customizer)
-- **نمایش ← سفارشی‌سازی ← تنظیمات کلینیک فس‌دنت** → شماره تماس، آدرس، ساعات کاری، شبکه‌های اجتماعی، مختصات نقشه.
-- برای بازگردانی تنظیمات آماده: افزونه Customizer Export/Import → فایل `import/customizer-settings.json` را Import کنید.
+  template-parts/
+    card-service.php / card-category.php / testimonial-card.php
+    cta-banner.php / faq-accordion.php / before-after.php
+    toc-sidebar.php / social-share.php / rating-display.php
+    key-takeaways.php / poll.php
 
-### گام ۷ — تنظیم ACF Fields
-- فیلدهای ACF به‌صورت **PHP-registered** داخل قالب هستند و نیازی به Import جداگانه ندارند.
-- در صورت فعال بودن ACF، هنگام ویرایش هر «خدمت»: قیمت پایه، مدت درمان، مراحل، مزایا، FAQ، گالری قبل/بعد و خدمات مرتبط قابل ویرایش‌اند.
+  assets/
+    css/main.css     370+ خط — کامپوننت‌ها RTL responsive
+    css/print.css    استایل‌های چاپ
+    js/main.js       415+ خط — FAQ, nav, forms, booking, search, ToC, polls
+    fonts/Irancell/ + FontAwesome/
 
-### گام ۸ — تست Schema و سرعت
-- هر صفحه خدمت را در [Google Rich Results Test](https://search.google.com/test/rich-results) تست کنید (MedicalProcedure + FAQPage + BreadcrumbList).
-- صفحه اصلی را در [PageSpeed Insights](https://pagespeed.web.dev/) تست کنید (هدف: Core Web Vitals سبز، بارگذاری < ۳ ثانیه).
 
-## 🗂 معماری محتوا
+---
 
-- **CPT `service`** — ۵۹ خدمت در ۱۰ دسته (Taxonomy هرارشیک `service_category`) با URL: `/services/{category}/{service}/`
-- **CPT `doctor`** — صفحه دکتر کیوان علی‌پسندی با Schema نوع Physician
-- **CPT `testimonial`** — نظرات بیماران با فیلد امتیاز (Review/AggregateRating Schema)
-- **صفحات ثابت:** خانه، درباره ما، گالری، سوالات متداول، تعرفه‌ها، تماس با ما، رزرو نوبت، حریم خصوصی، قوانین
-- **بلاگ:** ۱۰ مقاله کامل سئو‌شده فارسی
+## Schema Markup — 12 نوع
 
-## 🔗 لینک‌سازی داخلی و Cross-Cluster
+| Schema | شرط |
+|--------|-----|
+| Dentist (LocalBusiness) | همه صفحات |
+| Organization | صفحه اصلی |
+| WebSite + SearchAction | صفحه اصلی |
+| MedicalProcedure + HowTo | صفحات خدمت |
+| MedicalWebPage | صفحات خدمت |
+| FAQPage | خدمت + دسته + صفحه FAQ |
+| Physician | صفحه پزشک |
+| AggregateRating + Review | صفحات دارای testimonial |
+| EmergencyService | خدمات اورژانسی |
+| BlogPosting + Article | پست‌های بلاگ |
+| BreadcrumbList | همه صفحات غیر از خانه |
+| Speakable | پست‌ها و خدمات |
+| ImageObject | صفحات دارای تصویر شاخص |
 
-نقشه کامل لینک‌سازی (Pillar ↔ Service ↔ Cross-Cluster) در `PLAN.md` مستند شده و در فیلد «خدمات مرتبط» هر خدمت + متن محتوا با انکرتکست طبیعی پیاده‌سازی شده است.
+---
 
-## 🛡 امنیت و سئو
+## تنظیمات Customizer
 
-- Sanitize/Escape تمام ورودی‌ها و خروجی‌ها، Nonce در فرم‌ها، حذف نسخه وردپرس
-- H1 یکتا، Meta Title < 60 و Description < 155 کاراکتر، Canonical، OG/Twitter Card
-- Schema: Dentist (سراسری)، MedicalProcedure، FAQPage، BreadcrumbList، Physician، AggregateRating
-- Lazy Load تصاویر، Defer JS، فونت لوکال با `font-display: swap`
+| بخش | کلیدهای مهم |
+|-----|------------|
+| اطلاعات کلینیک | fasdent_clinic_name, fasdent_phone, fasdent_phone_intl, fasdent_email, fasdent_address, fasdent_hours, fasdent_geo_lat/lng, fasdent_map_embed |
+| شبکه‌های اجتماعی | fasdent_instagram, fasdent_telegram, fasdent_whatsapp |
+| آمار صفحه اصلی | fasdent_stat_patients/years/implants/rating |
+| آنالیتیکس | fasdent_ga4_id, fasdent_clarity_id, fasdent_turnstile_key/secret, fasdent_cookie_text, fasdent_indexnow_key |
 
-## 📞 اطلاعات کلینیک
+---
 
-- **کلینیک دندانپزشکی فس‌دنت** — دکتر کیوان علی‌پسندی
-- تلفن: [09201441469](tel:+989201441469)
-- وب‌سایت: [https://fasdent.ir/](https://fasdent.ir/)
+## جداول پایگاه داده
 
-</div>
+| جدول | هدف |
+|------|-----|
+| wp_fasdent_bookings | نوبت‌های رزرو شده با status workflow |
+| wp_fasdent_polls | سوالات نظرسنجی |
+| wp_fasdent_poll_votes | آرای نظرسنجی با IP hash |
+
+جداول به‌صورت خودکار هنگام فعال‌سازی قالب ایجاد می‌شوند.
+
+---
+
+## جریان رزرو نوبت
+
+  مرحله 1: اطلاعات شخصی (نام، تلفن، ایمیل، سن، جنسیت)
+  مرحله 2: پزشکی (شرح مشکل، سابقه، دارو، آلرژی)
+  مرحله 3: نوبت (خدمت، پزشک، تاریخ، بازه، اورژانسی)
+  مرحله 4: خلاصه + حریم خصوصی + ارسال
+    => DB row در wp_fasdent_bookings
+    => wp_mail به ادمین
+    => gtag booking_submitted + clarity event
+    => ادمین: admin.php?page=fasdent-bookings
+    => تغییر وضعیت: pending/confirmed/completed/cancelled
+
+---
+
+## راهنمای clone برای کلینیک مشابه
+
+1. رنگ: فقط --color-primary و --color-secondary در :root در main.css
+2. فونت: پوشه Irancell/ را جایگزین + irancell.css بنویسید + enqueue.php بروز کنید
+3. Schema: Dentist را به MedicalBusiness تغییر دهید
+4. CPT slugs: service را در post-types.php تغییر دهید
+5. Text Domain: جستجوی سراسری fasdent به slug جدید
+
+---
+
+## Changelog
+
+### v2.1.0 — 2026-07-12
+- inc/performance.php: WebP upload conversion, fetchpriority on first image, DNS prefetch, emoji removal
+- inc/security.php: Permissions-Policy header added
+- inc/schema.php: +Organization, +Speakable, +ImageObject, +IndexNow ping
+- inc/customizer.php: +IndexNow Key setting
+- inc/cookies.php: Google Consent Mode v2 (default denied before user consent)
+- inc/admin-bookings.php: NEW — booking management with status workflow AJAX
+- inc/dashboard.php: +booking stats widget (today/7d/30d + pending/confirmed)
+- page-templates/medical-disclaimer.php: NEW
+- FASDENT_VERSION: 2.0.0 => 2.1.0
+
+### v2.0.0 — 2026-07-12
+- Font: Irancell replaces Vazirmatn — irancell.css created, all paths fixed
+- 15 new files, 8 templates rewritten, 11 modules enhanced
+- BUG-001 to BUG-008 all resolved
+- Phase 9: booking, polls, live search, legal pages, all template rewrites
+
+### v1.0.0 — initial
+- Theme scaffold: CPTs, schemas, customizer, security, Elementor support
+
+---
+
+Fasdent Dev Team — https://fasdent.ir
