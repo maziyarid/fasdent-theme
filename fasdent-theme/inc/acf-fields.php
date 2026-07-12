@@ -173,8 +173,9 @@ function fasdent_register_acf_fields(): void {
 		'title'    => 'جزئیات پزشک',
 		'fields'   => array(
 			array( 'key' => 'field_fasdent_doc_title', 'name' => 'doctor_title', 'label' => 'عنوان تخصصی', 'type' => 'text', 'placeholder' => 'جراح و دندانپزشک' ),
-			array( 'key' => 'field_fasdent_doc_edu', 'name' => 'doctor_education', 'label' => 'تحصیلات', 'type' => 'textarea', 'rows' => 3 ),
-			array( 'key' => 'field_fasdent_doc_license', 'name' => 'doctor_license', 'label' => 'شماره نظام پزشکی', 'type' => 'text' ),
+				array( 'key' => 'field_fasdent_doc_edu', 'name' => 'doctor_education', 'label' => 'تحصیلات', 'type' => 'textarea', 'rows' => 3 ),
+				array( 'key' => 'field_fasdent_doc_license', 'name' => 'doctor_license', 'label' => 'شماره نظام پزشکی', 'type' => 'text' ),
+				array( 'key' => 'field_fasdent_doc_years', 'name' => 'doctor_years', 'label' => 'سال‌های تجربه', 'type' => 'text', 'placeholder' => '۱۵' ),
 		),
 		'location' => array(
 			array(

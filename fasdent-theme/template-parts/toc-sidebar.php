@@ -5,7 +5,9 @@
  * باید قبل از the_content() فراخوانی شود.
  * @package Fasdent
  */
-define( 'FASDENT_TOC_SIDEBAR', true );
+if ( ! defined( 'FASDENT_TOC_SIDEBAR' ) ) {
+	define( 'FASDENT_TOC_SIDEBAR', true );
+}
 // حذف فیلتر inline در صورت استفاده از sidebar.
 remove_filter( 'the_content', 'fasdent_toc_inject_inline', 15 );
 

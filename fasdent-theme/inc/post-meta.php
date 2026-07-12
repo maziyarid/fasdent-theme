@@ -24,7 +24,7 @@ add_action( 'save_post', function( $id ) {
 /** ردیابی بازدید با کَش‌پذیری (از طریق transient روزانه). */
 function fasdent_track_view( int $post_id ): void {
 	if ( is_admin() || is_user_logged_in() ) { return; }
-	$key   = 'fasdent_views_' . date( 'Y-m-d' ) . '_' . $post_id;
+	$key   = 'fasdent_views_' . wp_date( 'Y-m-d' ) . '_' . $post_id;
 	$count = (int) get_transient( $key );
 	if ( ! $count ) {
 		// ذخیره در postmeta.

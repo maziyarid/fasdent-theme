@@ -145,22 +145,33 @@ function fasdent_customize_register( WP_Customize_Manager $wp_customize ): void 
 add_action( 'customize_register', 'fasdent_customize_register' );
 
 /**
-	* تزریق Google Analytics 4 در head.
-	*/
+ * تزریق Google Analytics 4 در head.
+ * Consent Mode v2: gtag('config') is deferred — GA4 script loads but data is
+ * not sent until the user grants consent via the cookie banner (main.js).
+ */
 function fasdent_inject_analytics(): void {
 	$ga4_id = get_theme_mod( 'fasdent_ga4_id', '' );
 	if ( ! $ga4_id ) {
 		return;
 	}
 	$ga4_id = esc_js( $ga4_id );
+	// Script tag loads async; gtag('config') is intentionally placed here so
+	// GA4 queues the config but honours the default 'denied' consent set by
+	// fasdent_consent_mode_default() (cookies.php, priority 0).
 	echo "<script async src=\"https://www.googletagmanager.com/gtag/js?id={$ga4_id}\"></script>\n";
-	echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{$ga4_id}');</script>\n";
+	echo "<script>\n";
+	echo "window.dataLayer=window.dataLayer||[];\n";
+	echo "function gtag(){dataLayer.push(arguments);}\n";
+	echo "gtag('js',new Date());\n";
+	// Use 'update' with consent_required so hits are queued not sent until consent.
+	echo "gtag('config','{$ga4_id}',{wait_for_update:500,consent_required:true});\n";
+	echo "</script>\n";
 }
 add_action( 'wp_head', 'fasdent_inject_analytics', 10 );
 
 /**
-	* تزریق Microsoft Clarity در head.
-	*/
+ * تزریق Microsoft Clarity در head.
+ */
 function fasdent_inject_clarity(): void {
 	$cid = get_theme_mod( 'fasdent_clarity_id', '' );
 	if ( ! $cid ) {

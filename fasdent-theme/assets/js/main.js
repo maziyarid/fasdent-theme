@@ -412,4 +412,49 @@ document.addEventListener('DOMContentLoaded', function () {
     bShowStep(0);
   }
 
+  /* ── Copy Link (Social Share) ────────────────────── */
+  document.querySelectorAll('.social-btn--copy[data-copy-url]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = btn.dataset.copyUrl;
+      if (!url) return;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(function () {
+          fasdentShowCopyToast();
+        }).catch(function () {
+          fasdentFallbackCopy(url);
+        });
+      } else {
+        fasdentFallbackCopy(url);
+      }
+    });
+  });
+
+  function fasdentFallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); fasdentShowCopyToast(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function fasdentShowCopyToast() {
+    var toast = document.getElementById('fasdent-copy-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'fasdent-copy-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.style.cssText = 'position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--color-dark,#0f172a);color:#fff;padding:.5rem 1.25rem;border-radius:999px;font-size:.85rem;z-index:99999;transition:opacity .3s;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = 'لینک کپی شد!';
+    toast.style.opacity = '1';
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function () { toast.style.opacity = '0'; }, 2000);
+  }
+
 });

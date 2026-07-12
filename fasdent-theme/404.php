@@ -1,8 +1,12 @@
-﻿<?php
+<?php
 /**
  * صفحه ۴۰۴ — Hub پیدا نشد — Fasdent
  * @package Fasdent
  */
+// صفحه 404 نباید توسط موتورهای جستجو ایندکس شود.
+add_action( 'wp_head', static function (): void {
+	echo '<meta name="robots" content="noindex, follow">' . "\n";
+}, 1 );
 get_header();
 ?>
 <section class="section section-404">

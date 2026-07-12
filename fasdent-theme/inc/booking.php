@@ -50,30 +50,35 @@ add_action( 'init', function () {
 
 function fasdent_save_booking( array $data ) {
 	global $wpdb;
-	$result = $wpdb->insert(
-		$wpdb->prefix . 'fasdent_bookings',
-		[
-			'name'           => $data['name']          ?? '',
-			'phone'          => $data['phone']         ?? '',
-			'email'          => $data['email']         ?? null,
-			'age'            => $data['age']           ?? null,
-			'gender'         => $data['gender']        ?? null,
-			'symptoms'       => $data['symptoms']      ?? '',
-			'medical_hist'   => $data['medical_hist']  ?? null,
-			'medications'    => $data['medications']   ?? null,
-			'allergies'      => $data['allergies']     ?? null,
-			'service_id'     => $data['service_id']    ?? null,
-			'doctor_id'      => $data['doctor_id']     ?? null,
-			'preferred_date' => $data['preferred_date'] ?? null,
-			'time_range'     => $data['time_range']    ?? null,
-			'is_emergency'   => (int) ( $data['is_emergency'] ?? 0 ),
-			'privacy_ok'     => (int) ( $data['privacy_ok'] ?? 0 ),
-			'status'         => 'pending',
-			'ga_session'     => $data['ga_session']    ?? null,
-			'ip_address'     => $data['ip_address']    ?? null,
-		],
-		[ '%s','%s','%s','%d','%s','%s','%s','%s','%s','%d','%d','%s','%s','%d','%d','%s','%s','%s' ]
-	);
+	// Build row and format strings together to avoid NULL-with-%d issues.
+	$row     = [];
+	$formats = [];
+
+	$str_fields = [ 'name', 'phone', 'symptoms', 'status' ];
+	$null_str   = [ 'email', 'gender', 'medical_hist', 'medications', 'allergies', 'preferred_date', 'time_range', 'ga_session', 'ip_address' ];
+	$null_int   = [ 'age', 'service_id', 'doctor_id' ];
+	$int_fields = [ 'is_emergency', 'privacy_ok' ];
+
+	foreach ( $str_fields as $f ) {
+		$row[ $f ]     = $data[ $f ] ?? '';
+		$formats[]     = '%s';
+	}
+	foreach ( $null_str as $f ) {
+		$row[ $f ]  = isset( $data[ $f ] ) && '' !== $data[ $f ] ? (string) $data[ $f ] : null;
+		$formats[]  = '%s';
+	}
+	foreach ( $null_int as $f ) {
+		$v = isset( $data[ $f ] ) && '' !== $data[ $f ] ? (int) $data[ $f ] : null;
+		$row[ $f ]  = $v;
+		$formats[]  = null === $v ? '%s' : '%d'; // NULL stored as string NULL.
+	}
+	foreach ( $int_fields as $f ) {
+		$row[ $f ]  = (int) ( $data[ $f ] ?? 0 );
+		$formats[]  = '%d';
+	}
+	$row['status'] = 'pending'; // override.
+
+	$result = $wpdb->insert( $wpdb->prefix . 'fasdent_bookings', $row, $formats );
 	return $result ? (int) $wpdb->insert_id : false;
 }
 

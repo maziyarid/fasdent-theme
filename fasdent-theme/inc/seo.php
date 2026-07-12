@@ -187,8 +187,9 @@ add_action( 'template_redirect', 'fasdent_redirect_date_archives' );
  */
 function fasdent_redirect_attachment_pages(): void {
 	if ( is_attachment() ) {
-		$parent = get_post_parent();
-		wp_redirect( $parent ? get_permalink( $parent ) : home_url( '/' ), 301 );
+		$post      = get_post();
+		$parent_id = $post ? (int) $post->post_parent : 0;
+		wp_redirect( $parent_id ? get_permalink( $parent_id ) : home_url( '/' ), 301 );
 		exit;
 	}
 }

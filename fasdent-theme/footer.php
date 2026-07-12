@@ -71,7 +71,7 @@
 	</footer>
 
 	<!-- دکمه بازگشت به بالا -->
-	<button class="back-to-top" aria-label="<?php esc_attr_e( 'بازگشت به بالا', 'fasdent' ); ?>" hidden>
+	<button class="back-to-top" aria-label="<?php esc_attr_e( 'بازگشت به بالا', 'fasdent' ); ?>">
 		<i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
 	</button>
 

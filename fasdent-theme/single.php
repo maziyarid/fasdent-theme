@@ -10,7 +10,7 @@ $reading_time = fasdent_reading_time();
 $post_id      = get_the_ID();
 ?>
 
-<div class="single-post" data-post-id="<?php echo esc_attr( $post_id ); ?>">
+<div class="single-post" data-post-id="<?php echo esc_attr( (string) $post_id ); ?>">
 
   <!-- نوار پیشرفت مطالعه -->
   <div class="reading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
@@ -43,14 +43,17 @@ $post_id      = get_the_ID();
         </div>
 
         <?php if ( has_post_thumbnail() ) : ?>
-        <div class="post-featured-image"><?php the_post_thumbnail( 'fasdent-hero', array( 'loading' => 'eager' ) ); ?></div>
+          <div class="post-featured-image"><?php the_post_thumbnail( 'fasdent-hero', array( 'loading' => 'eager' ) ); ?></div>
         <?php endif; ?>
-      </header>
-
-      <!-- محتوا -->
-      <div class="post-content prose">
-        <?php the_content(); ?>
-      </div>
+        </header>
+  
+        <!-- نکات کلیدی -->
+        <?php get_template_part( 'template-parts/key-takeaways' ); ?>
+  
+        <!-- محتوا -->
+        <div class="post-content prose">
+          <?php the_content(); ?>
+        </div>
 
       <!-- برچسب‌ها -->
       <?php $tags = get_the_tags();
@@ -62,6 +65,26 @@ $post_id      = get_the_ID();
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
+
+      <!-- واکنش‌های بیماران -->
+      <div class="post-reactions" style="margin:1.5rem 0;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
+        <span style="font-size:.85rem;color:var(--color-muted);">این مطلب چقدر مفید بود؟</span>
+        <?php
+        $reactions = array(
+          'helpful'  => array( 'fa-solid fa-thumbs-up', 'مفید' ),
+          'thanks'   => array( 'fa-solid fa-heart', 'ممنون' ),
+          'accurate' => array( 'fa-solid fa-bullseye', 'دقیق' ),
+        );
+        foreach ( $reactions as $key => $data ) :
+          $count = (int) get_post_meta( $post_id, '_reaction_' . $key, true );
+        ?>
+        <button type="button" class="reaction-btn btn btn-secondary" data-reaction="<?php echo esc_attr( $key ); ?>" style="padding:.5rem 1rem;font-size:.85rem;">
+          <i class="<?php echo esc_attr( $data[0] ); ?>" aria-hidden="true"></i>
+          <?php echo esc_html( $data[1] ); ?>
+          <?php if ( $count ) : ?><span class="reaction-count" style="margin-right:.3rem;opacity:.7;">(<?php echo esc_html( number_format_i18n( $count ) ); ?>)</span><?php endif; ?>
+        </button>
+        <?php endforeach; ?>
+      </div>
 
       <!-- اشتراک‌گذاری -->
       <?php get_template_part( 'template-parts/social-share' ); ?>

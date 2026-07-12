@@ -195,3 +195,50 @@ function fasdent_auto_close_old_comments( bool $open, int $post_id ): bool {
 	return $age < ( 30 * DAY_IN_SECONDS ) ? $open : false;
 }
 add_filter( 'comments_open', 'fasdent_auto_close_old_comments', 10, 2 );
+
+/* ═══════════════════════════════════════════════════
+ * Callback نمایش نظر (در اینجا تعریف شده تا در comments.php قابل استفاده باشد)
+ * ═══════════════════════════════════════════════════ */
+
+/**
+ * رندر هر نظر در لیست — شناسایی پاسخ دکتر با badge.
+ *
+ * @param WP_Comment $comment شی نظر.
+ * @param array      $args    آرگومان‌های wp_list_comments.
+ * @param int        $depth   عمق نظر.
+ */
+function fasdent_comment_callback( WP_Comment $comment, array $args, int $depth ): void {
+	$is_admin = user_can( (int) $comment->user_id, 'manage_options' );
+	$extra    = $is_admin ? ' is-doctor-reply' : '';
+	$classes  = implode( ' ', get_comment_class( $extra, $comment ) );
+	?>
+	<li id="comment-<?php comment_ID(); ?>" class="<?php echo esc_attr( $classes ); ?>">
+		<article class="comment-body card">
+			<header class="comment-header">
+				<div class="comment-author-avatar"><?php echo get_avatar( $comment, (int) ( $args['avatar_size'] ?? 56 ) ); ?></div>
+				<div class="comment-author-info">
+					<span class="comment-author-name">
+						<?php comment_author(); ?>
+						<?php if ( $is_admin ) : ?><span class="doctor-badge"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i> <?php esc_html_e( 'پاسخ دکتر', 'fasdent' ); ?></span><?php endif; ?>
+					</span>
+					<time class="comment-date" datetime="<?php comment_date( 'Y-m-d' ); ?>"><?php comment_date( 'j F Y' ); ?></time>
+				</div>
+				<div class="comment-actions">
+					<?php comment_reply_link( array_merge( $args, array(
+						'add_below' => 'comment',
+						'depth'     => $depth,
+						'max_depth' => $args['max_depth'] ?? 3,
+						'before'    => '',
+						'after'     => '',
+						'reply_text' => '<i class="fa-solid fa-reply" aria-hidden="true"></i> ' . __( 'پاسخ', 'fasdent' ),
+					) ) ); ?>
+					<?php edit_comment_link( '<i class="fa-solid fa-pen" aria-hidden="true"></i> ' . __( 'ویرایش', 'fasdent' ), '<span class="edit-link">', '</span>' ); ?>
+				</div>
+			</header>
+			<?php if ( '0' === $comment->comment_approved ) : ?>
+			<p class="alert alert--warn"><i class="fa-solid fa-clock" aria-hidden="true"></i> <?php esc_html_e( 'نظر شما در انتظار بررسی است.', 'fasdent' ); ?></p>
+			<?php endif; ?>
+			<div class="comment-content"><?php comment_text(); ?></div>
+		</article>
+	<?php
+}
