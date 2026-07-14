@@ -116,6 +116,36 @@ function fasdent_customize_register( WP_Customize_Manager $wp_customize ): void 
 		'type'    => 'text',
 	) );
 
+	/* ── اطلاعات نوبت‌دهی (Fasdent Page Template) ─────── */
+	$wp_customize->add_section( 'fasdent_booking_info', array(
+		'title' => __( 'اطلاعات نوبت‌دهی و اورژانس', 'fasdent' ),
+		'panel' => 'fasdent_panel',
+	) );
+
+	$wp_customize->add_setting( 'fasdent_emergency_phone', array(
+		'default'           => '۰۲۱-XXXXXXXX',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'fasdent_emergency_phone', array(
+		'label'       => __( 'شماره تماس اورژانس (نمایشی)', 'fasdent' ),
+		'description' => __( 'مثال: ۰۲۱-۸۸۱۲۳۴۵۶ — در قالب صفحه و دیسکلیمر اورژانس نمایش داده می‌شود.', 'fasdent' ),
+		'section'     => 'fasdent_booking_info',
+		'type'        => 'text',
+	) );
+
+	$wp_customize->add_setting( 'fasdent_booking_url', array(
+		'default'           => '',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'fasdent_booking_url', array(
+		'label'       => __( 'آدرس صفحه رزرو نوبت', 'fasdent' ),
+		'description' => __( 'URL کامل صفحه نوبت‌دهی. در نبود مقدار، /reserve/ استفاده می‌شود.', 'fasdent' ),
+		'section'     => 'fasdent_booking_info',
+		'type'        => 'url',
+	) );
+
 	/* ── Analytics & Integrations ─────────────────────── */
 	$wp_customize->add_section( 'fasdent_analytics', array(
 		'title' => __( 'آنالیتیکس و یکپارچگی', 'fasdent' ),

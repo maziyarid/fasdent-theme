@@ -197,6 +197,91 @@ function fasdent_auto_close_old_comments( bool $open, int $post_id ): bool {
 add_filter( 'comments_open', 'fasdent_auto_close_old_comments', 10, 2 );
 
 /* ═══════════════════════════════════════════════════
+ * REST API: خبرنامه (newsletter) — بدون PHI
+ * POST /wp-json/fasdent/v1/newsletter
+ * فیلدها: email (required), fasdent_nonce (required), hp_field (honeypot)
+ * ═══════════════════════════════════════════════════ */
+
+/**
+ * ثبت endpoint خبرنامه.
+ */
+function fasdent_register_newsletter_endpoint(): void {
+	register_rest_route( 'fasdent/v1', '/newsletter', array(
+		'methods'             => 'POST',
+		'callback'            => 'fasdent_newsletter_handler',
+		'permission_callback' => '__return_true',
+		'args'                => array(
+			'email' => array(
+				'required'          => true,
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_email',
+				'validate_callback' => function ( $val ) {
+					return is_email( $val );
+				},
+			),
+		),
+	) );
+}
+add_action( 'rest_api_init', 'fasdent_register_newsletter_endpoint' );
+
+/**
+ * پردازش درخواست خبرنامه.
+ *
+ * @param WP_REST_Request $request درخواست REST.
+ * @return WP_REST_Response
+ */
+function fasdent_newsletter_handler( WP_REST_Request $request ): WP_REST_Response {
+	// ۱. بررسی Honeypot.
+	$hp = $request->get_param( 'hp_field' );
+	if ( ! empty( $hp ) ) {
+		// بات — پیام موفق جعلی.
+		return new WP_REST_Response( array( 'success' => true, 'message' => __( 'ثبت‌نام با موفقیت انجام شد.', 'fasdent' ) ), 200 );
+	}
+
+	// ۲. اعتبارسنجی Nonce (اختیاری در REST اما امنیت اضافه می‌کند).
+	$nonce = $request->get_param( 'fasdent_nonce' );
+	if ( $nonce && ! wp_verify_nonce( sanitize_key( $nonce ), 'fasdent_newsletter' ) ) {
+		return new WP_REST_Response( array( 'success' => false, 'message' => __( 'اعتبارسنجی نامعتبر است.', 'fasdent' ) ), 403 );
+	}
+
+	// ۳. محدودیت نرخ بر اساس IP.
+	$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+	$rl_key = 'fasdent_nl_' . md5( $ip );
+	if ( (int) get_transient( $rl_key ) >= 5 ) {
+		return new WP_REST_Response( array( 'success' => false, 'message' => __( 'تعداد درخواست‌ها از حد مجاز تجاوز کرده. لطفاً بعداً دوباره امتحان کنید.', 'fasdent' ) ), 429 );
+	}
+	set_transient( $rl_key, (int) get_transient( $rl_key ) + 1, HOUR_IN_SECONDS );
+
+	// ۴. دریافت و اعتبارسنجی ایمیل.
+	$email = sanitize_email( $request->get_param( 'email' ) );
+	if ( ! is_email( $email ) ) {
+		return new WP_REST_Response( array( 'success' => false, 'message' => __( 'ایمیل معتبر نیست.', 'fasdent' ) ), 400 );
+	}
+
+	// ۵. ذخیره در option به عنوان لیست ساده (بدون PHI / اطلاعات پزشکی).
+	$subscribers = get_option( 'fasdent_newsletter_subscribers', array() );
+	if ( ! is_array( $subscribers ) ) {
+		$subscribers = array();
+	}
+	// جلوگیری از ورود تکراری.
+	if ( in_array( $email, $subscribers, true ) ) {
+		return new WP_REST_Response( array( 'success' => true, 'message' => __( 'این ایمیل قبلاً ثبت شده است.', 'fasdent' ) ), 200 );
+	}
+	$subscribers[] = $email;
+	update_option( 'fasdent_newsletter_subscribers', $subscribers, false );
+
+	// ۶. اعلان به مدیر.
+	$admin_email = get_option( 'admin_email' );
+	wp_mail(
+		$admin_email,
+		__( 'عضو جدید خبرنامه فس‌دنت', 'fasdent' ),
+		sprintf( __( 'ایمیل جدید در خبرنامه ثبت شد: %s', 'fasdent' ), $email )
+	);
+
+	return new WP_REST_Response( array( 'success' => true, 'message' => __( 'ثبت‌نام با موفقیت انجام شد. به زودی اولین خبرنامه را دریافت می‌کنید.', 'fasdent' ) ), 200 );
+}
+
+/* ═══════════════════════════════════════════════════
  * Callback نمایش نظر (در اینجا تعریف شده تا در comments.php قابل استفاده باشد)
  * ═══════════════════════════════════════════════════ */
 

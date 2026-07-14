@@ -187,6 +187,127 @@ function fasdent_register_acf_fields(): void {
 			),
 		),
 	) );
+
+	/* ── فیلدهای صفحه‌ی عمومی (Fasdent Sample Page) ──── */
+	acf_add_local_field_group( array(
+		'key'    => 'group_fasdent_page',
+		'title'  => 'تنظیمات صفحه (Fasdent Sample Page)',
+		'fields' => array(
+			array(
+				'key'          => 'field_fasdent_page_kicker',
+				'name'         => 'fasdent_kicker',
+				'label'        => 'برچسب بالای عنوان (Kicker)',
+				'type'         => 'text',
+				'instructions' => 'متن کوچک نمایش‌داده‌شده بالای H1. مثال: خدمات دندانپزشکی',
+			),
+			array(
+				'key'          => 'field_fasdent_page_subtitle',
+				'name'         => 'fasdent_subtitle',
+				'label'        => 'زیرعنوان (Subtitle)',
+				'type'         => 'text',
+				'instructions' => 'توضیح کوتاه زیر H1 — برای meta description و itemprop:description استفاده می‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_quick_answer',
+				'name'         => 'fasdent_quick_answer',
+				'label'        => 'پاسخ سریع (Quick Answer)',
+				'type'         => 'wysiwyg',
+				'toolbar'      => 'basic',
+				'media_upload' => false,
+				'instructions' => '۴۰–۷۰ کلمه — بهینه برای Featured Snippet گوگل. در کادر آبی بالای محتوا نمایش داده می‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_reviewer_name',
+				'name'         => 'fasdent_reviewer_name',
+				'label'        => 'نام بازبین بالینی',
+				'type'         => 'text',
+				'instructions' => 'مثال: دکتر کیوان علی‌پسندی — در صورت پر بودن، نوار بازبینی بالینی نمایش داده می‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_reviewer_credentials',
+				'name'         => 'fasdent_reviewer_credentials',
+				'label'        => 'مدرک تحصیلی بازبین',
+				'type'         => 'text',
+				'instructions' => 'مثال: DDS, PhD — پس از نام نمایش داده می‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_reviewer_license',
+				'name'         => 'fasdent_reviewer_license',
+				'label'        => 'شماره نظام پزشکی',
+				'type'         => 'text',
+				'instructions' => 'مثال: نظام پزشکی: ۱۲۳۴۵ — در نوار بازبینی و سایدبار نمایش داده می‌شود.',
+			),
+			array(
+				'key'            => 'field_fasdent_page_review_date',
+				'name'           => 'fasdent_review_date',
+				'label'          => 'تاریخ بازبینی',
+				'type'           => 'date_picker',
+				'display_format' => 'Y/m/d',
+				'return_format'  => 'Y/m/d',
+				'instructions'   => 'تاریخ آخرین بازبینی بالینی محتوا.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_reading_time',
+				'name'         => 'fasdent_reading_time',
+				'label'        => 'زمان مطالعه (دقیقه)',
+				'type'         => 'number',
+				'min'          => 1,
+				'max'          => 60,
+				'instructions' => 'اختیاری — اگر خالی باشد نمایش داده نمی‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_hero_image',
+				'name'         => 'fasdent_hero_image',
+				'label'        => 'تصویر Hero (URL دستی)',
+				'type'         => 'url',
+				'instructions' => 'اختیاری — اگر تصویر شاخص (Featured Image) تنظیم شده باشد، آن اولویت دارد.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_hero_badges',
+				'name'         => 'fasdent_hero_badges',
+				'label'        => 'نشان‌های Hero (هر خط: icon|label)',
+				'type'         => 'textarea',
+				'rows'         => 5,
+				'instructions' => "هر خط یک نشان به فرمت «کلاس‌آیکون|متن». مثال:\nfa-solid fa-user-doctor|بازبینی بالینی شده\nfa-solid fa-shield-halved|انطباق با HIPAA\nدر صورت خالی بودن، نشان‌های پیش‌فرض نمایش داده می‌شوند.",
+			),
+			array(
+				'key'          => 'field_fasdent_page_primary_cta_label',
+				'name'         => 'fasdent_primary_cta_label',
+				'label'        => 'متن دکمه CTA اصلی',
+				'type'         => 'text',
+				'instructions' => 'مثال: مشاوره رایگان. در صورت خالی بودن، «دریافت نوبت آنلاین» استفاده می‌شود.',
+			),
+			array(
+				'key'          => 'field_fasdent_page_primary_cta_url',
+				'name'         => 'fasdent_primary_cta_url',
+				'label'        => 'لینک دکمه CTA اصلی',
+				'type'         => 'url',
+				'instructions' => 'در صورت خالی بودن، آدرس Customizer > نوبت‌دهی استفاده می‌شود.',
+			),
+			array(
+				'key'           => 'field_fasdent_page_show_toc',
+				'name'          => 'fasdent_show_toc',
+				'label'         => 'نمایش فهرست مطالب (TOC)',
+				'type'          => 'true_false',
+				'default_value' => 1,
+				'ui'            => 1,
+				'instructions'  => 'فهرست مطالب از H2/H3 محتوا به‌طور خودکار ساخته می‌شود. پیش‌فرض: نمایش.',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-templates/fasdent-page.php',
+				),
+			),
+		),
+		'menu_order'            => 10,
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+	) );
 }
 add_action( 'acf/init', 'fasdent_register_acf_fields' );
 

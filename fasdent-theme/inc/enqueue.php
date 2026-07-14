@@ -80,6 +80,37 @@ function fasdent_enqueue_scripts(): void {
 add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_scripts' );
 
 /**
+	* بارگذاری CSS/JS اختصاصی قالب «Fasdent Sample Page».
+	* فقط روی صفحاتی که از این قالب استفاده می‌کنند بارگذاری می‌شود.
+	*/
+function fasdent_enqueue_page_template_assets(): void {
+	if ( ! is_page_template( 'page-templates/fasdent-page.php' ) ) {
+		return;
+	}
+
+	$page_css = file_exists( FASDENT_DIR . '/assets/css/page.min.css' ) ? 'page.min.css' : 'page.css';
+	wp_enqueue_style(
+		'fasdent-page',
+		FASDENT_URI . '/assets/css/' . $page_css,
+		array( 'fasdent-main' ),
+		FASDENT_VERSION
+	);
+
+	$page_js = file_exists( FASDENT_DIR . '/assets/js/page.min.js' ) ? 'page.min.js' : 'page.js';
+	wp_enqueue_script(
+		'fasdent-page',
+		FASDENT_URI . '/assets/js/' . $page_js,
+		array( 'fasdent-main' ),
+		FASDENT_VERSION,
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
+}
+add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_page_template_assets' );
+
+/**
  * Preload فونت‌های حیاتی برای بهبود LCP/CLS.
  */
 function fasdent_preload_fonts(): void {
