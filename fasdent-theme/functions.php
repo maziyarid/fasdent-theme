@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // دسترسی مستقیم ممنوع.
 }
 
+ob_start(); // Prevent headers already sent issues from included files.
+
 define( 'FASDENT_VERSION', '2.1.0' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
@@ -37,6 +39,9 @@ require FASDENT_DIR . '/inc/booking.php';        // سیستم رزرو نوبت
 require FASDENT_DIR . '/inc/polls.php';          // سیستم نظرسنجی
 require FASDENT_DIR . '/inc/ajax-search.php';    // جستجوی زنده AJAX
 require FASDENT_DIR . '/inc/admin-bookings.php'; // مدیریت نوبت‌ها در ادمین
+
+// Demo data importer (Appearance → بارگذاری نمونه داده)
+require FASDENT_DIR . '/data/demo/import.php';
 
 /* ── توابع کمکی سراسری ─────────────────────────── */
 
