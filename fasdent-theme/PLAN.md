@@ -1,13 +1,13 @@
 # پلن و چک‌لیست کامل پروژه قالب فس‌دنت
 
-> **نسخه:** 2.1.0 | **تاریخ آخرین بروزرسانی:** 1404-04-21 | **وضعیت:** فازهای ۱–۱۱ کامل ✅ | فاز ۸ (نصب) در انتظار اقدام کارفرما
+> **نسخه:** 2.1.2 | **تاریخ آخرین بروزرسانی:** 1404-04-25 | **وضعیت:** فازهای ۱–۱۱ کامل ✅ | فاز ۸ (نصب) در انتظار اقدام کارفرما
 
 <div dir="rtl">
 
 ## فاز ۱ — زیرساخت قالب ✅ کامل
 
 - [x] ساختار پوشه استاندارد وردپرس (`fasdent-theme/`)
-- [x] `style.css` با هدر قالب (Theme Name, Text Domain: fasdent, RTL) — v2.0.0
+- [x] `style.css` با هدر قالب (Theme Name, Text Domain: fasdent, RTL) — v2.1.2
 - [x] `functions.php` ماژولار (require فایل‌های `inc/`)
 - [x] **فونت ایرانسل لوکال** — ۶ وزن (200–800)، woff2/woff/eot، `font-display: swap` — `assets/fonts/Irancell/irancell.css`
 - [x] **Font Awesome 7 Pro لوکال** در `assets/fonts/FontAwesome/css/all.css` — بدون CDN
@@ -37,209 +37,91 @@
   - [x] Hero + دکمه‌های CTA (رزرو نوبت + تماس)
   - [x] آمار کلینیک (بیمار، سال تجربه، ایمپلنت موفق، رضایت)
   - [x] گرید ۱۰ دسته خدمات
-  - [x] باکس «خدمات محبوب» → ۵ خدمت پرطرفدار (ایمپلنت تک‌دندان، لمینت، ارتودنسی ثابت، روکش، عصب‌کشی)
+  - [x] باکس «خدمات محبوب» → ۵ خدمت پرطرفدار
   - [x] معرفی دکتر علی‌پسندی + لینک بیوگرافی
   - [x] نظرات بیماران (اسلایدر)
   - [x] گالری قبل/بعد
   - [x] آخرین مقالات بلاگ
   - [x] نقشه گوگل + فرم رزرو سریع
 - [x] `archive-service.php`: گرید ۱۰ Pillar + معرفی
-- [x] `taxonomy-service_category.php` — **قالب A (Pillar Page)**: Hero(H1) → Breadcrumb+Schema → معرفی ۲۰۰–۳۰۰ کلمه → گرید زیرخدمات آیکون‌دار → چرا ما → گالری → نظرات+AggregateRating → FAQ+Schema → CTA پایانی
-- [x] `single-service.php` — **قالب B**: Hero(H1) → Breadcrumb ۳سطحی → این خدمت چیست → مزایا آیکون‌دار → مراحل (HowTo Schema) → قیمت/جدول → گالری → مراقبت‌های بعد → FAQ(FAQPage Schema) → خدمات مرتبط (۳ لینک Cross-Cluster) → CTA
-- [x] **قالب C (اورژانس)**: نوار قرمز چسبان + OpeningHoursSpecification + راهنمای اقدامات فوری (خودکار برای دسته dental-emergency)
+- [x] `taxonomy-service_category.php` — **قالب A (Pillar Page)**
+- [x] `single-service.php` — **قالب B + C (اورژانس)**
 - [x] `single-doctor.php`: بیوگرافی + Physician Schema
-- [x] صفحات قالب‌دار: درباره ما، گالری (فیلتر+لایت‌باکس)، FAQ عمومی (آکاردئون+Schema)، تعرفه‌ها (جدول+فیلتر)، تماس با ما (فرم+نقشه)، رزرو نوبت (فرم چندمرحله‌ای)، 404 اختصاصی
-- [x] `template-parts/`: card-service, card-category, breadcrumb, faq-accordion, cta-banner, before-after, testimonial-card
+- [x] صفحات قالب‌دار: درباره ما، گالری، FAQ، تعرفه‌ها، تماس، رزرو نوبت، 404، صفحات قانونی
+- [x] `template-parts/` کامل
 
 ## فاز ۴ — سئو تکنیکال ✅ کامل
 
 - [x] H1 یکتای هر صفحه + سلسله‌مراتب H2>H3
-- [x] Meta Title < 60 و Meta Description < 155 کاراکتر (شامل کلمه کلیدی + شماره تماس)
+- [x] Meta Title < 60 و Meta Description < 155 کاراکتر
 - [x] Canonical URL روی همه صفحات
 - [x] Open Graph + Twitter Card
-- [x] Schema های JSON-LD:
-  - [x] `Dentist` (LocalBusiness) سراسری در فوتر: نام، آدرس، تلفن، ساعات، geo
-  - [x] `MedicalProcedure` روی هر صفحه خدمت
-  - [x] `FAQPage` روی صفحات دارای FAQ
-  - [x] `BreadcrumbList` روی همه صفحات
-  - [x] `Review`/`AggregateRating` روی صفحات دارای نظرات
-  - [x] `Physician` روی صفحه دکتر
-  - [x] `OpeningHoursSpecification` در صفحات اورژانس
-- [x] robots.txt استاندارد (فیلتر داخلی) + سازگاری Sitemap با Yoast/Rank Math + WP Core Sitemap
-- [x] پاسخ مستقیم در ابتدای FAQ برای Featured Snippet / جستجوی صوتی
+- [x] Schema های JSON-LD (۱۲ نوع)
+- [x] robots.txt استاندارد + سازگاری Sitemap
 - [x] آماده‌سازی ساختار چندزبانگی (hreflang hook — فعلاً فقط fa-IR)
 
-## فاز ۵ — لینک‌سازی داخلی (نقشه اجباری) ✅ کامل
+## فاز ۵ — لینک‌سازی داخلی ✅ کامل
 
-- [x] خانه → /services/ + ۵ خدمت پرطرفدار
-- [x] /services/ → هر ۱۰ Pillar
-- [x] هر Pillar → همه زیرخدمات خودش + Breadcrumb به /services/
-- [x] هر خدمت → Pillar والد + ۳ خدمت هم‌دسته + /appointment/
-- [x] ۱۰ جفت Cross-Cluster (هاردکد در فیلد خدمات مرتبط + انکر طبیعی در متن):
-  | # | از | به | رابطه |
-  |---|---|---|---|
-  | 1 | single-tooth-implant | dental-bridge | جایگزین درمانی |
-  | 2 | single-tooth-implant | implant-prosthesis | ادامه درمان |
-  | 3 | root-canal | dental-crown | نیاز پس از عصب‌کشی |
-  | 4 | tooth-extraction | single-tooth-implant | جایگزینی دندان |
-  | 5 | smile-design | dental-laminate | زیرمجموعه طراحی لبخند |
-  | 6 | smile-design | teeth-whitening | بخشی از طراحی لبخند |
-  | 7 | gingivitis-treatment | deep-scaling | مسیر درمانی |
-  | 8 | wisdom-tooth-surgery | severe-toothache | ارتباط علائم |
-  | 9 | all-on-4 | full-mouth-implant | خدمات مشابه |
-  | 10 | broken-tooth | dental-crown | راه‌حل ترمیمی |
+- [x] نقشه لینک‌سازی داخلی کامل (خانه → خدمات → Pillar → زیرخدمت + Cross-Cluster)
 
 ## فاز ۶ — محتوا و Import (WXR) ✅ کامل
 
-- [x] ۱۰ ترم `service_category` با توضیحات فارسی سئوشده
-- [x] ۵۹ پست `service` با محتوای واقعی فارسی (بدون Lorem Ipsum):
-
-  | دسته | Slug | تعداد زیرخدمت |
-  |---|---|---|
-  | دندانپزشکی عمومی | general-dentistry | ۸ |
-  | دندانپزشکی زیبایی | cosmetic-dentistry | ۸ |
-  | ایمپلنت دندان | dental-implant | ۸ |
-  | ارتودنسی | orthodontics | ۶ |
-  | جراحی دهان و فک | oral-surgery | ۵ |
-  | درمان ریشه | endodontics | ۴ |
-  | لثه‌درمانی | periodontics | ۵ |
-  | دندانپزشکی کودکان | pediatric-dentistry | ۵ |
-  | پروتز و ترمیمی | prosthodontics | ۶ |
-  | اورژانس دندانپزشکی | dental-emergency | ۴ |
-
-- [x] صفحات ثابت: خانه، درباره ما، دکتر علی‌پسندی (CPT doctor)، گالری، بلاگ، FAQ، تعرفه‌ها، تماس، رزرو نوبت، حریم خصوصی، قوانین
-- [x] ۱۰ مقاله کامل بلاگ سئوشده (مراقبت بعد از ایمپلنت، لمینت vs کامپوزیت و...)
-- [x] ۶+ نظر بیمار (testimonial) با امتیاز
-- [x] منوی «main-menu» کامل (والد/فرزند + دکمه CTA + همه آیتم‌ها) داخل WXR
-- [x] متادیتای ACF/متاباکس (قیمت، FAQ، مراحل، مزایا، خدمات مرتبط) داخل WXR
-- [x] `customizer-settings.json`
-- [x] اعتبارسنجی XML (well-formed + سازگار با WordPress Importer)
+- [x] ۱۰ ترم `service_category` + ۵۹ پست `service` با محتوای واقعی فارسی
+- [x] صفحات ثابت + مقالات بلاگ + testimonials + منوها داخل WXR
 
 ## فاز ۷ — المنتور ✅ کامل
 
-- [x] `add_theme_support('elementor')` + لوکیشن‌های Theme Builder (header/footer/single/archive)
-- [x] Z-Index هدر (9999) بالاتر از محتوا — زیرمنوی افتاده به پایین
-- [x] ثبت CPT ها با `show_in_rest` برای Elementor Dynamic Tags
-- [x] فرم رزرو اختصاصی + قابلیت جایگزینی با Elementor Pro Form / Popup
+- [x] پشتیبانی Theme Builder + Dynamic Tags
 
 ## فاز ۸ — تحویل نهایی (چک‌لیست کارفرما) 🔄 در جریان
 
 - [ ] نصب قالب روی هاست و فعال‌سازی
 - [ ] Import فایل WXR از Tools > Import
-- [ ] ذخیره Permalink (`/%category%/%postname%/`)
+- [ ] ذخیره Permalink
 - [ ] اختصاص منو به جایگاه Primary
-- [ ] تکمیل Customizer (آدرس دقیق، مختصات نقشه، شبکه‌های اجتماعی، GA4 ID، Clarity ID)
-- [ ] جایگزینی تصاویر واقعی کلینیک (WebP + Alt Text — بدون IMG_001.jpg)
-- [ ] تست Rich Results (MedicalProcedure/FAQ/LocalBusiness/Breadcrumb/BlogPosting/WebSite)
-- [ ] تست PageSpeed Insights (LCP < 2.5s، CLS < 0.1، INP < 200ms)
-- [ ] تست Click-to-Call روی موبایل (نوار اورژانس + همه CTA ها)
-- [ ] تست ریسپانسیو در ۳۶۰ / ۷۶۸ / ۱۰۲۴ / ۱۴۴۰
-- [ ] تست کیبورد‌ناوبری (Tab, Enter, Escape روی همه کنترل‌ها)
-- [ ] تست با screen reader (NVDA یا VoiceOver) روی هدر، فرم‌ها، accordion
-- [ ] تست فرم تماس: honeypot، rate limit، ذخیره در CPT، ارسال ایمیل
-- [ ] تست امتیازدهی بیمار در testimonial-card.php
-- [ ] تأیید Schema ها در Google Rich Results Test
+- [ ] تکمیل Customizer
+- [ ] جایگزینی تصاویر واقعی کلینیک
+- [ ] تست Rich Results / PageSpeed / Accessibility / Forms
 
-## نگاتیوها (ممنوعیت‌های رعایت‌شده)
+## فاز ۹ — قابلیت‌های پیشرفته ✅ کامل (پیاده‌سازی‌شده در v2.0–2.1)
 
-- ✅ هیچ CDN خارجی (فونت/آیکون) استفاده نشده
-- ✅ هیچ Slug فارسی یا فاصله‌دار وجود ندارد
-- ✅ هیچ Lorem Ipsum در محتوا نیست
-- ✅ محتوا یونیک و تولیدی است (کپی از رقبا نیست)
-- ✅ RTL کامل بدون میکس LTR
-- ✅ همه تصاویر Alt Text توصیفی دارند
-- ✅ انکرتکست‌ها طبیعی و کلیدواژه‌دار هستند
-- ✅ هر ۱۰ دسته + همه زیرمجموعه‌ها موجودند
-- ✅ Mobile-first ریسپانسیو
-- ✅ بدون پلاگین سنگین اجباری
-- ✅ H1 یکتا در هر صفحه
-- ✅ CTA + شماره تماس در همه صفحات
-
-
-## رفع باگ‌های v2.0.0 (کامل‌شده)
-
-| باگ | فایل | وضعیت |
-|-----|------|--------|
-| BUG-001: فرم‌های AJAX به URL صفحه POST می‌کردند | `assets/js/main.js` | ✅ رفع |
-| BUG-002: تابع preload تکراری (تداخل) | `inc/performance.php` | ✅ رفع |
-| BUG-003: صفحه گالری، CPT service را نمایش می‌داد | `page-templates/gallery.php` | ✅ رفع |
-| BUG-004: مسیر فونت ایرانسل وجود نداشت | `inc/enqueue.php` | ✅ رفع |
-| BUG-006: footer widget areas هیچ‌گاه رندر نمی‌شدند | `footer.php` | ✅ رفع |
-| BUG-007: امتیاز ستاره در testimonial-card نمایش نمی‌یافت | `template-parts/testimonial-card.php` | ✅ رفع |
-| BUG-008: ارسال فرم فقط ایمیل می‌فرستاد، دیتابیس ذخیره نمی‌کرد | `inc/forms.php` | ✅ رفع |
-
-## فاز ۹ — قابلیت‌های پیشرفته (برنامه‌ریزی‌شده)
-
-### ۹.۱ سیستم رزرو پزشکی کامل
-- [ ] `inc/booking.php` — کلاس اصلی رزرو با جدول پایگاه داده `wp_fasdent_bookings`
-- [ ] `inc/booking-admin.php` — صفحه مدیریت نوبت‌ها (جدول sortable، نمای تقویم)
-- [ ] `inc/booking-sync.php` — REST API sync با نرم‌افزار ویندوزی کلینیک (SQL Server)
-- [ ] `assets/js/booking.js` — فرم چندمرحله‌ای با انیمیشن slide
-- [ ] `page-templates/appointment.php` — بازنویسی کامل: ۴ مرحله، date picker شمسی، سابقه پزشکی، CAPTCHA
-- [ ] تقویم شمسی (Jalali) با `persian-datepicker` بدون CDN
-- [ ] انتخاب ساعت بر اساس ساعات کاری کلینیک
-- [ ] پیامک خودکار (hook آماده برای ارائه‌دهنده SMS)
-- [ ] ثبت رویداد GA4 در هر مرحله فرم
+### ۹.۱ سیستم رزرو پزشکی
+- [x] `inc/booking.php` — جدول `wp_fasdent_bookings` + AJAX handler
+- [x] `inc/admin-bookings.php` — صفحه مدیریت نوبت‌ها با تغییر وضعیت AJAX
+- [x] `page-templates/appointment.php` — فرم ۴ مرحله‌ای
 
 ### ۹.۲ سیستم نظرسنجی (Poll)
-- [ ] `inc/polls.php` — کلاس اصلی با جداول `wp_fasdent_polls` و `wp_fasdent_poll_votes`
-- [ ] `inc/polls-ajax.php` — handler رأی‌گیری
-- [ ] `template-parts/poll.php` — نمایش نظرسنجی
-- [ ] جلوگیری از رأی تکراری (IP hash + fingerprint)
-- [ ] صادرات نتایج به CSV / Power BI
-- [ ] یکپارچگی با Microsoft Clarity custom events
+- [x] `inc/polls.php` — جداول + shortcode + AJAX vote
+- [x] `template-parts/poll.php`
 
 ### ۹.۳ متادیتا و تعامل پست
-- [ ] جدول `wp_fasdent_post_views` — شمارش بازدید بدون کوکی
-- [ ] جدول `wp_fasdent_post_reactions` — واکنش‌های مفید/ممنون/دقیق
-- [ ] نمایش بازدید و واکنش در sidebar پست
-- [ ] نشانه «بروزرسانی شده» / «بررسی شده» با تاریخ
+- [x] شمارش بازدید (`_view_count`) — اصلاح‌شده در v2.1.2
+- [x] واکنش‌های مفید/ممنون/دقیق (`fasdent_post_reaction`)
+- [x] زمان مطالعه فارسی‌محور (v2.1.2)
 
 ### ۹.۴ سایر قابلیت‌ها
-- [ ] تبدیل خودکار WebP هنگام آپلود تصویر (`inc/performance.php`)
-- [ ] Live AJAX search با debounce و highlight نتایج (`inc/ajax-search.php`)
-- [ ] Knowledge Base با taxonomy اختصاصی و فیدبک «مفید بود؟»
-- [ ] سیستم رأی‌گیری برای نظرات (comment reactions)
+- [x] تبدیل خودکار WebP هنگام آپلود
+- [x] Live AJAX search
+- [x] صفحات قانونی کامل (privacy, patient-rights, cancellation, medical-disclaimer)
 
 ## فاز ۱۰ — بهینه‌سازی پیشرفته ✅ کامل
 
-### ۱۰.۱ سئو پیشرفته
-- [x] Schema `Speakable` — `fasdent_schema_speakable()` روی پست‌ها و خدمات
-- [x] Schema `ImageObject` — `fasdent_schema_image_object()` برای تصویر شاخص
-- [x] Schema `Organization` — `fasdent_schema_organization()` روی صفحه اصلی
-- [x] IndexNow ping — `fasdent_indexnow_ping()` هنگام انتشار؛ کلید از Customizer
-- [x] IndexNow Key به بخش Analytics در Customizer اضافه شد
-- [ ] hreflang برای نسخه انگلیسی — زمانی که محتوا آماده شد (آینده)
-
-### ۱۰.۲ Core Web Vitals
-- [x] Resource Hints: `dns-prefetch` برای GA4 و Clarity از طریق `wp_resource_hints`
-- [x] `fetchpriority="high"` و `loading="eager"` روی اولین تصویر محتوا (LCP)
-- [x] Lazy load بهبودیافته — از تصاویر دارای `loading=` صرف‌نظر می‌کند
-- [x] WebP تبدیل خودکار JPEG/PNG هنگام آپلود (`imagewebp` با GD)
-- [x] حذف emoji scripts/styles برای کاهش requests
-- [ ] Critical CSS inline در `<head>` — به ابزار build نیاز دارد (آینده)
-
-### ۱۰.۳ قانونی و انطباق
-- [x] `page-templates/privacy-policy.php` — ۸ بخش کامل فارسی (فاز ۹ انجام شد)
-- [x] `page-templates/patient-rights.php` — منشور حقوق بیمار (فاز ۹)
-- [x] `page-templates/cancellation-policy.php` — قوانین لغو نوبت (فاز ۹)
-- [x] `page-templates/medical-disclaimer.php` — سلب مسئولیت پزشکی
-- [x] Google Consent Mode v2 — default denied, updated on user accept/reject
-- [x] `inc/security.php` — `Permissions-Policy` header اضافه شد
+- [x] Schema Speakable / ImageObject / Organization / IndexNow
+- [x] Core Web Vitals (fetchpriority, lazy-load, DNS prefetch, emoji removal)
+- [x] Google Consent Mode v2
+- [x] Permissions-Policy header
 
 ## فاز ۱۱ — داشبورد و مدیریت ✅ کامل
 
-- [x] ویجت «📅 آمار نوبت‌ها» — امروز/۷ روز/۳۰ روز + pending/confirmed count
-- [x] ویجت «🔥 خدمات پرمخاطب» — بر اساس `_view_count` postmeta
-- [x] ویجت «💬 نظرات اخیر بیماران» — با امتیاز ستاره
-- [x] ویجت «⚡ دسترسی سریع» — لینک‌های مستقیم با grid layout
-- [x] ویجت «🔍 وضعیت سئو» — Yoast/RankMath/ACF/SSL check
-- [x] ویجت «📊 خلاصه سایت» — count تمام CPTها
-- [x] `inc/admin-bookings.php` — صفحه مدیریت نوبت‌ها در ادمین
-  - جدول با فیلتر وضعیت (tabs)
-  - تغییر وضعیت: pending/confirmed/completed/cancelled با AJAX
-  - نمایش اورژانسی با badge قرمز
-- [ ] Export نوبت‌ها به Excel/PDF — آینده
+- [x] ویجت‌های آمار نوبت، خدمات پرمخاطب، نظرات، دسترسی سریع، وضعیت سئو، خلاصه سایت
+- [x] `inc/admin-bookings.php` — مدیریت کامل نوبت‌ها
 
+## رفع باگ‌های مهم (آخرین)
+
+| نسخه | مورد |
+|------|------|
+| v2.1.2 | حذف BOM از فایل‌های PHP، اصلاح شمارنده بازدید، بهبود زمان مطالعه فارسی |
+| v2.1.1 | اصلاح reaction AJAX + enqueue single-post assets |
+| v2.0.0 | BUG-001 تا BUG-008 |
 
 </div>
