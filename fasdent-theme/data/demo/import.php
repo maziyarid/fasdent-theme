@@ -35,13 +35,11 @@ function fasdent_demo_render_admin_page(): void {
 	$results    = array();
 	$reset_done = false;
 
-	// Handle reset.
 	if ( isset( $_POST['fasdent_demo_reset'] ) && check_admin_referer( 'fasdent_demo_reset_action', 'fasdent_demo_reset_nonce' ) ) {
 		fasdent_demo_reset_data();
 		$reset_done = true;
 	}
 
-	// Handle import.
 	if ( isset( $_POST['fasdent_demo_import'] ) && check_admin_referer( 'fasdent_demo_import_action', 'fasdent_demo_import_nonce' ) ) {
 		$results = fasdent_demo_run_import();
 	}
@@ -107,7 +105,7 @@ function fasdent_demo_render_admin_page(): void {
 /**
  * Run the full import sequence.
  *
- * Content files live directly in data/demo/ (not in a nested inc/ folder).
+ * Content files live in data/demo/ (root). Legacy wrappers exist under inc/.
  *
  * @return array Step label => success boolean
  */
@@ -118,8 +116,7 @@ function fasdent_demo_run_import(): array {
 
 	$GLOBALS['fasdent_demo_ids'] = array();
 	$results = array();
-	// Files are in data/demo/ itself.
-	$base = get_template_directory() . '/data/demo/';
+	$base    = get_template_directory() . '/data/demo/';
 
 	$steps = array(
 		'طبقه‌بندی خدمات' => 'taxonomy-terms.php',
@@ -147,13 +144,78 @@ function fasdent_demo_run_import(): array {
 		}
 	}
 
-	// Store all created IDs for later reset.
-	update_option( 'fasdent_demo_imported_ids', $GLOBALS['fasdent_demo_ids'], false );
+	// Resolve slug-based relationships to post IDs (works with or without ACF).
+	$results['لینک‌های مرتبط'] = fasdent_demo_link_relationships();
 
-	// Flush rewrite rules after creating CPTs / pages.
+	update_option( 'fasdent_demo_imported_ids', $GLOBALS['fasdent_demo_ids'], false );
 	flush_rewrite_rules();
 
 	return $results;
+}
+
+/**
+ * Convert related_services_slugs / testimonial related_service slugs into IDs.
+ *
+ * @return bool
+ */
+function fasdent_demo_link_relationships(): bool {
+	$ids = isset( $GLOBALS['fasdent_demo_ids'] ) ? $GLOBALS['fasdent_demo_ids'] : array();
+
+	// Build slug => ID map for services.
+	$slug_map = array();
+	if ( ! empty( $ids['services'] ) && is_array( $ids['services'] ) ) {
+		foreach ( $ids['services'] as $sid ) {
+			$sid = (int) $sid;
+			if ( $sid <= 0 ) {
+				continue;
+			}
+			$post = get_post( $sid );
+			if ( $post && 'service' === $post->post_type ) {
+				$slug_map[ $post->post_name ] = $sid;
+			}
+		}
+	}
+
+	// Services: related_services_slugs → related_services (ACF relationship array of IDs).
+	foreach ( $slug_map as $slug => $sid ) {
+		$raw = get_post_meta( $sid, 'related_services_slugs', true );
+		if ( ! $raw ) {
+			continue;
+		}
+		$related_slugs = array_filter( array_map( 'trim', explode( ',', (string) $raw ) ) );
+		$related_ids   = array();
+		foreach ( $related_slugs as $rs ) {
+			if ( isset( $slug_map[ $rs ] ) ) {
+				$related_ids[] = $slug_map[ $rs ];
+			}
+		}
+		if ( $related_ids ) {
+			update_post_meta( $sid, 'related_services', $related_ids );
+			if ( function_exists( 'update_field' ) ) {
+				update_field( 'related_services', $related_ids, $sid );
+			}
+		}
+	}
+
+	// Testimonials: related_service may be a slug string → convert to ID.
+	if ( ! empty( $ids['testimonials'] ) && is_array( $ids['testimonials'] ) ) {
+		foreach ( $ids['testimonials'] as $tid ) {
+			$tid = (int) $tid;
+			if ( $tid <= 0 ) {
+				continue;
+			}
+			$rel = get_post_meta( $tid, 'related_service', true );
+			if ( is_string( $rel ) && $rel && isset( $slug_map[ $rel ] ) ) {
+				$service_id = $slug_map[ $rel ];
+				update_post_meta( $tid, 'related_service', $service_id );
+				if ( function_exists( 'update_field' ) ) {
+					update_field( 'related_service', array( $service_id ), $tid );
+				}
+			}
+		}
+	}
+
+	return true;
 }
 
 /**
@@ -162,7 +224,6 @@ function fasdent_demo_run_import(): array {
 function fasdent_demo_reset_data(): void {
 	$ids = get_option( 'fasdent_demo_imported_ids', array() );
 
-	// Delete posts of various types.
 	$post_groups = array( 'posts', 'services', 'doctors', 'testimonials', 'faqs', 'pages' );
 	foreach ( $post_groups as $group ) {
 		if ( empty( $ids[ $group ] ) ) {
@@ -176,7 +237,6 @@ function fasdent_demo_reset_data(): void {
 		}
 	}
 
-	// Delete terms.
 	if ( ! empty( $ids['terms'] ) && is_array( $ids['terms'] ) ) {
 		foreach ( $ids['terms'] as $term_id ) {
 			if ( is_numeric( $term_id ) ) {
@@ -185,7 +245,6 @@ function fasdent_demo_reset_data(): void {
 		}
 	}
 
-	// Remove menus created by demo.
 	$menu_names = array( 'منوی اصلی', 'منوی پاورقی', 'منوی قوانین' );
 	foreach ( $menu_names as $name ) {
 		$menu = wp_get_nav_menu_object( $name );
