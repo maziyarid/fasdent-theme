@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Admin Dashboard Widgets — Fasdent
  * @package Fasdent
