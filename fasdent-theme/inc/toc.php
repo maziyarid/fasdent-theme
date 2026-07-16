@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Table of Contents (ToC) — Fasdent
  * استخراج H2/H3 از محتوا، افزودن ID، ساخت HTML ناوبری
