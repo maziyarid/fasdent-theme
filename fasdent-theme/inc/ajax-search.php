@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Live AJAX Search — Fasdent
  * @package Fasdent
