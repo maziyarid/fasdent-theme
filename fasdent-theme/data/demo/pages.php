@@ -84,7 +84,15 @@ $pages = array(
 		'template' => 'page-templates/pricing.php',
 		'meta'     => array(),
 	),
-	// h) PRIVACY POLICY
+	// h) GALLERY (was missing)
+	array(
+		'title'    => 'گالری قبل و بعد',
+		'slug'     => 'gallery',
+		'content'  => '<p>گالری تصاویر قبل و بعد از درمان‌های کلینیک فس‌دنت. نتایج واقعی بیماران با رضایت آن‌ها منتشر شده است.</p>',
+		'template' => 'page-templates/gallery.php',
+		'meta'     => array(),
+	),
+	// i) PRIVACY POLICY
 	array(
 		'title'    => 'سیاست حریم خصوصی',
 		'slug'     => 'privacy-policy',
@@ -94,7 +102,7 @@ $pages = array(
 		'template' => 'page-templates/privacy-policy.php',
 		'meta'     => array(),
 	),
-	// i) MEDICAL DISCLAIMER
+	// j) MEDICAL DISCLAIMER
 	array(
 		'title'    => 'سلب مسئولیت پزشکی',
 		'slug'     => 'medical-disclaimer',
@@ -103,7 +111,7 @@ $pages = array(
 		'template' => 'page-templates/medical-disclaimer.php',
 		'meta'     => array(),
 	),
-	// j) CANCELLATION POLICY
+	// k) CANCELLATION POLICY
 	array(
 		'title'    => 'سیاست لغو نوبت',
 		'slug'     => 'cancellation-policy',
@@ -112,7 +120,7 @@ $pages = array(
 		'template' => 'page-templates/cancellation-policy.php',
 		'meta'     => array(),
 	),
-	// k) PATIENT RIGHTS
+	// l) PATIENT RIGHTS
 	array(
 		'title'    => 'حقوق بیمار',
 		'slug'     => 'patient-rights',
@@ -122,7 +130,7 @@ $pages = array(
 		'template' => 'page-templates/patient-rights.php',
 		'meta'     => array(),
 	),
-	// l) SITEMAP
+	// m) SITEMAP
 	array(
 		'title'    => 'نقشه سایت',
 		'slug'     => 'sitemap',
@@ -130,7 +138,7 @@ $pages = array(
 		'template' => 'page-templates/sitemap.php',
 		'meta'     => array(),
 	),
-	// m) KNOWLEDGE BASE
+	// n) KNOWLEDGE BASE
 	array(
 		'title'    => 'پایگاه دانش',
 		'slug'     => 'knowledge-base',
