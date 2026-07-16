@@ -1,0 +1,764 @@
+/* ==========================================================================
+   Fasdent — Single Post: Trust & Compliance Modules
+   --------------------------------------------------------------------------
+   Append this file to your main stylesheet (or enqueue separately after it).
+   Written with CSS logical properties so it works correctly in both RTL
+   (Persian) and LTR contexts without changes.
+
+   COLOR TOKENS
+   This file defines its own fallback custom properties, each chained with
+   var(--your-token, fallback) so it automatically adopts your existing
+   design system if the variable names already exist in your main
+   stylesheet (e.g. --color-primary, --color-muted, --color-border,
+   --color-surface, --radius). If those variables are not defined globally,
+   the fallback values below are used instead — rename the fallbacks to
+   match your palette if you prefer to skip the indirection.
+   ========================================================================== */
+
+.single-post {
+	--fp-primary: var( --color-primary, #1d7a6f );
+	--fp-primary-contrast: var( --color-primary-contrast, #ffffff );
+	--fp-text: var( --color-text, #1c2321 );
+	--fp-muted: var( --color-muted, #5f6b68 );
+	--fp-border: var( --color-border, #e3e8e6 );
+	--fp-surface: var( --color-surface, #ffffff );
+	--fp-surface-alt: var( --color-surface-alt, #f5f8f7 );
+	--fp-warning: var( --color-warning, #b5540a );
+	--fp-warning-bg: var( --color-warning-bg, #fdf1e6 );
+	--fp-danger: var( --color-danger, #b13434 );
+	--fp-danger-bg: var( --color-danger-bg, #fbeaea );
+	--fp-radius: var( --radius, 12px );
+	--fp-radius-sm: var( --radius-sm, 8px );
+	--fp-gap: 1rem;
+	--fp-max-line: 72ch;
+}
+
+.single-post * {
+	box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Reading progress bar
+   -------------------------------------------------------------------------- */
+
+.single-post .reading-progress {
+	position: sticky;
+	inset-block-start: 0;
+	inset-inline: 0;
+	z-index: 40;
+	block-size: 4px;
+	background: var( --fp-border );
+}
+
+.single-post .reading-progress::after {
+	content: "";
+	display: block;
+	block-size: 100%;
+	inline-size: var( --fp-progress, 0% );
+	background: var( --fp-primary );
+	transition: inline-size 0.1s linear;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.single-post .reading-progress::after {
+		transition: none;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+
+.single-post__layout {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2rem;
+	padding-block: 2rem;
+}
+
+@media ( min-width: 1024px ) {
+	.single-post__layout {
+		grid-template-columns: minmax( 0, 1fr ) 320px;
+		align-items: start;
+	}
+
+	.single-post__sidebar {
+		position: sticky;
+		inset-block-start: 1.5rem;
+	}
+}
+
+.single-post__main {
+	min-inline-size: 0;
+	max-inline-size: var( --fp-max-line );
+}
+
+@media ( min-width: 1024px ) {
+	.single-post__main {
+		max-inline-size: none;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Post header micro-disclaimer & trust strip
+   -------------------------------------------------------------------------- */
+
+.post-micro-disclaimer {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-block: 0.5rem 0;
+	font-size: 0.8rem;
+	color: var( --fp-muted );
+}
+
+.trust-strip {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	list-style: none;
+	margin: 1rem 0 0;
+	padding: 0;
+}
+
+.trust-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.35rem 0.75rem;
+	border-radius: 999px;
+	background: var( --fp-surface-alt );
+	border: 1px solid var( --fp-border );
+	font-size: 0.78rem;
+	color: var( --fp-text );
+	line-height: 1.2;
+}
+
+.trust-badge i {
+	color: var( --fp-primary );
+}
+
+/* --------------------------------------------------------------------------
+   Editor's note
+   -------------------------------------------------------------------------- */
+
+.editor-note {
+	margin-block: 1.25rem;
+	padding: 0.9rem 1.1rem;
+	border-inline-start: 4px solid var( --fp-primary );
+	background: var( --fp-surface-alt );
+	border-radius: 0 var( --fp-radius-sm ) var( --fp-radius-sm ) 0;
+	font-size: 0.92rem;
+	line-height: 1.8;
+	color: var( --fp-text );
+}
+
+.editor-note strong {
+	color: var( --fp-primary );
+}
+
+/* --------------------------------------------------------------------------
+   Quick answer box
+   -------------------------------------------------------------------------- */
+
+.quick-answer-box {
+	margin-block: 1.5rem;
+	padding: 1.25rem 1.4rem;
+	border: 1px solid var( --fp-border );
+	border-radius: var( --fp-radius );
+	background: linear-gradient( 180deg, var( --fp-surface-alt ), var( --fp-surface ) );
+}
+
+.quick-answer-box__title {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 0.5rem;
+	font-size: 1rem;
+	color: var( --fp-primary );
+}
+
+.quick-answer-box p {
+	margin: 0;
+	line-height: 1.9;
+}
+
+/* --------------------------------------------------------------------------
+   Jump links / table of contents (inline, mobile-first)
+   -------------------------------------------------------------------------- */
+
+.post-jump-links {
+	margin-block: 1.5rem;
+	border: 1px solid var( --fp-border );
+	border-radius: var( --fp-radius );
+	overflow: hidden;
+}
+
+.jump-links-toggle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	inline-size: 100%;
+	padding: 0.85rem 1.1rem;
+	background: var( --fp-surface-alt );
+	border: 0;
+	font: inherit;
+	font-weight: 600;
+	color: var( --fp-text );
+	cursor: pointer;
+	text-align: start;
+}
+
+.jump-links-toggle span {
+	flex: 1;
+}
+
+.jump-links-caret {
+	transition: transform 0.2s ease;
+}
+
+.jump-links-toggle[ aria-expanded="false" ] .jump-links-caret {
+	transform: rotate( -90deg );
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.jump-links-caret {
+		transition: none;
+	}
+}
+
+.jump-links-list {
+	margin: 0;
+	padding: 0.65rem 1.1rem 0.9rem 2.1rem;
+	list-style: decimal;
+}
+
+.post-jump-links[ data-collapsed="true" ] .jump-links-list {
+	display: none;
+}
+
+.jump-links-item {
+	margin-block-end: 0.35rem;
+	line-height: 1.6;
+}
+
+.jump-links-item.is-sub {
+	list-style: none;
+	margin-inline-start: 1.25rem;
+	font-size: 0.92em;
+}
+
+.jump-links-list a {
+	color: var( --fp-text );
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.jump-links-list a:hover,
+.jump-links-list a:focus-visible {
+	color: var( --fp-primary );
+	border-block-end-color: currentColor;
+}
+
+.jump-links-list a[ aria-current="true" ] {
+	color: var( --fp-primary );
+	font-weight: 600;
+}
+
+/* Heading anchor targets shouldn't show a focus box unless actually
+   focused via keyboard/jump-link, but should never look "invisible". */
+.single-post .post-content :is( h2, h3 )[ tabindex="-1" ]:focus-visible {
+	outline: 3px solid var( --fp-primary );
+	outline-offset: 4px;
+	border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Article prose
+   -------------------------------------------------------------------------- */
+
+.post-content {
+	line-height: 1.95;
+	font-size: 1.05rem;
+}
+
+.post-content :is( h2, h3, h4 ) {
+	scroll-margin-block-start: 5.5rem;
+	line-height: 1.5;
+}
+
+.post-content img {
+	max-inline-size: 100%;
+	block-size: auto;
+	border-radius: var( --fp-radius-sm );
+}
+
+.post-content table {
+	inline-size: 100%;
+	border-collapse: collapse;
+	display: block;
+	overflow-x: auto;
+}
+
+.post-content th,
+.post-content td {
+	border: 1px solid var( --fp-border );
+	padding: 0.6rem 0.75rem;
+	text-align: start;
+}
+
+/* --------------------------------------------------------------------------
+   Clinical review box
+   -------------------------------------------------------------------------- */
+
+.clinical-review-box {
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+	margin-block: 1.75rem;
+	padding: 1.25rem;
+}
+
+.clinical-review-box__icon {
+	flex: none;
+	inline-size: 42px;
+	block-size: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: var( --fp-surface-alt );
+	color: var( --fp-primary );
+	font-size: 1.1rem;
+}
+
+.clinical-review-box__eyebrow {
+	margin: 0 0 0.15rem;
+	font-size: 0.75rem;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	color: var( --fp-muted );
+}
+
+.clinical-review-box__name {
+	margin: 0 0 0.5rem;
+	font-weight: 700;
+	font-size: 1rem;
+}
+
+.clinical-review-box__credentials {
+	display: block;
+	font-weight: 400;
+	font-size: 0.85rem;
+	color: var( --fp-muted );
+}
+
+.clinical-review-box__meta {
+	list-style: none;
+	margin: 0 0 0.6rem;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 1rem;
+	font-size: 0.85rem;
+	color: var( --fp-muted );
+}
+
+.clinical-review-box__meta li {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+
+.clinical-review-box__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	font-size: 0.88rem;
+	font-weight: 600;
+	color: var( --fp-primary );
+	text-decoration: none;
+}
+
+.clinical-review-box__link:hover,
+.clinical-review-box__link:focus-visible {
+	text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   FAQ (native <details>/<summary> — keyboard and screen-reader friendly
+   by default, no JS required)
+   -------------------------------------------------------------------------- */
+
+.post-faq {
+	margin-block: 2rem;
+}
+
+.faq-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.faq-item {
+	border: 1px solid var( --fp-border );
+	border-radius: var( --fp-radius-sm );
+	padding: 0;
+	overflow: hidden;
+}
+
+.faq-item__question {
+	padding: 0.9rem 1.1rem;
+	cursor: pointer;
+	font-weight: 600;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.faq-item__question::-webkit-details-marker {
+	display: none;
+}
+
+.faq-item__question::after {
+	content: "+";
+	font-size: 1.2rem;
+	line-height: 1;
+	color: var( --fp-primary );
+	flex: none;
+	margin-inline-start: 1rem;
+}
+
+.faq-item[ open ] .faq-item__question::after {
+	content: "−";
+}
+
+.faq-item__answer {
+	padding: 0 1.1rem 1rem;
+	color: var( --fp-text );
+	line-height: 1.85;
+}
+
+/* --------------------------------------------------------------------------
+   Related resources
+   -------------------------------------------------------------------------- */
+
+.related-resources {
+	margin-block: 2rem;
+}
+
+.related-resources__grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
+	gap: 1rem;
+	margin-block-start: 1rem;
+}
+
+.related-resources__item {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	text-decoration: none;
+	color: var( --fp-text );
+}
+
+.related-resources__item img {
+	inline-size: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+}
+
+.related-resources__title {
+	padding: 0.75rem;
+	font-weight: 600;
+	font-size: 0.92rem;
+	line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Soft CTA
+   -------------------------------------------------------------------------- */
+
+.post-soft-cta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-block: 2rem;
+	padding: 1.25rem;
+	background: var( --fp-surface-alt );
+}
+
+.post-soft-cta p {
+	margin: 0;
+	font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Sources
+   -------------------------------------------------------------------------- */
+
+.post-sources {
+	margin-block: 2rem;
+	font-size: 0.9rem;
+}
+
+.post-sources ul {
+	margin: 0.75rem 0 0;
+	padding-inline-start: 1.25rem;
+}
+
+.post-sources li {
+	margin-block-end: 0.4rem;
+}
+
+.post-sources a {
+	color: var( --fp-primary );
+}
+
+/* --------------------------------------------------------------------------
+   Disclaimer stack
+   -------------------------------------------------------------------------- */
+
+.disclaimer-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	margin-block: 1.75rem;
+}
+
+.disclaimer-item {
+	display: flex;
+	gap: 0.65rem;
+	align-items: flex-start;
+	padding: 0.85rem 1rem;
+	border-radius: var( --fp-radius-sm );
+	font-size: 0.85rem;
+	line-height: 1.7;
+	background: var( --fp-surface-alt );
+	border: 1px solid var( --fp-border );
+}
+
+.disclaimer-item p {
+	margin: 0;
+}
+
+.disclaimer-item i {
+	margin-block-start: 0.15rem;
+	flex: none;
+	color: var( --fp-muted );
+}
+
+.disclaimer-item--emergency {
+	background: var( --fp-warning-bg );
+	border-color: color-mix( in srgb, var( --fp-warning ) 35%, var( --fp-border ) );
+}
+
+.disclaimer-item--emergency i,
+.disclaimer-item--emergency strong {
+	color: var( --fp-warning );
+}
+
+.disclaimer-item--privacy a {
+	color: var( --fp-primary );
+	font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Copyright line
+   -------------------------------------------------------------------------- */
+
+.post-copyright {
+	margin-block: 1.5rem;
+	font-size: 0.78rem;
+	color: var( --fp-muted );
+}
+
+/* --------------------------------------------------------------------------
+   Tags (moved out of inline styles)
+   -------------------------------------------------------------------------- */
+
+.post-tags {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin-block-start: 2rem;
+	color: var( --fp-muted );
+}
+
+.tag-pill {
+	padding: 0.3rem 0.75rem;
+	border-radius: 999px;
+	background: var( --fp-surface-alt );
+	border: 1px solid var( --fp-border );
+	font-size: 0.8rem;
+	color: var( --fp-text );
+	text-decoration: none;
+}
+
+.tag-pill:hover,
+.tag-pill:focus-visible {
+	border-color: var( --fp-primary );
+	color: var( --fp-primary );
+}
+
+/* --------------------------------------------------------------------------
+   Reactions (moved out of inline styles, now with real states)
+   -------------------------------------------------------------------------- */
+
+.post-reactions {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-block: 1.5rem;
+}
+
+.post-reactions__label {
+	font-size: 0.85rem;
+	color: var( --fp-muted );
+}
+
+.reaction-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.55rem 1rem;
+	font-size: 0.85rem;
+	min-block-size: 44px;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.reaction-btn {
+		transition: none;
+	}
+}
+
+.reaction-btn[ aria-pressed="true" ] {
+	background: var( --fp-primary );
+	color: var( --fp-primary-contrast );
+	border-color: var( --fp-primary );
+}
+
+.reaction-btn[ disabled ] {
+	cursor: default;
+	opacity: 0.85;
+}
+
+.reaction-btn__count {
+	opacity: 0.75;
+	margin-inline-start: 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   Post navigation, author bio (spacing moved out of inline styles)
+   -------------------------------------------------------------------------- */
+
+.post-navigation {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	margin-block: 2rem;
+}
+
+@media ( max-width: 640px ) {
+	.post-navigation {
+		grid-template-columns: 1fr;
+	}
+}
+
+.post-nav-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	padding: 1rem;
+	text-decoration: none;
+	color: var( --fp-text );
+}
+
+.post-nav-item .nav-label {
+	font-size: 0.78rem;
+	color: var( --fp-muted );
+}
+
+.post-nav-item .nav-title {
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.author-bio {
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+	margin-block-start: 2rem;
+	padding: 1.25rem;
+}
+
+.author-bio img {
+	border-radius: 50%;
+	flex: none;
+}
+
+.author-bio__credentials {
+	display: block;
+	font-size: 0.82rem;
+	font-weight: 400;
+	color: var( --fp-muted );
+}
+
+.author-bio__license {
+	margin: 0.4rem 0 0;
+	font-size: 0.8rem;
+	color: var( --fp-muted );
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Utility
+   -------------------------------------------------------------------------- */
+
+.screen-reader-text {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	overflow: hidden;
+	clip-path: inset( 50% );
+	white-space: nowrap;
+}
+
+/* Consistent, visible keyboard focus across every interactive element this
+   file adds — required for WCAG 2.1 AA (2.4.7 Focus Visible). */
+.single-post a:focus-visible,
+.single-post button:focus-visible,
+.single-post summary:focus-visible {
+	outline: 3px solid var( --fp-primary );
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive type scale
+   -------------------------------------------------------------------------- */
+
+@media ( max-width: 640px ) {
+	.single-post .post-header h1 {
+		font-size: 1.5rem;
+		line-height: 1.4;
+	}
+
+	.post-content {
+		font-size: 1rem;
+	}
+
+	.clinical-review-box {
+		flex-direction: column;
+	}
+}

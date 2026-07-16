@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+  <title>کلینیک دندانپزشکی فس‌دنت</title>
+  <link>https://fasdent.ir</link>
+  <description>کلینیک تخصصی دندانپزشکی دکتر کیوان علی‌پسندی</description>
+  <pubDate>Sat, 12 Jul 2026 00:00:00 +0000</pubDate>
+  <language>fa-IR</language>
+  <wp:wxr_version>1.2</wp:wxr_version>
+  <wp:base_site_url>https://fasdent.ir</wp:base_site_url>
+  <wp:base_blog_url>https://fasdent.ir</wp:base_blog_url>
+
+  <!-- ======================================================
+       AUTHORS
+       ====================================================== -->
+  <wp:author>
+    <wp:author_id>1</wp:author_id>
+    <wp:author_login><![CDATA[dr-alipasandi]]></wp:author_login>
+    <wp:author_email><![CDATA[info@fasdent.ir]]></wp:author_email>
+    <wp:author_display_name><![CDATA[دکتر کیوان علی‌پسندی]]></wp:author_display_name>
+    <wp:author_first_name><![CDATA[کیوان]]></wp:author_first_name>
+    <wp:author_last_name><![CDATA[علی‌پسندی]]></wp:author_last_name>
+  </wp:author>
+
+  <!-- ======================================================
+       BLOG POST CATEGORIES (taxonomy: category)
+       ====================================================== -->
+  <wp:category>
+    <wp:term_id>101</wp:term_id>
+    <wp:category_nicename><![CDATA[implant]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[ایمپلنت دندان]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>102</wp:term_id>
+    <wp:category_nicename><![CDATA[cosmetic-dentistry]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[دندانپزشکی زیبایی]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>103</wp:term_id>
+    <wp:category_nicename><![CDATA[orthodontics]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[ارتودنسی]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>104</wp:term_id>
+    <wp:category_nicename><![CDATA[general-dentistry]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[دندانپزشکی عمومی]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>105</wp:term_id>
+    <wp:category_nicename><![CDATA[pediatric-dentistry]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[دندانپزشکی کودکان]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>106</wp:term_id>
+    <wp:category_nicename><![CDATA[oral-surgery]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[جراحی دهان و فک]]></wp:cat_name>
+  </wp:category>
+
+  <wp:category>
+    <wp:term_id>107</wp:term_id>
+    <wp:category_nicename><![CDATA[dental-care]]></wp:category_nicename>
+    <wp:category_parent></wp:category_parent>
+    <wp:cat_name><![CDATA[مراقبت دندانی]]></wp:cat_name>
+  </wp:category>
+
+  <!-- ======================================================
+       TAGS (taxonomy: post_tag)
+       ====================================================== -->
+  <wp:tag>
+    <wp:term_id>201</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-implant]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[ایمپلنت]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>202</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-veneer]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[لمینت]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>203</wp:term_id>
+    <wp:tag_slug><![CDATA[teeth-whitening]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[سفید کردن دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>204</wp:term_id>
+    <wp:tag_slug><![CDATA[orthodontics]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[ارتودنسی]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>205</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-crown]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[روکش دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>206</wp:term_id>
+    <wp:tag_slug><![CDATA[root-canal]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[عصب‌کشی]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>207</wp:term_id>
+    <wp:tag_slug><![CDATA[wisdom-tooth]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندان عقل]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>208</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-emergency]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[اورژانس دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>209</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-care]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[مراقبت دندانی]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>210</wp:term_id>
+    <wp:tag_slug><![CDATA[children-dentistry]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندانپزشکی کودکان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>211</wp:term_id>
+    <wp:tag_slug><![CDATA[hollywood-smile]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[طراحی لبخند]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>212</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-bridge]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[بریج دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>213</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-filling]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[پر کردن دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>214</wp:term_id>
+    <wp:tag_slug><![CDATA[gum-treatment]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[درمان لثه]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>215</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-prosthesis]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندان مصنوعی]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>216</wp:term_id>
+    <wp:tag_slug><![CDATA[bone-graft]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[پیوند استخوان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>217</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-composite]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[کامپوزیت دندان]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>218</wp:term_id>
+    <wp:tag_slug><![CDATA[zirconia]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[زیرکونیا]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>219</wp:term_id>
+    <wp:tag_slug><![CDATA[all-on-4]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[all-on-4]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>220</wp:term_id>
+    <wp:tag_slug><![CDATA[laser-dentistry]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندانپزشکی لیزر]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>221</wp:term_id>
+    <wp:tag_slug><![CDATA[sedation-dentistry]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندانپزشکی آرام‌بخش]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>222</wp:term_id>
+    <wp:tag_slug><![CDATA[ceramic-crown]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[روکش سرامیکی]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>223</wp:term_id>
+    <wp:tag_slug><![CDATA[dental-scaling]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[جرم‌گیری]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>224</wp:term_id>
+    <wp:tag_slug><![CDATA[smile-design]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[طراحی لبخند]]></wp:tag_name>
+  </wp:tag>
+
+  <wp:tag>
+    <wp:term_id>225</wp:term_id>
+    <wp:tag_slug><![CDATA[preventive-dentistry]]></wp:tag_slug>
+    <wp:tag_name><![CDATA[دندانپزشکی پیشگیرانه]]></wp:tag_name>
+  </wp:tag>
+
+  <!-- ======================================================
+       SERVICE_CATEGORY TERMS (taxonomy: service_category)
+       ====================================================== -->
+  <wp:term>
+    <wp:term_id>301</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[general-dentistry]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[دندانپزشکی عمومی]]></wp:term_name>
+    <wp:term_description><![CDATA[خدمات پایه دندانپزشکی شامل معاینه، پر کردن، جرم‌گیری و درمان‌های روزمره]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>302</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[cosmetic-dentistry]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[دندانپزشکی زیبایی]]></wp:term_name>
+    <wp:term_description><![CDATA[خدمات زیبایی دندان شامل لمینت، کامپوزیت، طراحی لبخند و سفید کردن]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>303</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[implant]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[ایمپلنت دندان]]></wp:term_name>
+    <wp:term_description><![CDATA[کاشت ایمپلنت با برترین برندها، ایمپلنت فوری، All-on-4]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>304</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[orthodontics]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[ارتودنسی]]></wp:term_name>
+    <wp:term_description><![CDATA[ارتودنسی ثابت، متحرک، اینویزالاین و درمان اختلالات فکی]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>305</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[endodontics]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[ریشه درمانی]]></wp:term_name>
+    <wp:term_description><![CDATA[درمان ریشه، عصب‌کشی و درمان عفونت‌های دندانی]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>306</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[prosthodontics]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[پروتز دندانی]]></wp:term_name>
+    <wp:term_description><![CDATA[روکش، بریج، دندان مصنوعی و بازسازی کامل دهان]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>307</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[pediatric-dentistry]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[دندانپزشکی کودکان]]></wp:term_name>
+    <wp:term_description><![CDATA[مراقبت و درمان دندان کودکان و نوجوانان]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>308</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[oral-surgery]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[جراحی دهان]]></wp:term_name>
+    <wp:term_description><![CDATA[کشیدن دندان عقل، جراحی فک، پیوند استخوان]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>309</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[periodontics]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[درمان لثه]]></wp:term_name>
+    <wp:term_description><![CDATA[درمان بیماری‌های لثه، جراحی لثه و ایمپلنت لثه]]></wp:term_description>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>310</wp:term_id>
+    <wp:term_taxonomy><![CDATA[service_category]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[emergency-dentistry]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[اورژانس دندانپزشکی]]></wp:term_name>
+    <wp:term_description><![CDATA[خدمات اورژانس دندانپزشکی ۲۴ ساعته]]></wp:term_description>
+  </wp:term>
+
+  <!-- ======================================================
+       NAVIGATION MENU TERMS (taxonomy: nav_menu)
+       ====================================================== -->
+  <wp:term>
+    <wp:term_id>401</wp:term_id>
+    <wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[primary-menu]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[منوی اصلی]]></wp:term_name>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>402</wp:term_id>
+    <wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[footer-menu]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[منوی فوتر]]></wp:term_name>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>403</wp:term_id>
+    <wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[services-menu]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[منوی خدمات]]></wp:term_name>
+  </wp:term>
+
+  <wp:term>
+    <wp:term_id>404</wp:term_id>
+    <wp:term_taxonomy><![CDATA[nav_menu]]></wp:term_taxonomy>
+    <wp:term_slug><![CDATA[quick-links]]></wp:term_slug>
+    <wp:term_parent></wp:term_parent>
+    <wp:term_name><![CDATA[دسترسی سریع]]></wp:term_name>
+  </wp:term>
+
+</channel>
+</rss>

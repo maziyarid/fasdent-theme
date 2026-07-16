@@ -1,10 +1,11 @@
-﻿<?php
+<?php
 /**
  * Template part: فهرست مطالب (Sidebar)
  * استفاده: get_template_part('template-parts/toc-sidebar')
- * باید قبل از the_content() فراخوانی شود.
  * @package Fasdent
  */
+
+// تعریف قبل از remove_filter تا toc.php بتواند وضعیت را بررسی کند.
 if ( ! defined( 'FASDENT_TOC_SIDEBAR' ) ) {
 	define( 'FASDENT_TOC_SIDEBAR', true );
 }

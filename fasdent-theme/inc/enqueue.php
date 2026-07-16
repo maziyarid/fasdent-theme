@@ -52,7 +52,7 @@ function fasdent_enqueue_scripts(): void {
 		'print'
 	);
 
-	// ۵) اسکریپت اصلی (defer — غیرحیاتی).
+	// ۶) اسکریپت اصلی (defer — غیرحیاتی).
 	$main_js = file_exists( FASDENT_DIR . '/assets/js/main.min.js' ) ? 'main.min.js' : 'main.js';
 	wp_enqueue_script(
 		'fasdent-main',
@@ -71,6 +71,29 @@ function fasdent_enqueue_scripts(): void {
 		'nonce'   => wp_create_nonce( 'fasdent_form_nonce' ),
 		'phone'   => fasdent_phone(),
 	) );
+
+	// ۷) Single post CSS/JS — فقط روی صفحات تک‌مطلب بلاگ.
+	if ( is_singular( 'post' ) ) {
+		$sp_css = file_exists( FASDENT_DIR . '/assets/css/single-post.min.css' ) ? 'single-post.min.css' : 'single-post.css';
+		wp_enqueue_style(
+			'fasdent-single-post',
+			FASDENT_URI . '/assets/css/' . $sp_css,
+			array( 'fasdent-main' ),
+			FASDENT_VERSION
+		);
+
+		$sp_js = file_exists( FASDENT_DIR . '/assets/js/single-post.min.js' ) ? 'single-post.min.js' : 'single-post.js';
+		wp_enqueue_script(
+			'fasdent-single-post',
+			FASDENT_URI . '/assets/js/' . $sp_js,
+			array( 'fasdent-main' ),
+			FASDENT_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+	}
 
 	// نظرات تو در تو.
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

@@ -46,8 +46,11 @@ function fasdent_get_view_count( ?int $post_id = null ): int {
 
 /** AJAX handler واکنش به مطلب. */
 function fasdent_handle_post_reaction(): void {
-	check_ajax_referer( 'fasdent_form_nonce', 'nonce' );
 	$post_id  = (int) sanitize_text_field( wp_unslash( $_POST['post_id'] ?? '0' ) );
+	if ( ! $post_id ) {
+		wp_send_json_error( array( 'message' => 'invalid_post' ), 400 );
+	}
+	check_ajax_referer( 'fasdent_react_' . $post_id, 'nonce' );
 	$reaction = sanitize_key( wp_unslash( $_POST['reaction'] ?? '' ) );
 	$allowed  = array( 'helpful', 'thanks', 'accurate' );
 	if ( ! $post_id || ! in_array( $reaction, $allowed, true ) ) {

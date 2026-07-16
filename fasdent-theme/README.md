@@ -1,4 +1,4 @@
-﻿# Fasdent Theme v2.1.0
+# Fasdent Theme v2.1.1
 
 > قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
 > RTL کامل، بدون CDN، 12 نوع Schema.org، WCAG 2.1 AA، PHP 8.2+، WordPress 6.5+
@@ -7,7 +7,8 @@
 
 ## نصب سریع
 
-1. کپی پوشه asdent-theme در wp-content/themes/`n2. فعال‌سازی در ادمین > نمایش > پوسته‌ها
+1. کپی پوشه `fasdent-theme` در `wp-content/themes/`
+2. فعال‌سازی در ادمین > نمایش > پوسته‌ها
 3. ذخیره Permalink: Settings > Permalinks > Save
 4. Appearance > Menus: اختصاص به main-menu / footer-menu / legal-menu
 5. Appearance > Customize > Clinic Information
@@ -146,6 +147,28 @@ fasdent-theme/
 ---
 
 ## Changelog
+
+### v2.1.1 — 2026-07-13
+
+#### Bug Fixes
+- **`assets/js/single-post.js`** — AJAX `action` key corrected from `fasdent_react` to `fasdent_post_reaction` (matched the registered handler)
+- **`inc/post-meta.php`** — reaction handler now reads `post_id` before calling `check_ajax_referer('fasdent_react_{id}', 'nonce')`, fixing a nonce-action mismatch that rejected every reaction vote
+- **`inc/enqueue.php`** — `single-post.css` and `single-post.js` were never enqueued; added conditional block on `is_singular('post')` — step comments also renumbered (duplicate `// ۵)`)
+- **`style.css`** — version header corrected from `2.0.0` to `2.1.0` (matched `FASDENT_VERSION` constant)
+- **`template-parts/toc-sidebar.php`** — removed BOM; `FASDENT_TOC_SIDEBAR` constant now documented as intentionally defined before `remove_filter`
+- **`README.md`** — install path typo `asdent-theme` → `fasdent-theme`
+- **`data/fasdent-import.xml`** — file was truncated (missing `</channel></rss>`); closing tags appended, file now valid XML
+
+#### New Files Added
+- **`screenshot.png`** (880×660) — required by WordPress for theme recognition in Appearance → Themes
+- **`languages/fasdent.pot`** — translation template stub; satisfies `load_theme_textdomain` reference and suppresses WP notice
+
+#### Cleanup (outside-theme artefacts removed from repo)
+- Deleted `Fasdent Pages/` — duplicate of `page-templates/fasdent-page.php` + `assets/css/page.css` + `assets/js/page.js`
+- Deleted `fasdent-page-system/` — mirror of above
+- Deleted `fasdent-page-system.md` + `.bak` — dev planning documents
+- Deleted `data/fasdent-import-p3.xml` — contained only the 10 `service_category` terms already present in `fasdent-import.xml` (strict subset, nothing new)
+- Deleted `languages/fasdent.pot` at repo root — correct file is `fasdent-theme/languages/fasdent.pot`
 
 ### v2.1.0 — 2026-07-12
 - inc/performance.php: WebP upload conversion, fetchpriority on first image, DNS prefetch, emoji removal
