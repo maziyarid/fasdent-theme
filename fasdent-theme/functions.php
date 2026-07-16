@@ -38,6 +38,11 @@ require FASDENT_DIR . '/inc/polls.php';          // سیستم نظرسنجی
 require FASDENT_DIR . '/inc/ajax-search.php';    // جستجوی زنده AJAX
 require FASDENT_DIR . '/inc/admin-bookings.php'; // مدیریت نوبت‌ها در ادمین
 
+/* Demo data importer — only needed in wp-admin. */
+if ( is_admin() && file_exists( FASDENT_DIR . '/data/demo/import.php' ) ) {
+	require FASDENT_DIR . '/data/demo/import.php';
+}
+
 /* ── توابع کمکی سراسری ─────────────────────────── */
 
 /**

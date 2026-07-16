@@ -3,16 +3,18 @@
  * Fasdent Demo Data Importer — Main Runner
  *
  * Appearance → بارگذاری نمونه داده
+ *
+ * @package Fasdent
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Register admin menu page.
+ * Register admin menu page under Appearance.
  */
 add_action( 'admin_menu', 'fasdent_demo_register_admin_page' );
-function fasdent_demo_register_admin_page() {
+function fasdent_demo_register_admin_page(): void {
 	add_theme_page(
 		'بارگذاری نمونه داده',
 		'بارگذاری نمونه داده',
@@ -25,12 +27,12 @@ function fasdent_demo_register_admin_page() {
 /**
  * Render the admin page.
  */
-function fasdent_demo_render_admin_page() {
+function fasdent_demo_render_admin_page(): void {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	$results = array();
+	$results    = array();
 	$reset_done = false;
 
 	// Handle reset.
@@ -46,7 +48,7 @@ function fasdent_demo_render_admin_page() {
 
 	$imported = get_option( 'fasdent_demo_imported_ids', array() );
 	?>
-	<div class="wrap">
+	<div class="wrap" dir="rtl">
 		<h1>بارگذاری نمونه داده — کلینیک فس‌دنت</h1>
 
 		<?php if ( $reset_done ) : ?>
@@ -58,7 +60,7 @@ function fasdent_demo_render_admin_page() {
 				<p><strong>نتیجه بارگذاری:</strong></p>
 				<ul style="list-style:disc;margin-right:20px;">
 					<?php foreach ( $results as $step => $status ) : ?>
-						<li><?php echo esc_html( $step ); ?>: <?php echo $status ? '✓ موفق' : '✗ خطا'; ?></li>
+						<li><?php echo esc_html( $step ); ?>: <?php echo $status ? '✓ موفق' : '✗ خطا / فایل یافت نشد'; ?></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
@@ -91,7 +93,11 @@ function fasdent_demo_render_admin_page() {
 		<?php if ( ! empty( $imported ) ) : ?>
 			<div class="card" style="max-width:700px;padding:20px;margin-top:20px;">
 				<h2>وضعیت فعلی</h2>
-				<p>تعداد شناسه‌های ذخیره‌شده: <?php echo count( $imported, COUNT_RECURSIVE ); ?></p>
+				<ul style="list-style:disc;margin-right:20px;">
+					<?php foreach ( $imported as $group => $ids ) : ?>
+						<li><?php echo esc_html( $group ); ?>: <?php echo is_array( $ids ) ? count( $ids ) : 0; ?> مورد</li>
+					<?php endforeach; ?>
+				</ul>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -101,27 +107,30 @@ function fasdent_demo_render_admin_page() {
 /**
  * Run the full import sequence.
  *
- * @return array Step => success boolean
+ * Content files live directly in data/demo/ (not in a nested inc/ folder).
+ *
+ * @return array Step label => success boolean
  */
-function fasdent_demo_run_import() {
+function fasdent_demo_run_import(): array {
 	if ( ! defined( 'FASDENT_DEMO_IMPORT' ) ) {
 		define( 'FASDENT_DEMO_IMPORT', true );
 	}
 
 	$GLOBALS['fasdent_demo_ids'] = array();
 	$results = array();
-	$base    = get_template_directory() . '/data/demo/inc/';
+	// Files are in data/demo/ itself.
+	$base = get_template_directory() . '/data/demo/';
 
 	$steps = array(
-		'طبقه‌بندی خدمات'   => 'taxonomy-terms.php',
-		'خدمات'             => 'services.php',
-		'پزشکان'            => 'doctors.php',
-		'نظرات بیماران'     => 'testimonials.php',
-		'سوالات متداول'     => 'faqs.php',
-		'صفحات'             => 'pages.php',
-		'مقالات'            => 'posts.php',
-		'منوها'             => 'menus.php',
-		'تنظیمات'           => 'options.php',
+		'طبقه‌بندی خدمات' => 'taxonomy-terms.php',
+		'خدمات'           => 'services.php',
+		'پزشکان'          => 'doctors.php',
+		'نظرات بیماران'   => 'testimonials.php',
+		'سوالات متداول'   => 'faqs.php',
+		'صفحات'           => 'pages.php',
+		'مقالات'          => 'posts.php',
+		'منوها'           => 'menus.php',
+		'تنظیمات'         => 'options.php',
 	);
 
 	foreach ( $steps as $label => $file ) {
@@ -130,7 +139,7 @@ function fasdent_demo_run_import() {
 			try {
 				require $path;
 				$results[ $label ] = true;
-			} catch ( Exception $e ) {
+			} catch ( Throwable $e ) {
 				$results[ $label ] = false;
 			}
 		} else {
@@ -138,10 +147,10 @@ function fasdent_demo_run_import() {
 		}
 	}
 
-	// Store all created IDs.
+	// Store all created IDs for later reset.
 	update_option( 'fasdent_demo_imported_ids', $GLOBALS['fasdent_demo_ids'], false );
 
-	// Flush rewrite rules after creating CPTs/pages.
+	// Flush rewrite rules after creating CPTs / pages.
 	flush_rewrite_rules();
 
 	return $results;
@@ -150,7 +159,7 @@ function fasdent_demo_run_import() {
 /**
  * Delete all demo data previously imported.
  */
-function fasdent_demo_reset_data() {
+function fasdent_demo_reset_data(): void {
 	$ids = get_option( 'fasdent_demo_imported_ids', array() );
 
 	// Delete posts of various types.
@@ -160,9 +169,8 @@ function fasdent_demo_reset_data() {
 			continue;
 		}
 		$group_ids = is_array( $ids[ $group ] ) ? $ids[ $group ] : array();
-		// pages may be associative (slug => id)
 		foreach ( $group_ids as $id ) {
-			if ( is_numeric( $id ) && $id > 0 ) {
+			if ( is_numeric( $id ) && (int) $id > 0 ) {
 				wp_delete_post( (int) $id, true );
 			}
 		}
@@ -177,8 +185,8 @@ function fasdent_demo_reset_data() {
 		}
 	}
 
-	// Remove menus.
-	$menu_names = array( 'منوی اصلی', 'منوی پاورقی' );
+	// Remove menus created by demo.
+	$menu_names = array( 'منوی اصلی', 'منوی پاورقی', 'منوی قوانین' );
 	foreach ( $menu_names as $name ) {
 		$menu = wp_get_nav_menu_object( $name );
 		if ( $menu ) {

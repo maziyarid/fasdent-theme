@@ -1,6 +1,9 @@
 <?php
 /**
  * Fasdent Demo — Navigation Menus
+ *
+ * Theme locations (from inc/setup.php):
+ *   main-menu | footer-menu | legal-menu
  */
 if ( ! defined( 'FASDENT_DEMO_IMPORT' ) ) {
 	exit;
@@ -26,7 +29,7 @@ function fasdent_demo_get_term_link( $slug ) {
 	return '';
 }
 
-// ========== Primary Menu ==========
+// ========== Primary Menu (main-menu) ==========
 $primary_name = 'منوی اصلی';
 $primary_menu = wp_get_nav_menu_object( $primary_name );
 
@@ -65,7 +68,7 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 		) );
 	}
 
-	// c. Services parent (custom link)
+	// c. Services parent
 	$services_parent = wp_update_nav_menu_item( $primary_id, 0, array(
 		'menu-item-title'  => 'خدمات',
 		'menu-item-url'    => home_url( '/services/' ),
@@ -73,7 +76,6 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 		'menu-item-type'   => 'custom',
 	) );
 
-	// Sub-items under Services
 	$service_cats = array(
 		'general-dentistry'  => 'دندانپزشکی عمومی',
 		'cosmetic-dentistry' => 'دندانپزشکی زیبایی',
@@ -99,7 +101,7 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 	$blog_id = fasdent_demo_get_page_id( 'blog' );
 	if ( $blog_id ) {
 		wp_update_nav_menu_item( $primary_id, 0, array(
-			'menu-item-title'     => 'مقالات دندانپزشکی',
+			'menu-item-title'     => 'مقالات',
 			'menu-item-object'    => 'page',
 			'menu-item-object-id' => $blog_id,
 			'menu-item-type'      => 'post_type',
@@ -107,7 +109,19 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 		) );
 	}
 
-	// e. FAQ
+	// e. Gallery
+	$gallery_id = fasdent_demo_get_page_id( 'gallery' );
+	if ( $gallery_id ) {
+		wp_update_nav_menu_item( $primary_id, 0, array(
+			'menu-item-title'     => 'گالری',
+			'menu-item-object'    => 'page',
+			'menu-item-object-id' => $gallery_id,
+			'menu-item-type'      => 'post_type',
+			'menu-item-status'    => 'publish',
+		) );
+	}
+
+	// f. FAQ
 	$faq_id = fasdent_demo_get_page_id( 'faq' );
 	if ( $faq_id ) {
 		wp_update_nav_menu_item( $primary_id, 0, array(
@@ -119,7 +133,7 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 		) );
 	}
 
-	// f. Contact
+	// g. Contact
 	$contact_id = fasdent_demo_get_page_id( 'contact' );
 	if ( $contact_id ) {
 		wp_update_nav_menu_item( $primary_id, 0, array(
@@ -131,13 +145,13 @@ if ( $primary_id && ! is_wp_error( $primary_id ) ) {
 		) );
 	}
 
-	// Assign to theme location.
-	$locations = get_theme_mod( 'nav_menu_locations', array() );
-	$locations['primary'] = $primary_id;
+	// Assign to correct theme location.
+	$locations              = get_theme_mod( 'nav_menu_locations', array() );
+	$locations['main-menu'] = $primary_id;
 	set_theme_mod( 'nav_menu_locations', $locations );
 }
 
-// ========== Footer Menu ==========
+// ========== Footer Menu (footer-menu) ==========
 $footer_name = 'منوی پاورقی';
 $footer_menu = wp_get_nav_menu_object( $footer_name );
 
@@ -148,7 +162,6 @@ if ( ! $footer_menu ) {
 }
 
 if ( $footer_id && ! is_wp_error( $footer_id ) ) {
-	// Clear existing.
 	$existing_items = wp_get_nav_menu_items( $footer_id );
 	if ( $existing_items ) {
 		foreach ( $existing_items as $item ) {
@@ -157,14 +170,13 @@ if ( $footer_id && ! is_wp_error( $footer_id ) ) {
 	}
 
 	$footer_pages = array(
-		'about'                => 'درباره کلینیک فس‌دنت',
-		'appointment'          => 'رزرو نوبت آنلاین',
-		'faq'                  => 'سوالات متداول',
-		'privacy-policy'       => 'سیاست حریم خصوصی',
-		'medical-disclaimer'   => 'سلب مسئولیت پزشکی',
-		'cancellation-policy'  => 'سیاست لغو نوبت',
-		'patient-rights'       => 'حقوق بیمار',
-		'sitemap'              => 'نقشه سایت',
+		'about'       => 'درباره کلینیک',
+		'appointment' => 'رزرو نوبت',
+		'pricing'     => 'تعرفه خدمات',
+		'faq'         => 'سوالات متداول',
+		'gallery'     => 'گالری',
+		'contact'     => 'تماس با ما',
+		'sitemap'     => 'نقشه سایت',
 	);
 
 	foreach ( $footer_pages as $path => $title ) {
@@ -180,8 +192,50 @@ if ( $footer_id && ! is_wp_error( $footer_id ) ) {
 		}
 	}
 
-	// Assign to theme location.
-	$locations = get_theme_mod( 'nav_menu_locations', array() );
-	$locations['footer'] = $footer_id;
+	$locations                = get_theme_mod( 'nav_menu_locations', array() );
+	$locations['footer-menu'] = $footer_id;
+	set_theme_mod( 'nav_menu_locations', $locations );
+}
+
+// ========== Legal Menu (legal-menu) ==========
+$legal_name = 'منوی قوانین';
+$legal_menu = wp_get_nav_menu_object( $legal_name );
+
+if ( ! $legal_menu ) {
+	$legal_id = wp_create_nav_menu( $legal_name );
+} else {
+	$legal_id = (int) $legal_menu->term_id;
+}
+
+if ( $legal_id && ! is_wp_error( $legal_id ) ) {
+	$existing_items = wp_get_nav_menu_items( $legal_id );
+	if ( $existing_items ) {
+		foreach ( $existing_items as $item ) {
+			wp_delete_post( $item->ID, true );
+		}
+	}
+
+	$legal_pages = array(
+		'privacy-policy'      => 'سیاست حریم خصوصی',
+		'medical-disclaimer'  => 'سلب مسئولیت پزشکی',
+		'cancellation-policy' => 'سیاست لغو نوبت',
+		'patient-rights'      => 'حقوق بیمار',
+	);
+
+	foreach ( $legal_pages as $path => $title ) {
+		$page_id = fasdent_demo_get_page_id( $path );
+		if ( $page_id ) {
+			wp_update_nav_menu_item( $legal_id, 0, array(
+				'menu-item-title'     => $title,
+				'menu-item-object'    => 'page',
+				'menu-item-object-id' => $page_id,
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			) );
+		}
+	}
+
+	$locations               = get_theme_mod( 'nav_menu_locations', array() );
+	$locations['legal-menu'] = $legal_id;
 	set_theme_mod( 'nav_menu_locations', $locations );
 }
