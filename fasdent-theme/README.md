@@ -9,9 +9,14 @@
 
 1. کپی پوشه `fasdent-theme` در `wp-content/themes/`
 2. فعال‌سازی در ادمین > نمایش > پوسته‌ها
-3. ذخیره Permalink: Settings > Permalinks > Save
-4. Appearance > Menus: اختصاص به main-menu / footer-menu / legal-menu
-5. Appearance > Customize > Clinic Information
+3. ذخیره Permalink: **Settings → Permalinks → Save**
+4. **Appearance → بارگذاری نمونه داده** → کلیک روی «شروع بارگذاری نمونه داده»
+5. دوباره **Settings → Permalinks → Save** (برای rewrite قوانین CPT)
+6. Appearance → Customize → تنظیمات کلینیک فس‌دنت (در صورت نیاز ویرایش)
+
+منوها، صفحات، خدمات، پزشکان، مقالات، FAQ و نظرات بیماران به‌صورت خودکار ساخته و به `main-menu` / `footer-menu` / `legal-menu` اختصاص داده می‌شوند.
+
+برای جزئیات کامل محتوا و نحوه ریست: `data/demo/README.md`
 
 ---
 
@@ -26,13 +31,15 @@
 | Elementor | اختیاری |
 
 بدون CDN — همه فونت‌ها و آیکون‌ها از assets/fonts/ سرو می‌شوند.
+
 ---
 
 ## ساختار فایل‌ها
 
+```
 fasdent-theme/
   style.css                    v2.1.2
-  functions.php                Bootstrap + 18 require()
+  functions.php                Bootstrap + modules + demo importer (admin)
   header.php / footer.php      Skip link, ARIA, widgets
   404.php                      404 Hub
   front-page.php               صفحه اصلی 9 بخش
@@ -50,6 +57,13 @@ fasdent-theme/
     elementor.php / toc.php / post-meta.php / related-posts.php
     cookies.php / dashboard.php / booking.php / polls.php
     ajax-search.php / admin-bookings.php
+
+  data/demo/                   ایمپورتر نمونه داده
+    import.php                 Appearance → بارگذاری نمونه داده
+    taxonomy-terms.php / services.php / doctors.php
+    testimonials.php / faqs.php / pages.php / posts.php
+    posts-data/batch-*.php     ۲۹ مقاله SEO
+    menus.php / options.php
 
   page-templates/
     appointment.php      رزرو نوبت 4 مرحله
@@ -71,11 +85,11 @@ fasdent-theme/
     key-takeaways.php / poll.php
 
   assets/
-    css/main.css     370+ خط — کامپوننت‌ها RTL responsive
+    css/main.css     کامپوننت‌ها RTL responsive
     css/print.css    استایل‌های چاپ
-    js/main.js       415+ خط — FAQ, nav, forms, booking, search, ToC, polls
+    js/main.js       FAQ, nav, forms, booking, search, ToC, polls
     fonts/Irancell/ + FontAwesome/
-
+```
 
 ---
 
@@ -150,53 +164,45 @@ fasdent-theme/
 
 ### v2.1.2 — 2026-07-16
 
+#### Demo Content System (complete)
+- **Appearance → بارگذاری نمونه داده** fully functional
+- 10 service categories, ~20 services, 3 doctors, 8 testimonials, 12 FAQs
+- 14 pages (Home, Blog, Appointment, Contact, About, FAQ, Pricing, Gallery, legal pages, Sitemap, Knowledge Base)
+- **29 SEO blog posts** with trust meta, related_posts linking, categories
+- Menus assigned to `main-menu` / `footer-menu` / `legal-menu`
+- Customizer options (phone, hours, geo, stats, emergency) pre-filled
+- Post-import relationship resolution (related services, testimonials → services, related posts)
+
 #### Bug Fixes & Hardening
-- **Removed UTF-8 BOM** from all affected PHP files (`inc/post-meta.php`, `inc/booking.php`, `inc/polls.php`, `inc/security.php`, `inc/performance.php`). BOM could cause "headers already sent" errors and break AJAX responses.
-- **`inc/post-meta.php` — View counter** — previously only incremented once per day per post (broken transient logic). Now correctly increments on every real page view (skips admins, logged-in users, bots and previews).
-- **`inc/post-meta.php` — Reading time** — replaced Latin-centric `str_word_count()` with character-based estimate (`mb_strlen / 1000`) that works properly for Persian text.
-- **Version sync** — `style.css` header and `FASDENT_VERSION` constant both set to `2.1.2`.
+- **Removed UTF-8 BOM** from all remaining PHP files (`post-meta`, `booking`, `polls`, `security`, `performance`, `dashboard`, `admin-bookings`, `cookies`, `related-posts`, `ajax-search`, `toc`)
+- **View counter** — increments on every real page view (was limited to +1/day)
+- **Reading time** — character-based estimate suitable for Persian (`mb_strlen / 1000`)
+- **related-posts.php** — now prefers `related_posts` meta (from demo) before category fallback
+- Version sync: `style.css` + `FASDENT_VERSION` = 2.1.2
 
 ### v2.1.1 — 2026-07-13
 
 #### Bug Fixes
-- **`assets/js/single-post.js`** — AJAX `action` key corrected from `fasdent_react` to `fasdent_post_reaction` (matched the registered handler)
-- **`inc/post-meta.php`** — reaction handler now reads `post_id` before calling `check_ajax_referer('fasdent_react_{id}', 'nonce')`, fixing a nonce-action mismatch that rejected every reaction vote
-- **`inc/enqueue.php`** — `single-post.css` and `single-post.js` were never enqueued; added conditional block on `is_singular('post')` — step comments also renumbered (duplicate `// ۵)`)
-- **`style.css`** — version header corrected from `2.0.0` to `2.1.0` (matched `FASDENT_VERSION` constant)
-- **`template-parts/toc-sidebar.php`** — removed BOM; `FASDENT_TOC_SIDEBAR` constant now documented as intentionally defined before `remove_filter`
-- **`README.md`** — install path typo `asdent-theme` → `fasdent-theme`
-- **`data/fasdent-import.xml`** — file was truncated (missing `</channel></rss>`); closing tags appended, file now valid XML
+- **`assets/js/single-post.js`** — AJAX `action` key corrected from `fasdent_react` to `fasdent_post_reaction`
+- **`inc/post-meta.php`** — reaction handler nonce fix
+- **`inc/enqueue.php`** — single-post assets enqueued on singular posts
+- **`style.css`** — version header corrected
+- **`template-parts/toc-sidebar.php`** — BOM removed
+- **`README.md`** — install path typo fixed
+- **`data/fasdent-import.xml`** — closing tags restored
 
 #### New Files Added
-- **`screenshot.png`** (880×660) — required by WordPress for theme recognition in Appearance → Themes
-- **`languages/fasdent.pot`** — translation template stub; satisfies `load_theme_textdomain` reference and suppresses WP notice
-
-#### Cleanup (outside-theme artefacts removed from repo)
-- Deleted `Fasdent Pages/` — duplicate of `page-templates/fasdent-page.php` + `assets/css/page.css` + `assets/js/page.js`
-- Deleted `fasdent-page-system/` — mirror of above
-- Deleted `fasdent-page-system.md` + `.bak` — dev planning documents
-- Deleted `data/fasdent-import-p3.xml` — contained only the 10 `service_category` terms already present in `fasdent-import.xml` (strict subset, nothing new)
-- Deleted `languages/fasdent.pot` at repo root — correct file is `fasdent-theme/languages/fasdent.pot`
+- **`screenshot.png`** — theme recognition
+- **`languages/fasdent.pot`** — translation stub
 
 ### v2.1.0 — 2026-07-12
-- inc/performance.php: WebP upload conversion, fetchpriority on first image, DNS prefetch, emoji removal
-- inc/security.php: Permissions-Policy header added
-- inc/schema.php: +Organization, +Speakable, +ImageObject, +IndexNow ping
-- inc/customizer.php: +IndexNow Key setting
-- inc/cookies.php: Google Consent Mode v2 (default denied before user consent)
-- inc/admin-bookings.php: NEW — booking management with status workflow AJAX
-- inc/dashboard.php: +booking stats widget (today/7d/30d + pending/confirmed)
-- page-templates/medical-disclaimer.php: NEW
-- FASDENT_VERSION: 2.0.0 => 2.1.0
+- performance, security, schema, Consent Mode v2, booking admin, medical-disclaimer
 
 ### v2.0.0 — 2026-07-12
-- Font: Irancell replaces Vazirmatn — irancell.css created, all paths fixed
-- 15 new files, 8 templates rewritten, 11 modules enhanced
-- BUG-001 to BUG-008 all resolved
-- Phase 9: booking, polls, live search, legal pages, all template rewrites
+- Irancell font, Phase 9 features
 
 ### v1.0.0 — initial
-- Theme scaffold: CPTs, schemas, customizer, security, Elementor support
+- Theme scaffold
 
 ---
 
