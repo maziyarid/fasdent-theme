@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Security hardening — Fasdent
  * Headers, version hiding, XML-RPC off, login errors, Permissions-Policy.

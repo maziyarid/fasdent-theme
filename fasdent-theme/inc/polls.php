@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Poll System — Fasdent
  * Tables: wp_fasdent_polls, wp_fasdent_poll_votes

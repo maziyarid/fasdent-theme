@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Booking System — Fasdent
  * @package Fasdent

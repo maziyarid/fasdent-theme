@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Performance helpers — Fasdent
  * Lazy load, WebP on upload, resource hints, DNS prefetch, LCP fetchpriority.
@@ -6,6 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+// Generator removal is also handled in security.php; keep for safety.
 add_action( 'init', static function (): void { remove_action( 'wp_head', 'wp_generator' ); } );
 
 /** DNS prefetch for analytics services when configured. */
