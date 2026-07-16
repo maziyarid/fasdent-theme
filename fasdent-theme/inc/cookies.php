@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Cookie Consent + Google Consent Mode v2 — Fasdent
  * Banner in footer; JS in main.js handles accept/reject.

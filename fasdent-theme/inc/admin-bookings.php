@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Admin Bookings Management — Fasdent
  * List, filter, status-update for wp_fasdent_bookings table.
