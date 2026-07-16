@@ -1,4 +1,4 @@
-# Fasdent Theme v2.1.1
+# Fasdent Theme v2.1.2
 
 > قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
 > RTL کامل، بدون CDN، 12 نوع Schema.org، WCAG 2.1 AA، PHP 8.2+، WordPress 6.5+
@@ -31,7 +31,7 @@
 ## ساختار فایل‌ها
 
 fasdent-theme/
-  style.css                    v2.1.0
+  style.css                    v2.1.2
   functions.php                Bootstrap + 18 require()
   header.php / footer.php      Skip link, ARIA, widgets
   404.php                      404 Hub
@@ -147,6 +147,14 @@ fasdent-theme/
 ---
 
 ## Changelog
+
+### v2.1.2 — 2026-07-16
+
+#### Bug Fixes & Hardening
+- **Removed UTF-8 BOM** from all affected PHP files (`inc/post-meta.php`, `inc/booking.php`, `inc/polls.php`, `inc/security.php`, `inc/performance.php`). BOM could cause "headers already sent" errors and break AJAX responses.
+- **`inc/post-meta.php` — View counter** — previously only incremented once per day per post (broken transient logic). Now correctly increments on every real page view (skips admins, logged-in users, bots and previews).
+- **`inc/post-meta.php` — Reading time** — replaced Latin-centric `str_word_count()` with character-based estimate (`mb_strlen / 1000`) that works properly for Persian text.
+- **Version sync** — `style.css` header and `FASDENT_VERSION` constant both set to `2.1.2`.
 
 ### v2.1.1 — 2026-07-13
 
