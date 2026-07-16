@@ -10,9 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register admin menu page under Appearance.
- */
 add_action( 'admin_menu', 'fasdent_demo_register_admin_page' );
 function fasdent_demo_register_admin_page(): void {
 	add_theme_page(
@@ -24,9 +21,6 @@ function fasdent_demo_register_admin_page(): void {
 	);
 }
 
-/**
- * Render the admin page.
- */
 function fasdent_demo_render_admin_page(): void {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
@@ -68,7 +62,6 @@ function fasdent_demo_render_admin_page(): void {
 			<h2>بارگذاری داده‌های نمونه</h2>
 			<p>با کلیک روی دکمه زیر، تمام صفحات، خدمات، پزشکان، مقالات، سوالات متداول، نظرات بیماران، منوها و تنظیمات نمونه کلینیک فس‌دنت بارگذاری می‌شوند.</p>
 			<p><strong>توجه:</strong> این عملیات فقط یک‌بار لازم است. در صورت وجود داده‌های قبلی با همان اسلاگ، از ایجاد مجدد صرف‌نظر می‌شود.</p>
-
 			<form method="post" style="margin-top:16px;">
 				<?php wp_nonce_field( 'fasdent_demo_import_action', 'fasdent_demo_import_nonce' ); ?>
 				<button type="submit" name="fasdent_demo_import" class="button button-primary button-hero">
@@ -79,7 +72,7 @@ function fasdent_demo_render_admin_page(): void {
 
 		<div class="card" style="max-width:700px;padding:20px;margin-top:20px;">
 			<h2>حذف نمونه داده</h2>
-			<p>تمام پست‌ها، صفحات و ترم‌های ایجادشده توسط این ایمپورتر حذف می‌شوند. این عمل غیرقابل بازگشت است.</p>
+			<p>تمام پست‌ها، صفحات و ترم‌های ایجادشده توسط این ایمپورتر حذف می‌شوند.</p>
 			<form method="post" style="margin-top:16px;" onsubmit="return confirm('آیا از حذف تمام نمونه داده‌ها مطمئن هستید؟');">
 				<?php wp_nonce_field( 'fasdent_demo_reset_action', 'fasdent_demo_reset_nonce' ); ?>
 				<button type="submit" name="fasdent_demo_reset" class="button button-secondary">
@@ -102,13 +95,6 @@ function fasdent_demo_render_admin_page(): void {
 	<?php
 }
 
-/**
- * Run the full import sequence.
- *
- * Content files live in data/demo/ (root). Legacy wrappers exist under inc/.
- *
- * @return array Step label => success boolean
- */
 function fasdent_demo_run_import(): array {
 	if ( ! defined( 'FASDENT_DEMO_IMPORT' ) ) {
 		define( 'FASDENT_DEMO_IMPORT', true );
@@ -144,7 +130,6 @@ function fasdent_demo_run_import(): array {
 		}
 	}
 
-	// Resolve slug-based relationships to post IDs (works with or without ACF).
 	$results['لینک‌های مرتبط'] = fasdent_demo_link_relationships();
 
 	update_option( 'fasdent_demo_imported_ids', $GLOBALS['fasdent_demo_ids'], false );
@@ -154,15 +139,13 @@ function fasdent_demo_run_import(): array {
 }
 
 /**
- * Convert related_services_slugs / testimonial related_service slugs into IDs.
- *
- * @return bool
+ * Resolve slug-based relationships to post IDs.
  */
 function fasdent_demo_link_relationships(): bool {
 	$ids = isset( $GLOBALS['fasdent_demo_ids'] ) ? $GLOBALS['fasdent_demo_ids'] : array();
 
-	// Build slug => ID map for services.
-	$slug_map = array();
+	// Services slug map.
+	$service_map = array();
 	if ( ! empty( $ids['services'] ) && is_array( $ids['services'] ) ) {
 		foreach ( $ids['services'] as $sid ) {
 			$sid = (int) $sid;
@@ -171,13 +154,12 @@ function fasdent_demo_link_relationships(): bool {
 			}
 			$post = get_post( $sid );
 			if ( $post && 'service' === $post->post_type ) {
-				$slug_map[ $post->post_name ] = $sid;
+				$service_map[ $post->post_name ] = $sid;
 			}
 		}
 	}
 
-	// Services: related_services_slugs → related_services (ACF relationship array of IDs).
-	foreach ( $slug_map as $slug => $sid ) {
+	foreach ( $service_map as $slug => $sid ) {
 		$raw = get_post_meta( $sid, 'related_services_slugs', true );
 		if ( ! $raw ) {
 			continue;
@@ -185,8 +167,8 @@ function fasdent_demo_link_relationships(): bool {
 		$related_slugs = array_filter( array_map( 'trim', explode( ',', (string) $raw ) ) );
 		$related_ids   = array();
 		foreach ( $related_slugs as $rs ) {
-			if ( isset( $slug_map[ $rs ] ) ) {
-				$related_ids[] = $slug_map[ $rs ];
+			if ( isset( $service_map[ $rs ] ) ) {
+				$related_ids[] = $service_map[ $rs ];
 			}
 		}
 		if ( $related_ids ) {
@@ -197,7 +179,7 @@ function fasdent_demo_link_relationships(): bool {
 		}
 	}
 
-	// Testimonials: related_service may be a slug string → convert to ID.
+	// Testimonials → service IDs.
 	if ( ! empty( $ids['testimonials'] ) && is_array( $ids['testimonials'] ) ) {
 		foreach ( $ids['testimonials'] as $tid ) {
 			$tid = (int) $tid;
@@ -205,8 +187,8 @@ function fasdent_demo_link_relationships(): bool {
 				continue;
 			}
 			$rel = get_post_meta( $tid, 'related_service', true );
-			if ( is_string( $rel ) && $rel && isset( $slug_map[ $rel ] ) ) {
-				$service_id = $slug_map[ $rel ];
+			if ( is_string( $rel ) && $rel && isset( $service_map[ $rel ] ) ) {
+				$service_id = $service_map[ $rel ];
 				update_post_meta( $tid, 'related_service', $service_id );
 				if ( function_exists( 'update_field' ) ) {
 					update_field( 'related_service', array( $service_id ), $tid );
@@ -215,12 +197,41 @@ function fasdent_demo_link_relationships(): bool {
 		}
 	}
 
+	// Blog posts: related_posts_slugs → related_posts (IDs).
+	$post_map = array();
+	if ( ! empty( $ids['posts'] ) && is_array( $ids['posts'] ) ) {
+		foreach ( $ids['posts'] as $pid ) {
+			$pid = (int) $pid;
+			if ( $pid <= 0 ) {
+				continue;
+			}
+			$post = get_post( $pid );
+			if ( $post && 'post' === $post->post_type ) {
+				$post_map[ $post->post_name ] = $pid;
+			}
+		}
+	}
+
+	foreach ( $post_map as $slug => $pid ) {
+		$slugs = get_post_meta( $pid, 'related_posts_slugs', true );
+		if ( ! is_array( $slugs ) || ! $slugs ) {
+			continue;
+		}
+		$related_ids = array();
+		foreach ( $slugs as $rs ) {
+			$rs = sanitize_title( (string) $rs );
+			if ( isset( $post_map[ $rs ] ) ) {
+				$related_ids[] = $post_map[ $rs ];
+			}
+		}
+		if ( $related_ids ) {
+			update_post_meta( $pid, 'related_posts', $related_ids );
+		}
+	}
+
 	return true;
 }
 
-/**
- * Delete all demo data previously imported.
- */
 function fasdent_demo_reset_data(): void {
 	$ids = get_option( 'fasdent_demo_imported_ids', array() );
 
