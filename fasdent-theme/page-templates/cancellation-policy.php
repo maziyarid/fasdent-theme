@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template Name: قوانین لغو نوبت
  * @package Fasdent

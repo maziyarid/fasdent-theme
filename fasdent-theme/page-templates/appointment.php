@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template Name: رزرو نوبت
  * Multi-step medical booking form with DB storage.

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * آرشیو برچسب — Tag Hub — Fasdent
  * noindex از inc/seo.php مدیریت می‌شود.

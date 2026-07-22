@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template part: Testimonial Card
  * @package Fasdent

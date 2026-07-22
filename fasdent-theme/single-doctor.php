@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * تک پزشک — Doctor Profile — Fasdent
  * @package Fasdent

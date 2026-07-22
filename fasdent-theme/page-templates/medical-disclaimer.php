@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template Name: سلب مسئولیت پزشکی
  * @package Fasdent

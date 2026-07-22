@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * صفحه اصلی — Front Page — Fasdent
  * @package Fasdent

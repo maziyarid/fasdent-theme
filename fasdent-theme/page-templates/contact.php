@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template Name: تماس با ما
  * @package Fasdent

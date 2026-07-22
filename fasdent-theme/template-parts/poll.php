@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Poll Widget Template Part
  * Usage: get_template_part( 'template-parts/poll' );

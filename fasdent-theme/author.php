@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * صفحه نویسنده / پروفایل پزشک — Fasdent
  * @package Fasdent
