@@ -4,13 +4,14 @@
  * کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
  *
  * @package Fasdent
+ * @version 2.2.0  (UI/UX improvements + real data + floating chat / Chaty)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // دسترسی مستقیم ممنوع.
 }
 
-define( 'FASDENT_VERSION', '2.1.2' );
+define( 'FASDENT_VERSION', '2.2.0' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
 
@@ -37,6 +38,7 @@ require FASDENT_DIR . '/inc/booking.php';        // سیستم رزرو نوبت
 require FASDENT_DIR . '/inc/polls.php';          // سیستم نظرسنجی
 require FASDENT_DIR . '/inc/ajax-search.php';    // جستجوی زنده AJAX
 require FASDENT_DIR . '/inc/admin-bookings.php'; // مدیریت نوبت‌ها در ادمین
+require FASDENT_DIR . '/inc/floating-chat.php'; // دکمه تماس شناور native + سازگاری Chaty
 
 /* Demo data importer — only needed in wp-admin. */
 if ( is_admin() && file_exists( FASDENT_DIR . '/data/demo/import.php' ) ) {
@@ -87,9 +89,10 @@ function fasdent_call_button( string $label = '', string $class = '' ): void {
  */
 function fasdent_booking_button( string $label = '', string $class = '' ): void {
 	$label = $label ?: __( 'رزرو نوبت آنلاین', 'fasdent' );
+	$url   = get_theme_mod( 'fasdent_booking_url', '' ) ?: home_url( '/appointment/' );
 	printf(
 		'<a href="%1$s" class="btn btn-primary %2$s"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>%3$s</span></a>',
-		esc_url( home_url( '/appointment/' ) ),
+		esc_url( $url ),
 		esc_attr( $class ),
 		esc_html( $label )
 	);
