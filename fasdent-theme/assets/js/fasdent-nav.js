@@ -1,5 +1,5 @@
 /**
- * Fasdent Mobile Nav + Floating Chat — unified handlers
+ * Fasdent Mobile Nav + Floating Chat
  */
 (() => {
   'use strict';
@@ -16,11 +16,6 @@
     let prevFocus = null;
 
     if (nav && toggle) {
-      const focusables = () =>
-        [...nav.querySelectorAll('a[href], button:not([disabled])')].filter(
-          (el) => !el.hidden && el.offsetParent !== null
-        );
-
       const closeNav = (restore = true) => {
         nav.classList.remove('is-open');
         toggle.setAttribute('aria-expanded', 'false');
@@ -28,10 +23,16 @@
         document.body.classList.remove('nav-open');
         if (backdrop) {
           backdrop.classList.remove('is-visible');
-          backdrop.hidden = true;
-          backdrop.setAttribute('aria-hidden', 'true');
+          setTimeout(() => {
+            if (!nav.classList.contains('is-open')) {
+              backdrop.hidden = true;
+              backdrop.setAttribute('aria-hidden', 'true');
+            }
+          }, 280);
         }
-        if (restore && prevFocus instanceof HTMLElement) prevFocus.focus();
+        if (restore && prevFocus instanceof HTMLElement) {
+          try { prevFocus.focus(); } catch (e) {}
+        }
       };
 
       const openNav = () => {
@@ -46,8 +47,8 @@
           backdrop.setAttribute('aria-hidden', 'false');
           requestAnimationFrame(() => backdrop.classList.add('is-visible'));
         }
-        const first = focusables()[0];
-        if (first) setTimeout(() => first.focus(), 60);
+        const first = nav.querySelector('a[href]');
+        if (first) setTimeout(() => first.focus(), 80);
       };
 
       toggle.addEventListener('click', (e) => {
@@ -57,7 +58,17 @@
         else openNav();
       });
 
-      if (backdrop) backdrop.addEventListener('click', () => closeNav());
+      if (backdrop) {
+        backdrop.addEventListener('click', (e) => {
+          e.preventDefault();
+          closeNav();
+        });
+      }
+      document.addEventListener('click', (e) => {
+        if (!nav.classList.contains('is-open')) return;
+        if (nav.contains(e.target) || toggle.contains(e.target)) return;
+        closeNav();
+      });
 
       nav.addEventListener('click', (e) => {
         if (!desktopMq.matches && e.target.closest('a')) closeNav(false);
@@ -65,13 +76,7 @@
 
       document.addEventListener('keydown', (e) => {
         if (!nav.classList.contains('is-open')) return;
-        if (e.key === 'Escape') { e.preventDefault(); closeNav(); return; }
-        if (e.key !== 'Tab') return;
-        const items = focusables();
-        if (!items.length) return;
-        const first = items[0], last = items[items.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        if (e.key === 'Escape') { e.preventDefault(); closeNav(); }
       });
 
       const sync = () => { if (desktopMq.matches) closeNav(false); };
@@ -100,7 +105,6 @@
         e.stopPropagation();
         setOpen(!chat.classList.contains('is-open'));
       });
-
       if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -108,14 +112,12 @@
           launcher.focus();
         });
       }
-
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && chat.classList.contains('is-open')) {
           setOpen(false);
           launcher.focus();
         }
       });
-
       document.addEventListener('click', (e) => {
         if (chat.classList.contains('is-open') && !chat.contains(e.target)) setOpen(false);
       });
