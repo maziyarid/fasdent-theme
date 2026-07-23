@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template part: Key Takeaways
  * @package Fasdent

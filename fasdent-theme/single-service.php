@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * تک خدمت (Template B + C) — Fasdent
  * @package Fasdent

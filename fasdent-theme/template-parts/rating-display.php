@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template part: Star Rating Display
  * $args['rating'] — float 0-5

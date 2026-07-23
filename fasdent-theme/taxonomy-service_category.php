@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Taxonomy Pillar Page (Template A) — service_category — Fasdent
  * @package Fasdent

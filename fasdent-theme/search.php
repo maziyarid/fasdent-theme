@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Search Results — Fasdent
  * @package Fasdent

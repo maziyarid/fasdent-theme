@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template part: Category Card
  * @package Fasdent
