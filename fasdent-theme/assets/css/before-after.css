@@ -1,0 +1,157 @@
+/**
+ * Before/After comparison slider — Fasdent
+ */
+.ba-slider {
+  margin: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #071f3f;
+  box-shadow: 0 12px 32px rgba(7, 31, 63, 0.12);
+}
+.ba-slider__viewport {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: ew-resize;
+}
+.ba-slider__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.ba-slider__img--before {
+  position: absolute;
+  inset: 0;
+}
+.ba-slider__after-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ba-slider__img--after {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+}
+.ba-slider__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  margin-left: -1.5px;
+  background: #09d4d6;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ba-slider__handle-line {
+  position: absolute;
+  inset: 0;
+  background: #09d4d6;
+}
+.ba-slider__handle-btn {
+  position: relative;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #0e55b1;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 16px rgba(14, 85, 177, 0.4);
+  font-size: 0.9rem;
+}
+.ba-slider__badge {
+  position: absolute;
+  top: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(7, 31, 63, 0.75);
+  color: #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+.ba-slider__badge--before { right: 0.75rem; }
+.ba-slider__badge--after  { left: 0.75rem; }
+.ba-slider__caption {
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #071f3f;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  margin: 0;
+}
+.ba-gallery-header { text-align: center; margin-bottom: 2rem; }
+.ba-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+.ba-filter__btn {
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #071f3f;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.ba-filter__btn:hover,
+.ba-filter__btn.is-active {
+  background: #0e55b1;
+  color: #fff;
+  border-color: #0e55b1;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .ba-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .ba-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.ba-grid__item[hidden] { display: none !important; }
+.ba-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 3rem 1rem;
+}
+.ba-card { overflow: hidden; padding: 0; }
+.ba-card__link { display: block; text-decoration: none; color: inherit; }
+.ba-card__media { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+.ba-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+.ba-card:hover .ba-card__img { transform: scale(1.04); }
+.ba-card__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(7,31,63,0.55), transparent 50%);
+  display: flex; align-items: flex-end; padding: 0.75rem;
+}
+.ba-card__tag {
+  background: #09d4d6; color: #071f3f;
+  font-size: 0.72rem; font-weight: 700;
+  padding: 0.2rem 0.55rem; border-radius: 999px;
+}
+.ba-card__body { padding: 1rem; }
+.ba-card__eyebrow { margin: 0 0 0.25rem; font-size: 0.8rem; color: #0e55b1; font-weight: 600; }
+.ba-card__title { margin: 0; font-size: 1rem; }
+.ba-card__placeholder {
+  display: grid; place-items: center; height: 100%;
+  background: #e2e8f0; color: #94a3b8; font-size: 2rem;
+}
