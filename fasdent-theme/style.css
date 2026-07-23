@@ -4,7 +4,7 @@ Theme URI: https://fasdent.ir/
 Author: Fasdent Dev Team
 Author URI: https://fasdent.ir/
 Description: قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی (ایمپلنتولوژیست، شماره نظام ۱۹۱۷۴۰). راست‌چین کامل (RTL)، سئو تکنیکال داخلی، سازگار با المنتور، فونت ایرانسل و Font Awesome 7 Pro لوکال، بهینه برای Core Web Vitals. شامل دکمه تماس شناور native + سازگاری کامل با Chaty. UI System حرفه‌ای و ریسپانسیو کامل.
-Version: 2.3.0
+Version: 2.3.1
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.2
@@ -15,4 +15,4 @@ Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-
 */
 
 /* استایل‌های اصلی در assets/css/main.css + ui-system.css + fasdent-chat.css بارگذاری می‌شوند */
-/* v2.3.0: professional UI system, proper mobile drawer, brand tokens, fluid type, improved responsiveness */
+/* v2.3.1: fixed duplicate require of setup.php (fatal redeclare) */
