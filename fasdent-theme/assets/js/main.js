@@ -26,20 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ── Mobile Navigation Toggle ────────────────────────── */
-  var toggle = document.querySelector('.mobile-toggle');
-  var nav    = document.querySelector('.site-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var expanded = nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(expanded));
-    });
-    document.addEventListener('click', function (e) {
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
+  /* Handled by assets/js/fasdent-ui.js (Fasdent UI v3): accessible
+     off-canvas drawer with focus-trap, Escape-to-close, backdrop, and
+     submenu toggles for #primary-navigation / #primary-menu-toggle. */
 
   /* ── AJAX Forms (BUG-001 FIX) ───────────────────────── */
   // Uses fasdentData.ajaxUrl (localized in enqueue.php) — NOT window.location.href.

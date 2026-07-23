@@ -37,6 +37,7 @@ require FASDENT_DIR . '/inc/booking.php';        // سیستم رزرو نوبت
 require FASDENT_DIR . '/inc/polls.php';          // سیستم نظرسنجی
 require FASDENT_DIR . '/inc/ajax-search.php';    // جستجوی زنده AJAX
 require FASDENT_DIR . '/inc/admin-bookings.php'; // مدیریت نوبت‌ها در ادمین
+require FASDENT_DIR . '/inc/fasdent-ui.php';     // UI v3: آیکون منو + دکمه شناور ارتباطی + اسکریپت رابط کاربری واکنش‌گرا
 
 /* Demo data importer — only needed in wp-admin. */
 if ( is_admin() && file_exists( FASDENT_DIR . '/data/demo/import.php' ) ) {
