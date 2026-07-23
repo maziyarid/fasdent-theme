@@ -1,5 +1,6 @@
 <?php
 /**
+ * Customizer-driven floating contact/chat widget.
  * Customizer-driven floating contact/chat widget + Chaty compatibility.
  * Provides native floating button; CSS also supports the Chaty plugin.
  *
@@ -26,6 +27,8 @@ function fasdent_customize_floating_chat( $wp_customize ) {
 	$wp_customize->add_section(
 		'fasdent_floating_chat',
 		array(
+			'title'       => __( 'دکمه تماس شناور', 'fasdent' ),
+			'description' => __( 'شماره‌ها و کانال‌های تماس شناور را مدیریت کنید.', 'fasdent' ),
 			'title'       => __( 'دکمه تماس شناور (Native + Chaty)', 'fasdent' ),
 			'description' => __( 'شماره‌ها و کانال‌های تماس شناور را مدیریت کنید. این ویجت native است و با افزونه Chaty نیز سازگار است (z-index و موقعیت).', 'fasdent' ),
 			'priority'    => 145,
@@ -38,6 +41,11 @@ function fasdent_customize_floating_chat( $wp_customize ) {
 		'fasdent_chat_label' => array( 'default' => __( 'ارتباط سریع', 'fasdent' ), 'sanitize' => 'sanitize_text_field', 'label' => __( 'متن دکمه', 'fasdent' ), 'type' => 'text' ),
 		'fasdent_chat_title' => array( 'default' => __( 'چطور می‌توانیم کمک کنیم؟', 'fasdent' ), 'sanitize' => 'sanitize_text_field', 'label' => __( 'عنوان پنجره', 'fasdent' ), 'type' => 'text' ),
 		'fasdent_chat_intro' => array( 'default' => __( 'یکی از روش‌های زیر را انتخاب کنید.', 'fasdent' ), 'sanitize' => 'sanitize_text_field', 'label' => __( 'توضیح کوتاه', 'fasdent' ), 'type' => 'text' ),
+		'fasdent_chat_whatsapp' => array( 'default' => '', 'sanitize' => 'fasdent_sanitize_contact_value', 'label' => __( 'شماره واتس‌اپ با کد کشور', 'fasdent' ), 'type' => 'text' ),
+		'fasdent_chat_whatsapp_message' => array( 'default' => __( 'سلام، برای دریافت مشاوره پیام می‌دهم.', 'fasdent' ), 'sanitize' => 'sanitize_textarea_field', 'label' => __( 'پیام پیش‌فرض واتس‌اپ', 'fasdent' ), 'type' => 'textarea' ),
+		'fasdent_chat_phone' => array( 'default' => '', 'sanitize' => 'fasdent_sanitize_contact_value', 'label' => __( 'شماره تماس', 'fasdent' ), 'type' => 'text' ),
+		'fasdent_chat_telegram' => array( 'default' => '', 'sanitize' => 'fasdent_sanitize_contact_value', 'label' => __( 'نام کاربری تلگرام', 'fasdent' ), 'type' => 'text' ),
+		'fasdent_chat_email' => array( 'default' => '', 'sanitize' => 'sanitize_email', 'label' => __( 'ایمیل', 'fasdent' ), 'type' => 'email' ),
 		'fasdent_chat_whatsapp' => array( 'default' => '989201441469', 'sanitize' => 'fasdent_sanitize_contact_value', 'label' => __( 'شماره واتس‌اپ با کد کشور', 'fasdent' ), 'type' => 'text' ),
 		'fasdent_chat_whatsapp_message' => array( 'default' => __( 'سلام، برای دریافت مشاوره از کلینیک فس‌دنت پیام می‌دهم.', 'fasdent' ), 'sanitize' => 'sanitize_textarea_field', 'label' => __( 'پیام پیش‌فرض واتس‌اپ', 'fasdent' ), 'type' => 'textarea' ),
 		'fasdent_chat_phone' => array( 'default' => '+989201441469', 'sanitize' => 'fasdent_sanitize_contact_value', 'label' => __( 'شماره تماس', 'fasdent' ), 'type' => 'text' ),
@@ -70,6 +78,10 @@ add_action( 'customize_register', 'fasdent_customize_floating_chat' );
 
 function fasdent_get_chat_channels() {
 	$channels = array();
+	$whatsapp = preg_replace( '/\D+/', '', (string) get_theme_mod( 'fasdent_chat_whatsapp', '' ) );
+	$phone    = preg_replace( '/[^0-9+]/', '', (string) get_theme_mod( 'fasdent_chat_phone', '' ) );
+	$telegram = ltrim( (string) get_theme_mod( 'fasdent_chat_telegram', '' ), '@' );
+	$email    = sanitize_email( (string) get_theme_mod( 'fasdent_chat_email', '' ) );
 	$whatsapp = preg_replace( '/\D+/', '', (string) get_theme_mod( 'fasdent_chat_whatsapp', '989201441469' ) );
 	$phone    = preg_replace( '/[^0-9+]/', '', (string) get_theme_mod( 'fasdent_chat_phone', '+989201441469' ) );
 	$telegram = ltrim( (string) get_theme_mod( 'fasdent_chat_telegram', '' ), '@' );

@@ -1,1 +1,237 @@
-body { font-family: 'Vazirmatn', Tahoma, sans-serif; direction: rtl; text-align: right; }
+/* ==========================================================================
+   Fasdent — WordPress block editor styles
+   Mirrors the front-end typography and content components without styling
+   the editor chrome.
+   ========================================================================== */
+
+:root {
+  --editor-primary: var(--color-primary, #0e55b1);
+  --editor-primary-600: var(--color-primary-600, #0b468f);
+  --editor-secondary: var(--color-secondary, #f59e0b);
+  --editor-text: var(--color-text, #1e293b);
+  --editor-muted: var(--color-muted, #5b6878);
+  --editor-border: var(--color-border, #dbe3ea);
+  --editor-surface: var(--color-surface, #ffffff);
+  --editor-surface-alt: var(--color-surface-alt, #f1f7f6);
+  --editor-radius: var(--radius, 16px);
+  --editor-font: "Vazirmatn", "Irancell", Tahoma, Arial, sans-serif;
+}
+
+body,
+.editor-styles-wrapper {
+  font-family: var(--editor-font);
+  color: var(--editor-text);
+  background: var(--editor-surface);
+  direction: rtl;
+  text-align: start;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+.editor-styles-wrapper {
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+.editor-styles-wrapper .wp-block {
+  max-inline-size: 760px;
+}
+
+.editor-styles-wrapper .wp-block[data-align="wide"] {
+  max-inline-size: 1120px;
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+  max-inline-size: none;
+}
+
+.editor-post-title__input,
+.editor-styles-wrapper :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--editor-font);
+  color: #0f172a;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.editor-post-title__input {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 850;
+}
+
+.editor-styles-wrapper h2 {
+  margin-block-start: 2.25rem;
+  padding-block-end: 0.5rem;
+  border-block-end: 2px solid var(--editor-border);
+  font-size: 1.65rem;
+}
+
+.editor-styles-wrapper h3 {
+  margin-block-start: 1.75rem;
+  color: var(--editor-primary-600);
+  font-size: 1.3rem;
+}
+
+.editor-styles-wrapper p {
+  margin-block: 0 1rem;
+}
+
+.editor-styles-wrapper a {
+  color: var(--editor-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.editor-styles-wrapper :where(ul, ol) {
+  padding-inline-start: 1.6rem;
+}
+
+.editor-styles-wrapper li {
+  margin-block: 0.3rem;
+}
+
+.editor-styles-wrapper blockquote,
+.editor-styles-wrapper .wp-block-quote {
+  margin-inline: 0;
+  padding: 1rem 1.25rem;
+  border: 0;
+  border-inline-start: 4px solid var(--editor-primary);
+  border-radius: 0 var(--editor-radius) var(--editor-radius) 0;
+  color: var(--editor-text);
+  background: var(--editor-surface-alt);
+}
+
+.editor-styles-wrapper .wp-block-pullquote {
+  border-block: 3px solid var(--editor-primary);
+  color: var(--editor-primary-600);
+}
+
+.editor-styles-wrapper :where(img, video) {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 0.75rem;
+}
+
+.editor-styles-wrapper figcaption {
+  color: var(--editor-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.editor-styles-wrapper .wp-block-table {
+  overflow-x: auto;
+}
+
+.editor-styles-wrapper table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  background: var(--editor-surface);
+}
+
+.editor-styles-wrapper th,
+.editor-styles-wrapper td {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--editor-border);
+  text-align: start;
+}
+
+.editor-styles-wrapper th {
+  color: var(--editor-primary-600);
+  background: #f2f8ff;
+  font-weight: 750;
+}
+
+.editor-styles-wrapper :where(code, kbd) {
+  padding: 0.12rem 0.38rem;
+  border-radius: 0.35rem;
+  color: #9d174d;
+  background: #f1f5f9;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.editor-styles-wrapper pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  color: #e2e8f0;
+  background: #0f172a;
+  direction: ltr;
+  text-align: left;
+}
+
+.editor-styles-wrapper pre code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.editor-styles-wrapper .wp-block-button__link,
+.editor-styles-wrapper .wp-element-button {
+  min-block-size: 2.75rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--editor-primary);
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.editor-styles-wrapper .wp-block-separator {
+  border: 0;
+  border-block-start: 1px solid var(--editor-border);
+}
+
+.editor-styles-wrapper :where(.callout, .quick-answer-box, .editor-note, .disclaimer-item) {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--editor-border);
+  border-inline-start: 4px solid var(--editor-primary);
+  border-radius: var(--editor-radius);
+  background: var(--editor-surface-alt);
+}
+
+.editor-styles-wrapper .quick-answer-box {
+  border-inline-start-color: var(--editor-secondary);
+  background: #fffbeb;
+}
+
+.editor-styles-wrapper :focus-visible {
+  outline: 3px solid var(--editor-secondary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .editor-styles-wrapper {
+    padding-inline: 0.75rem;
+  }
+}
+
+
+/* Fasdent UI 2.0 editor parity */
+.editor-styles-wrapper {
+  --brand-cyan: #09d4d6;
+  --brand-blue: #0e55b1;
+  --brand-navy: #082a55;
+  --color-text: #263a53;
+  --color-muted: #607189;
+  --color-border: #d5e3ec;
+  --brand-gradient-soft: linear-gradient(145deg, #f2f8ff, #e8fbfc);
+  color: var(--color-text);
+  background: #fff;
+}
+
+.editor-styles-wrapper :where(h1, h2, h3, h4) {
+  color: var(--brand-navy);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.editor-styles-wrapper h2 {
+  padding: 0.8rem 1rem;
+  border-inline-start: 0.3rem solid var(--brand-cyan);
+  border-radius: 0.8rem;
+  background: var(--brand-gradient-soft);
+}
+
+.editor-styles-wrapper a { color: var(--brand-blue); text-decoration-color: var(--brand-cyan); }
+.editor-styles-wrapper blockquote { border-inline-start-color: var(--brand-cyan); background: var(--brand-gradient-soft); }
+.editor-styles-wrapper .wp-block-button__link { background: linear-gradient(135deg, var(--brand-blue), var(--brand-cyan)); }

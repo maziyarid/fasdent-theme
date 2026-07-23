@@ -16,8 +16,8 @@
 
 /* ── Tokens (fallbacks; will inherit from main.css if defined) ─────────── */
 .fasdent-page {
-	--fd-primary:      var(--color-primary, #0f766e);
-	--fd-primary-600:  var(--color-primary-600, #0d5f5a);
+	--fd-primary:      var(--color-primary, #0e55b1);
+	--fd-primary-600:  var(--color-primary-600, #0b468f);
 	--fd-secondary:    var(--color-secondary, #f59e0b);
 	--fd-dark:         var(--color-dark, #0f172a);
 	--fd-muted:        var(--color-muted, #475569);
@@ -32,8 +32,8 @@
 	--fd-warn:         #b45309;
 	--fd-info:         #0369a1;
 	--fd-success:      #166534;
-	--fd-gradient:     linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #f59e0b 100%);
-	--fd-hero-gradient:linear-gradient(160deg, #ecfeff 0%, #f0fdfa 45%, #fef3c7 100%);
+	--fd-gradient:     linear-gradient(135deg, #0e55b1 0%, #09d4d6 50%, #f59e0b 100%);
+	--fd-hero-gradient:linear-gradient(160deg, #e8fbfc 0%, #f2f8ff 45%, #fef3c7 100%);
 }
 
 /* ── Skip link (accessibility) ─────────────────────────────────────────── */
@@ -112,7 +112,7 @@
 .page-hero__blob--a {
 	inline-size: 380px; block-size: 380px;
 	inset-inline-start: -80px; inset-block-start: -60px;
-	background: radial-gradient(circle at 30% 30%, #5eead4, transparent 70%);
+	background: radial-gradient(circle at 30% 30%, #7beff0, transparent 70%);
 }
 .page-hero__blob--b {
 	inline-size: 320px; block-size: 320px;
@@ -251,26 +251,26 @@
 	outline: 3px solid var(--fd-secondary);
 	outline-offset: 2px;
 }
-.btn--primary {
+.fasdent-page .btn--primary {
 	background: var(--fd-primary);
 	color: #fff;
 	box-shadow: 0 10px 24px rgba(15, 118, 110, .28);
 }
-.btn--primary:hover { background: var(--fd-primary-600); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(15, 118, 110, .35); color: #fff; }
-.btn--ghost {
+.fasdent-page .btn--primary:hover { background: var(--fd-primary-600); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(15, 118, 110, .35); color: #fff; }
+.fasdent-page .btn--ghost {
 	background: rgba(255,255,255,.7);
 	color: var(--fd-dark);
 	border: 1px solid var(--fd-border);
 	backdrop-filter: blur(6px);
 }
-.btn--ghost:hover { background: #fff; transform: translateY(-2px); color: var(--fd-primary); }
-.btn--danger {
+.fasdent-page .btn--ghost:hover { background: #fff; transform: translateY(-2px); color: var(--fd-primary); }
+.fasdent-page .btn--danger {
 	background: var(--fd-danger);
 	color: #fff;
 	box-shadow: 0 10px 24px rgba(220, 38, 38, .28);
 }
-.btn--danger:hover { background: #b91c1c; transform: translateY(-2px); color: #fff; }
-.btn--block { inline-size: 100%; }
+.fasdent-page .btn--danger:hover { background: #b91c1c; transform: translateY(-2px); color: #fff; }
+.fasdent-page .btn--block { inline-size: 100%; }
 
 /* ==========================================================================
    BODY LAYOUT
@@ -304,7 +304,9 @@
 	box-shadow: var(--fd-shadow);
 	transition: box-shadow .25s ease, transform .25s ease;
 }
-.fasdent-page .card:hover { box-shadow: var(--fd-shadow-hover); }
+@media (hover: hover) and (pointer: fine) {
+	.fasdent-page .card:hover { box-shadow: var(--fd-shadow-hover); transform: translateY(-2px); }
+}
 .fasdent-page .card h3 {
 	margin: 0 0 .75rem;
 	font-size: 1.1rem;
@@ -326,7 +328,7 @@
 	gap: 1.1rem;
 	align-items: start;
 	border-inline-start: 4px solid var(--fd-primary);
-	background: linear-gradient(135deg, #f0fdfa, #ffffff);
+	background: linear-gradient(135deg, #f2f8ff, #ffffff);
 	margin-block-end: 1.5rem;
 }
 .review-note__icon {
@@ -422,9 +424,9 @@
 	transition: background .18s ease, color .18s ease;
 	border-inline-start: 2px solid transparent;
 }
-.toc-item a:hover { background: #ecfeff; color: var(--fd-primary); }
+.toc-item a:hover { background: #e8fbfc; color: var(--fd-primary); }
 .toc-item a.is-active {
-	background: #ecfeff;
+	background: #e8fbfc;
 	color: var(--fd-primary);
 	font-weight: 700;
 	border-inline-start-color: var(--fd-primary);
@@ -475,7 +477,7 @@
 .prose li { margin-block: .3rem; }
 .prose blockquote {
 	border-inline-start: 4px solid var(--fd-primary);
-	background: #f0fdfa;
+	background: #f2f8ff;
 	padding: 1rem 1.25rem;
 	border-radius: 12px;
 	color: var(--fd-dark);
@@ -512,7 +514,7 @@
 	border-block-end: 1px solid var(--fd-border);
 	text-align: start;
 }
-.prose th { background: #f0fdfa; color: var(--fd-primary-600); font-weight: 700; }
+.prose th { background: #f2f8ff; color: var(--fd-primary-600); font-weight: 700; }
 
 /* Callouts (usable inside the_content()) */
 .prose .callout {
@@ -523,7 +525,7 @@
 	padding: 1rem 1.25rem;
 	border-radius: 12px;
 	border-inline-start: 4px solid var(--fd-primary);
-	background: #f0fdfa;
+	background: #f2f8ff;
 	margin-block: 1.25rem;
 }
 .prose .callout--warn    { background: #fffbeb; border-color: var(--fd-secondary); }
@@ -655,7 +657,7 @@
 	gap: .5rem;
 }
 .disclaimer p { margin: 0; color: var(--fd-muted); line-height: 1.9; font-size: .95rem; }
-.disclaimer--medical   { background: #f0fdfa; border-color: var(--fd-primary); }
+.disclaimer--medical   { background: #f2f8ff; border-color: var(--fd-primary); }
 .disclaimer--medical   h3 i { color: var(--fd-primary); }
 .disclaimer--emergency { background: #fef2f2; border-color: var(--fd-danger); }
 .disclaimer--emergency h3, .disclaimer--emergency h3 i { color: var(--fd-danger); }
@@ -708,7 +710,7 @@
 /* ==========================================================================
    SIDEBAR
    ========================================================================== */
-.sidebar-cta       { background: linear-gradient(160deg, #ffffff, #ecfeff); }
+.sidebar-cta       { background: linear-gradient(160deg, #ffffff, #e8fbfc); }
 .sidebar-emergency {
 	background: linear-gradient(160deg, #ffffff, #fef2f2);
 	border-inline-end: 3px solid var(--fd-danger);
@@ -784,15 +786,15 @@
 /* ==========================================================================
    REVEAL ON SCROLL
    ========================================================================== */
-[data-reveal] {
+.reveal-enabled [data-reveal] {
 	opacity: 0;
 	transform: translateY(24px);
 	transition: opacity .7s ease, transform .7s ease;
 	will-change: opacity, transform;
 }
-[data-reveal="fade-left"]  { transform: translateX(24px); }
-[data-reveal="fade-right"] { transform: translateX(-24px); }
-[data-reveal].is-visible   { opacity: 1; transform: none; }
+.reveal-enabled [data-reveal="fade-left"]  { transform: translateX(24px); }
+.reveal-enabled [data-reveal="fade-right"] { transform: translateX(-24px); }
+.reveal-enabled [data-reveal].is-visible   { opacity: 1; transform: none; }
 
 /* ==========================================================================
    FOCUS VISIBLE (global for this template)
@@ -840,4 +842,179 @@
 	.page-body__grid { grid-template-columns: 1fr !important; }
 	body { color: #000 !important; }
 	.disclaimer { break-inside: avoid; }
+}
+
+/* ==========================================================================
+   Integration and responsive hardening
+   ========================================================================== */
+.fasdent-page {
+	color: var(--fd-dark);
+	overflow-wrap: anywhere;
+}
+
+.fasdent-page :where(img, svg, video, iframe) {
+	max-inline-size: 100%;
+}
+
+.fasdent-page .page-hero__grid {
+	-webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+}
+
+.fasdent-page .prose :where(.wp-block-table, .table-scroll) {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.fasdent-page .prose table {
+	min-inline-size: 36rem;
+}
+
+.fasdent-page :where(.btn, .social-btn, .back-to-top):active {
+	transform: translateY(0);
+}
+
+.fasdent-page :where(.btn, button, input, textarea, select)[disabled],
+.fasdent-page :where(.btn, button)[aria-disabled="true"] {
+	opacity: .55;
+	pointer-events: none;
+	box-shadow: none;
+}
+
+@media (max-width: 640px) {
+	.page-hero {
+		padding-block: 2.5rem;
+	}
+
+	.page-hero__actions > * {
+		inline-size: 100%;
+	}
+
+	.review-note,
+	.prose .callout {
+		grid-template-columns: 1fr;
+	}
+
+	.fasdent-page .card {
+		padding: 1.15rem;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.fasdent-page .card,
+	.toc-nav,
+	.disclaimer {
+		border-width: 2px;
+	}
+}
+
+
+/* ==========================================================================
+   Fasdent UI 2.0 — page template alignment and responsive refinements
+   ========================================================================== */
+.fasdent-page {
+  --fd-primary: var(--brand-blue, #0e55b1);
+  --fd-primary-600: var(--brand-blue-700, #0b468f);
+  --fd-secondary: var(--brand-cyan, #09d4d6);
+  --fd-dark: var(--color-dark, #10243e);
+  --fd-muted: var(--color-muted, #607189);
+  --fd-bg: var(--bg, #f7fbfd);
+  --fd-surface: var(--surface, #ffffff);
+  --fd-border: var(--border, #d5e3ec);
+  --fd-gradient: var(--brand-gradient, linear-gradient(135deg, #0e55b1, #09d4d6));
+  --fd-hero-gradient: var(--brand-gradient-soft, linear-gradient(145deg, #f2f8ff, #e8fbfc));
+}
+
+.page-hero {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+  background: var(--fd-hero-gradient);
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 85, 177, 0.22), transparent);
+}
+
+.page-hero__inner {
+  grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.95fr);
+}
+
+.page-hero__content { text-align: center; }
+.page-hero__kicker { margin-inline: auto; color: var(--brand-blue-800); background: rgba(9, 212, 214, 0.18); border-color: rgba(14, 85, 177, 0.14); }
+.page-hero__title { max-inline-size: 19ch; margin-inline: auto; color: var(--brand-navy); font-size: clamp(2rem, 5vw, 3.35rem); }
+.page-hero__subtitle { margin-inline: auto; }
+.page-hero__badges,
+.page-hero__meta,
+.page-hero__actions { justify-content: center; }
+
+.page-hero__media {
+  border: 0.45rem solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 28px 70px rgba(8, 42, 85, 0.2);
+}
+
+.fasdent-page .card {
+  border-color: rgba(14, 85, 177, 0.12);
+  box-shadow: var(--shadow-sm, 0 8px 22px rgba(8, 42, 85, 0.07));
+}
+
+.feature-grid,
+.benefits-grid,
+.stats-grid { align-items: stretch; }
+
+.feature-card,
+.benefit-card,
+.stat-card {
+  justify-items: center;
+  text-align: center;
+}
+
+.prose :where(h2, h3) {
+  color: var(--brand-navy);
+}
+
+.prose h2 {
+  padding-block: 0.8rem 0.7rem;
+  padding-inline: 1rem;
+  border: 0;
+  border-inline-start: 0.3rem solid var(--brand-cyan);
+  border-radius: 0.8rem;
+  background: linear-gradient(90deg, rgba(9, 212, 214, 0.12), rgba(14, 85, 177, 0.04));
+}
+
+.prose h2::before { content: none; }
+.prose h3 { padding-inline-start: 0.75rem; border-inline-start: 0.2rem solid rgba(14, 85, 177, 0.35); }
+
+.toc-nav {
+  border-inline-start-color: var(--brand-cyan);
+  box-shadow: var(--shadow-sm, 0 8px 22px rgba(8, 42, 85, 0.07));
+}
+
+.toc-item a.is-active,
+.toc-item a:hover { background: var(--brand-cyan-100, #dffbfc); color: var(--brand-blue); }
+
+@media (max-width: 960px) {
+  .page-body__grid { gap: 1.5rem; }
+  .page-body__sidebar { order: -1; }
+  .page-body__sidebar .toc-nav { margin-block-end: 0; }
+}
+
+@media (max-width: 720px) {
+  .page-hero { padding-block: 2.5rem; }
+  .page-hero__inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .page-hero__media { order: -1; max-inline-size: 34rem; margin-inline: auto; }
+  .page-hero__image { aspect-ratio: 16 / 10; }
+  .page-hero__title { font-size: clamp(1.75rem, 8vw, 2.45rem); }
+  .page-hero__actions { display: grid; inline-size: 100%; }
+  .page-hero__actions .btn { inline-size: 100%; }
+  .page-body { padding-block: 2rem; }
+  .fasdent-page .card { padding: 1.1rem; border-radius: 1rem; }
+  .prose { font-size: 1rem; line-height: 1.9; }
+  .prose h2 { margin-block-start: 2rem; font-size: 1.35rem; }
+  .prose h3 { font-size: 1.12rem; }
+  .prose table { min-inline-size: 38rem; }
+  .prose .wp-block-table,
+  .prose .table-scroll { overflow-x: auto; border-radius: 0.8rem; }
 }
