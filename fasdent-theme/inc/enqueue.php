@@ -2,7 +2,7 @@
 /**
  * فراخوانی CSS / JS / فونت‌های لوکال — Fasdent
  * @package Fasdent
- * @version 2.2.1
+ * @version 2.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,18 +16,20 @@ function fasdent_enqueue_scripts(): void {
 	$main_css = file_exists( FASDENT_DIR . '/assets/css/main.min.css' ) ? 'main.min.css' : 'main.css';
 	wp_enqueue_style( 'fasdent-main', FASDENT_URI . '/assets/css/' . $main_css, array( 'fasdent-irancell', 'fasdent-fontawesome' ), FASDENT_VERSION );
 
-	wp_enqueue_style( 'fasdent-chat', FASDENT_URI . '/assets/css/fasdent-chat.css', array( 'fasdent-main' ), FASDENT_VERSION );
+	wp_enqueue_style( 'fasdent-ui-system', FASDENT_URI . '/assets/css/ui-system.css', array( 'fasdent-main' ), FASDENT_VERSION );
+	wp_enqueue_style( 'fasdent-chat', FASDENT_URI . '/assets/css/fasdent-chat.css', array( 'fasdent-ui-system' ), FASDENT_VERSION );
 	wp_enqueue_style( 'fasdent-style', get_stylesheet_uri(), array( 'fasdent-main' ), FASDENT_VERSION );
 	wp_enqueue_style( 'fasdent-print', FASDENT_URI . '/assets/css/print.css', array( 'fasdent-main' ), FASDENT_VERSION, 'print' );
 
 	$main_js = file_exists( FASDENT_DIR . '/assets/js/main.min.js' ) ? 'main.min.js' : 'main.js';
 	wp_enqueue_script( 'fasdent-main', FASDENT_URI . '/assets/js/' . $main_js, array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+	wp_enqueue_script( 'fasdent-nav', FASDENT_URI . '/assets/js/fasdent-nav.js', array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	wp_enqueue_script( 'fasdent-chat', FASDENT_URI . '/assets/js/fasdent-chat.js', array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
 	wp_localize_script( 'fasdent-main', 'fasdentData', array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 		'nonce'   => wp_create_nonce( 'fasdent_form_nonce' ),
-		'phone'   => fasdent_phone(),
+		'phone'   => function_exists( 'fasdent_phone' ) ? fasdent_phone() : '09201441469',
 	) );
 
 	if ( is_singular( 'post' ) ) {
@@ -37,7 +39,7 @@ function fasdent_enqueue_scripts(): void {
 		wp_enqueue_script( 'fasdent-single-post', FASDENT_URI . '/assets/js/' . $sp_js, array( 'fasdent-main' ), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	}
 
-if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }

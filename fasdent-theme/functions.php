@@ -4,14 +4,14 @@
  * کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
  *
  * @package Fasdent
- * @version 2.2.1  (UI/UX polish + fully working floating chat)
+ * @version 2.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FASDENT_VERSION', '2.2.1' );
+define( 'FASDENT_VERSION', '2.3.0' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
 
