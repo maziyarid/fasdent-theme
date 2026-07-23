@@ -1,0 +1,174 @@
+/**
+ * Fasdent Floating Chat + UI Polish
+ * Brand: cyan #09D4D6 | blue #0E55B1 | navy #071F3F | bg #F7FAFC
+ */
+:root {
+  --brand-cyan: #09d4d6;
+  --brand-blue: #0e55b1;
+  --brand-navy: #071f3f;
+  --color-bg: #f7fafc;
+  --color-surface: #ffffff;
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+  --shadow: 0 16px 40px rgba(7, 31, 63, 0.09);
+  --shadow-lg: 0 24px 48px rgba(7, 31, 63, 0.14);
+  --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fasdent-chat {
+  position: fixed;
+  inset-block-end: 1.5rem;
+  z-index: 99990;
+  font-family: inherit;
+  direction: rtl;
+}
+.fasdent-chat--right { inset-inline-end: 1.5rem; }
+.fasdent-chat--left  { inset-inline-start: 1.5rem; }
+
+.fasdent-chat__launcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-inline-size: 3.25rem;
+  min-block-size: 3.25rem;
+  padding: 0.75rem 1.15rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand-blue), var(--brand-cyan));
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  touch-action: manipulation;
+}
+.fasdent-chat__launcher:hover,
+.fasdent-chat__launcher:focus-visible {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(14, 85, 177, 0.35);
+  outline: none;
+}
+.fasdent-chat__launcher:focus-visible {
+  outline: 3px solid var(--brand-cyan);
+  outline-offset: 3px;
+}
+.fasdent-chat__launcher-icon { font-size: 1.25rem; line-height: 1; }
+.fasdent-chat__launcher-label { white-space: nowrap; }
+
+.fasdent-chat__panel {
+  position: absolute;
+  inset-block-end: calc(100% + 0.75rem);
+  inset-inline-end: 0;
+  width: min(22rem, calc(100vw - 2rem));
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform-origin: bottom right;
+  animation: fasdent-chat-in 0.28s ease;
+}
+.fasdent-chat--left .fasdent-chat__panel {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+  transform-origin: bottom left;
+}
+@keyframes fasdent-chat-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.fasdent-chat__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.15rem 1.15rem 0.9rem;
+  background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
+  color: #fff;
+}
+.fasdent-chat__avatar {
+  flex-shrink: 0;
+  width: 2.5rem; height: 2.5rem;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+.fasdent-chat__title { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+.fasdent-chat__intro { margin: 0.25rem 0 0; font-size: 0.82rem; opacity: 0.9; line-height: 1.4; }
+.fasdent-chat__close {
+  margin-inline-start: auto;
+  background: transparent; border: none; color: #fff;
+  font-size: 1.15rem; cursor: pointer; padding: 0.25rem; border-radius: 0.4rem;
+}
+.fasdent-chat__close:hover,
+.fasdent-chat__close:focus-visible { background: rgba(255,255,255,0.2); outline: none; }
+
+.fasdent-chat__channels { list-style: none; margin: 0; padding: 0.6rem; }
+.fasdent-chat__channel {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.85rem 0.9rem; border-radius: var(--radius);
+  text-decoration: none; color: var(--brand-navy);
+  transition: background 0.2s, transform 0.2s;
+}
+.fasdent-chat__channel:hover,
+.fasdent-chat__channel:focus-visible {
+  background: #f0f9ff; transform: translateX(-3px); outline: none;
+}
+.fasdent-chat__channel-icon {
+  flex-shrink: 0; width: 2.4rem; height: 2.4rem;
+  display: grid; place-items: center; border-radius: 50%;
+  font-size: 1.15rem; color: #fff;
+}
+.fasdent-chat__channel--whatsapp .fasdent-chat__channel-icon { background: #25d366; }
+.fasdent-chat__channel--phone    .fasdent-chat__channel-icon { background: var(--brand-blue); }
+.fasdent-chat__channel--telegram .fasdent-chat__channel-icon { background: #0088cc; }
+.fasdent-chat__channel--email    .fasdent-chat__channel-icon { background: var(--brand-navy); }
+.fasdent-chat__channel-label { display: block; font-weight: 600; font-size: 0.95rem; }
+.fasdent-chat__channel-note { display: block; font-size: 0.78rem; color: #64748b; margin-top: 0.1rem; }
+.fasdent-chat__channel-arrow { margin-inline-start: auto; opacity: 0.4; font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  .fasdent-chat { inset-block-end: 1.1rem; }
+  .fasdent-chat--right { inset-inline-end: 1.1rem; }
+  .fasdent-chat--left  { inset-inline-start: 1.1rem; }
+  .fasdent-chat__panel { width: min(20rem, calc(100vw - 1.5rem)); }
+}
+
+#chaty-widget, .chaty-channels-list, .chaty-float-button { z-index: 99999 !important; }
+@media (max-width: 640px) {
+  #chaty-widget { inset-block-end: 5.5rem !important; }
+}
+
+.clinic-gallery img, .gallery-item img, .wp-block-image img {
+  aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.clinic-gallery img:hover, .gallery-item img:hover {
+  transform: scale(1.03); box-shadow: var(--shadow);
+}
+
+a:focus-visible, button:focus-visible, .btn:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--brand-cyan); outline-offset: 2px;
+}
+
+.card, .service-card, .category-card, .testimonial-card, .doctor-card {
+  border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover, .service-card:hover, .category-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 640px) {
+  .hero-actions .btn, .cta-banner .btn, .fasdent-page .btn-primary {
+    width: 100%; justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fasdent-chat__launcher, .fasdent-chat__panel, .card, .service-card, .clinic-gallery img {
+    transition: none !important; animation: none !important;
+  }
+}
