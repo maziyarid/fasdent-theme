@@ -1,92 +1,69 @@
 <?php
 /**
- * Template Name: گالری
- * گالری قبل/بعد — تصاویر از فیلد ACF service_gallery خدمات.
+ * Template Name: گالری قبل و بعد
  *
  * @package Fasdent
  */
 
-get_header(); ?>
-<section class="section">
+get_header();
+?>
+<section class="section ba-gallery-page">
 	<div class="container">
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-		<h1><?php the_title(); ?></h1>
-		<?php the_content(); ?>
+			<header class="ba-gallery-header">
+				<h1 class="section-title"><?php the_title(); ?></h1>
+				<?php if ( get_the_content() ) : ?>
+					<div class="section-desc prose"><?php the_content(); ?></div>
+				<?php else : ?>
+					<p class="section-desc"><?php esc_html_e( 'نمونه‌های واقعی درمان در کلینیک فس‌دنت — بکشید تا قبل و بعد را مقایسه کنید.', 'fasdent' ); ?></p>
+				<?php endif; ?>
+			</header>
 		<?php endwhile; endif; ?>
 
 		<?php
-		// دریافت همه دسته‌های خدمات (سطح اول).
-		$categories = get_terms( array(
-			'taxonomy'   => 'service_category',
-			'hide_empty' => true,
-			'parent'     => 0,
-		) );
-		if ( $categories && ! is_wp_error( $categories ) ) :
-			foreach ( $categories as $cat ) :
-				// دریافت خدمات این دسته.
-				$services = get_posts( array(
-					'post_type'   => 'service',
-					'numberposts' => -1,
-					'post_status' => 'publish',
-					'tax_query'   => array( array(
-						'taxonomy' => 'service_category',
-						'field'    => 'term_id',
-						'terms'    => $cat->term_id,
-					) ),
-				) );
-				// بررسی وجود گالری در حداقل یک خدمت.
-				$has_gallery = false;
-				foreach ( $services as $service ) {
-					$gallery = fasdent_field( 'service_gallery', $service->ID );
-					if ( $gallery ) { $has_gallery = true; break; }
-				}
-				if ( ! $has_gallery ) continue;
+		$terms = get_terms( array( 'taxonomy' => 'ba_category', 'hide_empty' => true ) );
 		?>
-		<section class="gallery-category" id="cat-<?php echo esc_attr( $cat->slug ); ?>">
-			<h2 class="gallery-category__title">
-				<i class="<?php echo esc_attr( fasdent_category_icon( $cat ) ); ?>" aria-hidden="true"></i>
-				<?php echo esc_html( $cat->name ); ?>
-			</h2>
-			<?php foreach ( $services as $service ) :
-				$gallery = fasdent_field( 'service_gallery', $service->ID );
-				if ( ! $gallery || ! is_array( $gallery ) ) continue;
-			?>
-			<div class="gallery-service">
-				<h3 class="gallery-service__title"><?php echo esc_html( $service->post_title ); ?></h3>
-				<div class="gallery-grid grid-4">
-					<?php foreach ( $gallery as $img ) :
-						if ( is_array( $img ) ) {
-							$src     = $img['url']   ?? '';
-							$alt     = $img['alt']   ?? $service->post_title;
-							$thumb   = $img['sizes']['fasdent-gallery'] ?? $src;
-						} elseif ( is_numeric( $img ) ) {
-							$src   = wp_get_attachment_url( $img ) ?: '';
-							$alt   = get_post_meta( $img, '_wp_attachment_image_alt', true ) ?: $service->post_title;
-							$thumb = wp_get_attachment_image_src( $img, 'fasdent-gallery' )[0] ?? $src;
-						} else {
-							continue;
-						}
-						if ( ! $src ) continue;
-					?>
-					<figure class="gallery-item">
-						<img
-							src="<?php echo esc_url( $thumb ); ?>"
-							alt="<?php echo esc_attr( $alt ); ?>"
-							loading="lazy"
-							decoding="async"
-							data-lightbox
-							data-full="<?php echo esc_url( $src ); ?>"
-						>
-					</figure>
-					<?php endforeach; ?>
-				</div>
-			</div>
+
+		<?php if ( $terms && ! is_wp_error( $terms ) ) : ?>
+		<nav class="ba-filter" aria-label="<?php esc_attr_e( 'فیلتر دسته‌بندی گالری', 'fasdent' ); ?>">
+			<button type="button" class="ba-filter__btn is-active" data-ba-filter="all"><?php esc_html_e( 'همه', 'fasdent' ); ?></button>
+			<?php foreach ( $terms as $term ) : ?>
+				<button type="button" class="ba-filter__btn" data-ba-filter="<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_html( $term->name ); ?></button>
 			<?php endforeach; ?>
-		</section>
+		</nav>
+		<?php endif; ?>
+
 		<?php
-			endforeach;
-		endif;
+		$cases = new WP_Query( array(
+			'post_type'      => 'before_after',
+			'posts_per_page' => 24,
+			'post_status'    => 'publish',
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		) );
 		?>
+
+		<?php if ( $cases->have_posts() ) : ?>
+			<div class="ba-grid" data-ba-grid>
+				<?php
+				while ( $cases->have_posts() ) :
+					$cases->the_post();
+					$slugs = array();
+					$cats  = get_the_terms( get_the_ID(), 'ba_category' );
+					if ( $cats && ! is_wp_error( $cats ) ) {
+						$slugs = wp_list_pluck( $cats, 'slug' );
+					}
+					?>
+					<div class="ba-grid__item" data-ba-cats="<?php echo esc_attr( implode( ' ', $slugs ) ); ?>">
+						<?php get_template_part( 'template-parts/before-after-slider', null, array( 'post_id' => get_the_ID() ) ); ?>
+					</div>
+				<?php endwhile; ?>
+			</div>
+			<?php wp_reset_postdata(); ?>
+		<?php else : ?>
+			<p class="ba-empty"><?php esc_html_e( 'هنوز نمونه‌ای ثبت نشده. از پیشخوان → قبل و بعد، نمونه جدید اضافه کنید.', 'fasdent' ); ?></p>
+		<?php endif; ?>
 	</div>
 </section>
-<?php get_footer(); ?>
+<?php
+get_footer();
