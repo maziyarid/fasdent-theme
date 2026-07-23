@@ -3,14 +3,14 @@
  * Fasdent Theme bootstrap
  *
  * @package Fasdent
- * @version 2.4.0
+ * @version 2.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FASDENT_VERSION', '2.4.0' );
+define( 'FASDENT_VERSION', '2.5.0' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
 
@@ -39,6 +39,7 @@ require_once FASDENT_DIR . '/inc/ajax-search.php';
 require_once FASDENT_DIR . '/inc/admin-bookings.php';
 require_once FASDENT_DIR . '/inc/floating-chat.php';
 require_once FASDENT_DIR . '/inc/before-after.php';
+require_once FASDENT_DIR . '/inc/knowledge-base.php';
 
 if ( file_exists( FASDENT_DIR . '/inc/customizer-overrides.php' ) ) {
 	require_once FASDENT_DIR . '/inc/customizer-overrides.php';
