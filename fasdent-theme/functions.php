@@ -3,14 +3,14 @@
  * Fasdent Theme bootstrap
  *
  * @package Fasdent
- * @version 2.3.2
+ * @version 2.3.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FASDENT_VERSION', '2.3.2' );
+define( 'FASDENT_VERSION', '2.3.3' );
 define( 'FASDENT_DIR', get_template_directory() );
 define( 'FASDENT_URI', get_template_directory_uri() );
 
@@ -32,12 +32,19 @@ require_once FASDENT_DIR . '/inc/post-meta.php';
 require_once FASDENT_DIR . '/inc/related-posts.php';
 require_once FASDENT_DIR . '/inc/cookies.php';
 require_once FASDENT_DIR . '/inc/dashboard.php';
+require_once FASDENT_DIR . '/inc/email-template.php';
 require_once FASDENT_DIR . '/inc/booking.php';
 require_once FASDENT_DIR . '/inc/polls.php';
 require_once FASDENT_DIR . '/inc/ajax-search.php';
 require_once FASDENT_DIR . '/inc/admin-bookings.php';
 require_once FASDENT_DIR . '/inc/floating-chat.php';
 
+if ( file_exists( FASDENT_DIR . '/inc/customizer-overrides.php' ) ) {
+	require_once FASDENT_DIR . '/inc/customizer-overrides.php';
+}
+if ( file_exists( FASDENT_DIR . '/inc/enqueue-patch.php' ) ) {
+	require_once FASDENT_DIR . '/inc/enqueue-patch.php';
+}
 if ( file_exists( FASDENT_DIR . '/inc/fasdent-ui.php' ) ) {
 	require_once FASDENT_DIR . '/inc/fasdent-ui.php';
 }

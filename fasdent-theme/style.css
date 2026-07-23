@@ -3,8 +3,8 @@ Theme Name: Fasdent Theme
 Theme URI: https://fasdent.ir/
 Author: Fasdent Dev Team
 Author URI: https://fasdent.ir/
-Description: قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی. RTL، سئو، المنتور، فونت ایرانسل، Floating Chat، UI ریسپانسیو حرفه‌ای.
-Version: 2.3.2
+Description: قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی.
+Version: 2.3.3
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.2
@@ -14,4 +14,4 @@ Text Domain: fasdent
 Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready
 */
 
-/* v2.3.2: fixed double header, mobile drawer, floating chat, widgets, booking emails */
+/* v2.3.3: checkbox fix, email template, nav close, doctor card, emergency phone */
