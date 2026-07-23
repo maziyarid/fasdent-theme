@@ -1,8 +1,8 @@
 <?php
 /**
- * فراخوانی CSS / JS / فونت‌های لوکال — Fasdent
+ * Enqueue CSS / JS — Fasdent
  * @package Fasdent
- * @version 2.3.0
+ * @version 2.3.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,15 +16,23 @@ function fasdent_enqueue_scripts(): void {
 	$main_css = file_exists( FASDENT_DIR . '/assets/css/main.min.css' ) ? 'main.min.css' : 'main.css';
 	wp_enqueue_style( 'fasdent-main', FASDENT_URI . '/assets/css/' . $main_css, array( 'fasdent-irancell', 'fasdent-fontawesome' ), FASDENT_VERSION );
 
-	wp_enqueue_style( 'fasdent-ui-system', FASDENT_URI . '/assets/css/ui-system.css', array( 'fasdent-main' ), FASDENT_VERSION );
-	wp_enqueue_style( 'fasdent-chat', FASDENT_URI . '/assets/css/fasdent-chat.css', array( 'fasdent-ui-system' ), FASDENT_VERSION );
+	if ( file_exists( FASDENT_DIR . '/assets/css/ui-system.css' ) ) {
+		wp_enqueue_style( 'fasdent-ui-system', FASDENT_URI . '/assets/css/ui-system.css', array( 'fasdent-main' ), FASDENT_VERSION );
+	}
+
+	wp_enqueue_style( 'fasdent-header-mobile', FASDENT_URI . '/assets/css/header-mobile.css', array( 'fasdent-main' ), FASDENT_VERSION );
+
+	if ( file_exists( FASDENT_DIR . '/assets/css/fasdent-chat.css' ) ) {
+		wp_enqueue_style( 'fasdent-chat', FASDENT_URI . '/assets/css/fasdent-chat.css', array( 'fasdent-header-mobile' ), FASDENT_VERSION );
+	}
+
 	wp_enqueue_style( 'fasdent-style', get_stylesheet_uri(), array( 'fasdent-main' ), FASDENT_VERSION );
 	wp_enqueue_style( 'fasdent-print', FASDENT_URI . '/assets/css/print.css', array( 'fasdent-main' ), FASDENT_VERSION, 'print' );
 
 	$main_js = file_exists( FASDENT_DIR . '/assets/js/main.min.js' ) ? 'main.min.js' : 'main.js';
 	wp_enqueue_script( 'fasdent-main', FASDENT_URI . '/assets/js/' . $main_js, array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
+
 	wp_enqueue_script( 'fasdent-nav', FASDENT_URI . '/assets/js/fasdent-nav.js', array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
-	wp_enqueue_script( 'fasdent-chat', FASDENT_URI . '/assets/js/fasdent-chat.js', array(), FASDENT_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
 	wp_localize_script( 'fasdent-main', 'fasdentData', array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
@@ -46,7 +54,9 @@ function fasdent_enqueue_scripts(): void {
 add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_scripts' );
 
 function fasdent_enqueue_page_template_assets(): void {
-	if ( ! is_page_template( 'page-templates/fasdent-page.php' ) ) return;
+	if ( ! is_page_template( 'page-templates/fasdent-page.php' ) ) {
+		return;
+	}
 	$page_css = file_exists( FASDENT_DIR . '/assets/css/page.min.css' ) ? 'page.min.css' : 'page.css';
 	wp_enqueue_style( 'fasdent-page', FASDENT_URI . '/assets/css/' . $page_css, array( 'fasdent-main' ), FASDENT_VERSION );
 	$page_js = file_exists( FASDENT_DIR . '/assets/js/page.min.js' ) ? 'page.min.js' : 'page.js';
@@ -55,9 +65,16 @@ function fasdent_enqueue_page_template_assets(): void {
 add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_page_template_assets' );
 
 function fasdent_preload_fonts(): void {
-	$fonts = array( '/assets/fonts/Irancell/Irancell_Regular.woff2', '/assets/fonts/Irancell/Irancell_Bold.woff2', '/assets/fonts/FontAwesome/webfonts/fa-solid-900.woff2' );
+	$fonts = array(
+		'/assets/fonts/Irancell/Irancell_Regular.woff2',
+		'/assets/fonts/Irancell/Irancell_Bold.woff2',
+		'/assets/fonts/FontAwesome/webfonts/fa-solid-900.woff2',
+	);
 	foreach ( $fonts as $font ) {
-		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>\n', esc_url( FASDENT_URI . $font ) );
+		printf(
+			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+			esc_url( FASDENT_URI . $font )
+		);
 	}
 }
 add_action( 'wp_head', 'fasdent_preload_fonts', 1 );
