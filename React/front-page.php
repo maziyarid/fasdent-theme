@@ -10,8 +10,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-
-// Use React for front page
 fasdent_react_app();
-
 get_footer();

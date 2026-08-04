@@ -1,6 +1,6 @@
 <?php
 /**
- * Search Results Template
+ * Site Footer Template Part
  * 
  * @package Fasdent
  */
@@ -9,6 +9,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-get_header();
-fasdent_react_app();
-get_footer();
+// Site footer will be handled by React

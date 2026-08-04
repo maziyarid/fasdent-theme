@@ -10,8 +10,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-
-// Load React application
 fasdent_react_app();
-
 get_footer();

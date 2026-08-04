@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output (keep dist/ for WordPress)
+!dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Figma Make
+.figma/
+
+# Vite cache
+.vite/
+
+# TypeScript cache
+*.tsbuildinfo

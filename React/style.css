@@ -3,7 +3,7 @@ Theme Name: Fasdent Theme
 Theme URI: https://fasdent.ir/
 Author: Fasdent Dev Team
 Author URI: https://fasdent.ir/
-Description: قالب اختصاصی کلینیک دندانپزشکی فسدنت — دکتر کیوان صمدی. طراحی مدرن، سریع و بهینه برای تجربه کاربری عالی.
+Description: قالب اختصاصی کلینیک دندانپزشکی فسدنت - دکتر کیوان صمدی. طراحی مدرن با React و Tailwind CSS.
 Version: 3.0.0
 Requires at least: 6.5
 Tested up to: 7.0
@@ -11,7 +11,7 @@ Requires PHP: 8.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: fasdent
-Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready, block-themes
+Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready
 */
 
 /* v3.0.0: React-based theme with Vite + Tailwind CSS */
