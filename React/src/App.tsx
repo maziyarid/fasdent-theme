@@ -1,6 +1,11 @@
 import { RouterProvider } from 'react-router'
+import { WordPressProvider } from './contexts/WordPressContext'
 import { router } from './routes'
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return (
+    <WordPressProvider>
+      <RouterProvider router={router} />
+    </WordPressProvider>
+  )
 }

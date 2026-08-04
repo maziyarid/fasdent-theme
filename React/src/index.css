@@ -2,6 +2,39 @@
 
 @import 'tailwindcss';
 
+/* WordPress integration styles */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* WordPress admin bar compatibility */
+html.wp-admin-bar #root {
+  padding-top: 32px;
+}
+
+/* WordPress body classes */
+.fasdent-react {
+  overflow-x: hidden;
+}
+
+/* RTL support for WordPress */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+/* WordPress content area */
+.site-content {
+  flex: 1;
+}
+
+/* WordPress header and footer */
+.site-header,
+.site-footer {
+  flex-shrink: 0;
+}
+
 @theme inline {
   --font-persian: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif;
   --color-brand-cyan: #08CBCD;

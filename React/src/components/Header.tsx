@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router'
+import { useWordPress } from '../contexts/WordPressContext'
+import { MenuItem } from '../types/wordpress'
 
-const navItems = [
+// Default navigation items for development
+const defaultNavItems = [
   { label: 'خانه', href: '/' },
   {
     label: 'خدمات', href: '/services',
@@ -22,17 +25,36 @@ const navItems = [
   { label: 'قیمت‌ها', href: '/pricing' },
   { label: 'گالری', href: '/gallery' },
   { label: 'وبلاگ', href: '/knowledge-base' },
-  { label: 'پرسش‌های متداول', href: '/faq' },
+  { label: 'سوالات متداول', href: '/faq' },
   { label: 'تماس', href: '/contact' },
 ]
 
+// Convert WordPress menu items to our format
+function convertMenuItems(menuItems: MenuItem[]): Array<{ label: string; href: string; children?: any[] }> {
+  return menuItems.map(item => ({
+    label: item.title,
+    href: item.url.replace(window.FASDENT_REACT?.site?.url || 'https://fasdent.ir', ''),
+    children: item.children.length > 0 ? convertMenuItems(item.children) : undefined,
+  }))
+}
+
 export default function Header() {
+  const { data, isLoaded } = useWordPress()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const location = useLocation()
   const drawerRef = useRef<HTMLDivElement>(null)
+
+  // Use WordPress menu or default
+  const navItems = isLoaded && data.menus.main.length > 0 
+    ? convertMenuItems(data.menus.main)
+    : defaultNavItems
+
+  // Get phone number from WordPress data
+  const phoneNumber = isLoaded ? data.phone : '09201441469'
+  const phoneLink = isLoaded ? data.phone_link : '+989201441469'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -79,15 +101,15 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-              <a href="tel:+982188888888" className="ltr hover:text-[#08CBCD] transition-colors">۰۲۱-۸۸۸۸۸۸۸۸</a>
+              <a href={`tel:${phoneLink}`} className="ltr hover:text-[#08CBCD] transition-colors">{phoneNumber}</a>
             </span>
             <span className="flex items-center gap-1">
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/></svg>
-              شنبه تا پنج‌شنبه ۹ تا ۲۰
+              شنبه تا پنجشنبه ۹ صبح تا ۲۰
             </span>
           </div>
           <div className="hidden md:flex items-center gap-3">
-            <span>تهران، خیابان ولیعصر، بالاتر از میدان ونک</span>
+            <span>تهران، خیابان ولیعصر، ساختمان آسمان، طبقه ۳، واحد ۳۰۱</span>
           </div>
         </div>
       </div>
@@ -102,7 +124,7 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <div className="font-bold text-[#071F3F] text-sm leading-tight">کلینیک دندانپزشکی</div>
-              <div className="text-[#0D54AF] text-xs font-medium">دکتر کیوان علی‌پسندی</div>
+              <div className="text-[#0D54AF] text-xs font-medium">دکتر کیوان صمدی</div>
             </div>
           </Link>
 
@@ -198,7 +220,7 @@ export default function Header() {
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <div>
             <div className="font-bold text-[#071F3F] text-sm">کلینیک دندانپزشکی</div>
-            <div className="text-[#0D54AF] text-xs">دکتر کیوان علی‌پسندی</div>
+            <div className="text-[#0D54AF] text-xs">دکتر کیوان صمدی</div>
           </div>
           <button
             onClick={() => setMobileOpen(false)}
@@ -254,10 +276,10 @@ export default function Header() {
               رزرو نوبت آنلاین
             </Link>
             <a
-              href="tel:+982188888888"
+              href={`tel:${phoneLink}`}
               className="flex items-center justify-center gap-2 w-full mt-3 border-2 border-[#0D54AF] text-[#0D54AF] py-3 rounded-xl font-semibold text-sm ltr"
             >
-              ۰۲۱-۸۸۸۸۸۸۸۸
+              {phoneNumber}
             </a>
           </div>
         </nav>
