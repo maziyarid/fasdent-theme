@@ -11,15 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-while ( have_posts() ) {
-	the_post();
-	
-	get_template_part( 'template-parts/content', 'page' );
-	
-	// Comments
-	if ( comments_open() || get_comments_number() ) {
-		comments_template();
-	}
-}
+// Use React for all front-end requests
+fasdent_react_app();
 
 get_footer();

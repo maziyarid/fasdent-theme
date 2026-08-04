@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-get_template_part( 'template-parts/content', '404' );
+// Use React for all front-end requests
+fasdent_react_app();
 
 get_footer();
