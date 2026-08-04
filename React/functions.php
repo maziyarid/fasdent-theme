@@ -3,15 +3,20 @@
  * Fasdent Theme Functions for React
  *
  * @package Fasdent
- * @since 2.0.0
+ * @since 3.0.0
  */
 
-// Prevent direct access
+// Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define theme constants
+// Define theme version if not already defined.
+if ( ! defined( 'FASDENT_VERSION' ) ) {
+    define( 'FASDENT_VERSION', '3.0.0' );
+}
+
+// Define theme directory & URI constants.
 if ( ! defined( 'FASDENT_DIR' ) ) {
     define( 'FASDENT_DIR', get_template_directory() );
 }
@@ -19,140 +24,129 @@ if ( ! defined( 'FASDENT_URI' ) ) {
     define( 'FASDENT_URI', get_template_directory_uri() );
 }
 
-// Load theme setup
+// Load theme setup.
 require_once FASDENT_DIR . '/inc/setup.php';
 
 /**
- * Check if we should use React for this request
+ * Determine if React should be used for this request.
  *
  * @since 2.0.0
  * @return bool
  */
-function fasdent_use_react() {
-    // Don't use React in admin
+function fasdent_use_react(): bool {
+    // Never in admin, REST, AJAX, cron, or WP-CLI.
     if ( is_admin() ) {
         return false;
     }
-    
-    // Don't use React in REST API requests
+
     if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
         return false;
     }
-    
-    // Don't use React in AJAX requests
+
     if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
         return false;
     }
-    
-    // Don't use React in cron
+
     if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
         return false;
     }
-    
-    // Don't use React in WP-CLI
+
     if ( defined( 'WP_CLI' ) && WP_CLI ) {
         return false;
     }
-    
+
     return true;
 }
 
 /**
- * React App Integration
- * Load the built React application
+ * Output React app script and data in footer.
  *
- * @since 2.0.0
+ * @since 3.0.0
  */
-function fasdent_react_app() {
+function fasdent_output_react_app(): void {
     if ( ! fasdent_use_react() ) {
         return;
     }
-    
-    $dist_path = FASDENT_URI . '/dist';
-    
-    // Load CSS
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.css' ) ) {
-        wp_enqueue_style( 'fasdent-react', $dist_path . '/assets/app.css', array(), FASDENT_VERSION );
+
+    $dist_dir = FASDENT_DIR . '/dist';
+    $dist_uri = FASDENT_URI . '/dist';
+
+    // Output React data as inline script
+    $react_data = array(
+        'site' => array(
+            'name' => get_bloginfo( 'name' ),
+            'url'  => get_bloginfo( 'url' ),
+            'description' => get_bloginfo( 'description' ),
+            'language' => get_bloginfo( 'language' ),
+            'direction' => is_rtl() ? 'rtl' : 'ltr',
+        ),
+        'api'  => array(
+            'root'      => esc_url_raw( rest_url() ),
+            'namespace' => 'wp/v2',
+        ),
+        'phone' => get_theme_mod( 'fasdent_phone', '09201441469' ),
+        'phone_link' => get_theme_mod( 'fasdent_phone_intl', '+989201441469' ),
+        'booking_url' => get_theme_mod( 'fasdent_booking_url', home_url( '/appointment/' ) ),
+    );
+
+    echo '<script type="module">window.FASDENT_REACT = ' . wp_json_encode( $react_data ) . ';</script>' . "\n";
+
+    // Output React app script
+    if ( file_exists( $dist_dir . '/assets/app.js' ) ) {
+        echo '<script type="module" crossorigin src="' . esc_url( $dist_uri . '/assets/app.js' ) . '"></script>' . "\n";
     }
-    
-    // Load JS as ES module
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.js' ) ) {
-        // Directly output the script tag with type="module"
-        echo '<script type="module" crossorigin src="' . esc_url( $dist_path . '/assets/app.js' ) . '"></script>';
+}
+add_action( 'wp_footer', 'fasdent_output_react_app', 1 );
+
+/**
+ * Enqueue React CSS.
+ *
+ * @since 3.0.0
+ */
+function fasdent_enqueue_react_css(): void {
+    if ( ! fasdent_use_react() ) {
+        return;
     }
-    
-    // Output root div
+
+    $dist_dir = FASDENT_DIR . '/dist';
+    $dist_uri = FASDENT_URI . '/dist';
+
+    // Enqueue CSS if it exists.
+    if ( file_exists( $dist_dir . '/assets/app.css' ) ) {
+        wp_enqueue_style(
+            'fasdent-react-style',
+            $dist_uri . '/assets/app.css',
+            array(),
+            FASDENT_VERSION
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'fasdent_enqueue_react_css', 20 );
+
+/**
+ * Output the React app root element.
+ *
+ * Use this in templates (e.g., front-page.php) where the React app should mount.
+ *
+ * @since 2.0.0
+ */
+function fasdent_react_app(): void {
+    if ( ! fasdent_use_react() ) {
+        return;
+    }
+
+    // This ID must match what your React app uses to mount.
     echo '<div id="root"></div>';
 }
 
 /**
- * Add React data to wp_localize_script
- *
- * @since 2.0.0
- */
-function fasdent_react_data() {
-    if ( ! fasdent_use_react() ) {
-        return;
-    }
-    
-    $dist_path = FASDENT_URI . '/dist';
-    
-    // Enqueue CSS if it exists
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.css' ) ) {
-        wp_enqueue_style( 'fasdent-react', $dist_path . '/assets/app.css', array(), FASDENT_VERSION );
-    }
-    
-    // Enqueue JS if it exists
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.js' ) ) {
-        wp_enqueue_script( 'fasdent-react', $dist_path . '/assets/app.js', array(), FASDENT_VERSION, true );
-    }
-    
-    // Add React data to wp_localize_script
-    $react_data = array(
-        'site' => array(
-            'name' => get_bloginfo( 'name' ),
-            'url' => get_bloginfo( 'url' ),
-        ),
-        'api' => array(
-            'root' => esc_url_raw( rest_url() ),
-            'namespace' => 'wp/v2',
-        ),
-    );
-    
-    wp_localize_script( 'fasdent-react', 'FASDENT_REACT', $react_data );
-}
-add_action( 'wp_enqueue_scripts', 'fasdent_react_data', 20 );
-
-/**
- * Add preload for React assets
- *
- * @since 2.0.0
- */
-function fasdent_react_preload() {
-    if ( ! fasdent_use_react() ) {
-        return;
-    }
-    
-    $dist_path = FASDENT_URI . '/dist';
-    
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.css' ) ) {
-        echo '<link rel="preload" href="' . esc_url( $dist_path . '/assets/app.css' ) . '" as="style">';
-    }
-    
-    if ( file_exists( FASDENT_DIR . '/dist/assets/app.js' ) ) {
-        echo '<link rel="preload" href="' . esc_url( $dist_path . '/assets/app.js' ) . '" as="script">';
-    }
-}
-add_action( 'wp_head', 'fasdent_react_preload', 1 );
-
-/**
- * Add RTL body class
+ * Add RTL body class.
  *
  * @since 2.0.0
  * @param array $classes Existing body classes.
  * @return array
  */
-function fasdent_body_classes( $classes ) {
+function fasdent_body_classes( array $classes ): array {
     $classes[] = 'fasdent-rtl';
     return $classes;
 }
