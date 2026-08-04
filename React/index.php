@@ -11,15 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-if ( have_posts() ) {
-	while ( have_posts() ) {
-		the_post();
-		get_template_part( 'template-parts/content', get_post_format() );
-	}
-	
-	the_posts_navigation();
-} else {
-	get_template_part( 'template-parts/content', 'none' );
-}
+// Load React application
+fasdent_react_app();
 
 get_footer();

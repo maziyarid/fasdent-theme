@@ -11,18 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-while ( have_posts() ) {
-	the_post();
-	
-	get_template_part( 'template-parts/content', 'single' );
-	
-	// Related posts
-	fasdent_related_posts();
-	
-	// Comments
-	if ( comments_open() || get_comments_number() ) {
-		comments_template();
-	}
-}
+// Load React application
+fasdent_react_app();
 
 get_footer();
