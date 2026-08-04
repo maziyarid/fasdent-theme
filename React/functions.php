@@ -31,9 +31,11 @@ function fasdent_react_app() {
 		wp_enqueue_style( 'fasdent-react', $dist_path . '/assets/app.css', array(), FASDENT_VERSION );
 	}
 	
-	// Load JS
+	// Load JS as ES module
 	if ( file_exists( FASDENT_DIR . '/dist/assets/app.js' ) ) {
-		wp_enqueue_script( 'fasdent-react', $dist_path . '/assets/app.js', array(), FASDENT_VERSION, true );
+		// Directly output the script tag with type="module"
+		// We can't use wp_enqueue_script because it doesn't support type="module" well
+		echo '<script type="module" crossorigin src="' . esc_url( $dist_path . '/assets/app.js' ) . '"></script>';
 	}
 	
 	// Output root div
@@ -61,7 +63,8 @@ function fasdent_react_data() {
 		) : null,
 	);
 	
-	wp_localize_script( 'fasdent-react', 'FASDENT_REACT', $react_data );
+	// Output the data as a script tag
+	echo '<script type="module">window.FASDENT_REACT = ' . wp_json_encode( $react_data ) . ';</script>';
 }
 add_action( 'wp_enqueue_scripts', 'fasdent_react_data', 20 );
 
