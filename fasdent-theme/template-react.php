@@ -1,6 +1,8 @@
 <?php
 /**
- * Front Page Template
+ * React Template
+ * 
+ * This template loads the React application for all front-end requests.
  * 
  * @package Fasdent
  */
@@ -11,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-// Use React for front page
+// Load React app
 fasdent_react_app();
 
 get_footer();

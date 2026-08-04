@@ -1,209 +1,217 @@
-# Fasdent Theme v2.1.2
+# Fasdent Theme - React Version
 
-> قالب اختصاصی کلینیک دندانپزشکی فس‌دنت — دکتر کیوان علی‌پسندی
-> RTL کامل، بدون CDN، 12 نوع Schema.org، WCAG 2.1 AA، PHP 8.2+، WordPress 6.5+
+## Overview
 
----
+This is the React-based version of the Fasdent WordPress theme. It combines the power of React, Vite, and Tailwind CSS to create a modern, fast, and maintainable WordPress theme.
 
-## نصب سریع
+## Features
 
-1. کپی پوشه `fasdent-theme` در `wp-content/themes/`
-2. فعال‌سازی در ادمین > نمایش > پوسته‌ها
-3. ذخیره Permalink: **Settings → Permalinks → Save**
-4. **Appearance → بارگذاری نمونه داده** → کلیک روی «شروع بارگذاری نمونه داده»
-5. دوباره **Settings → Permalinks → Save** (برای rewrite قوانین CPT)
-6. Appearance → Customize → تنظیمات کلینیک فس‌دنت (در صورت نیاز ویرایش)
+- ✅ **React 19** with TypeScript
+- ✅ **Vite 8** for fast builds and HMR
+- ✅ **Tailwind CSS v4** for styling
+- ✅ **RTL Support** for Persian content
+- ✅ **WordPress Integration** with REST API
+- ✅ **Responsive Design** for all devices
+- ✅ **Modern UI Components**
+- ✅ **Performance Optimized**
 
-منوها، صفحات، خدمات، پزشکان، مقالات، FAQ و نظرات بیماران به‌صورت خودکار ساخته و به `main-menu` / `footer-menu` / `legal-menu` اختصاص داده می‌شوند.
-
-برای جزئیات کامل محتوا و نحوه ریست: `data/demo/README.md`
-
----
-
-## پیش‌نیازها
-
-| مورد | نسخه |
-|------|------|
-| WordPress | 6.5+ |
-| PHP | 8.2+ |
-| MySQL | 8.0+ |
-| ACF Pro | اختیاری — fallback داخلی وجود دارد |
-| Elementor | اختیاری |
-
-بدون CDN — همه فونت‌ها و آیکون‌ها از assets/fonts/ سرو می‌شوند.
-
----
-
-## ساختار فایل‌ها
+## Theme Structure
 
 ```
-fasdent-theme/
-  style.css                    v2.1.2
-  functions.php                Bootstrap + modules + demo importer (admin)
-  header.php / footer.php      Skip link, ARIA, widgets
-  404.php                      404 Hub
-  front-page.php               صفحه اصلی 9 بخش
-  single.php                   پست بلاگ (ToC, reactions, share)
-  single-service.php           Template B+C (emergency)
-  single-doctor.php            پروفایل پزشک
-  taxonomy-service_category.php  Pillar Page Template A
-  archive-service.php / author.php / tag.php
-  comments.php / search.php / index.php / page.php
-
-  inc/
-    setup.php / enqueue.php / post-types.php / taxonomies.php
-    acf-fields.php / customizer.php / seo.php / schema.php
-    breadcrumb.php / security.php / performance.php / forms.php
-    elementor.php / toc.php / post-meta.php / related-posts.php
-    cookies.php / dashboard.php / booking.php / polls.php
-    ajax-search.php / admin-bookings.php
-
-  data/demo/                   ایمپورتر نمونه داده
-    import.php                 Appearance → بارگذاری نمونه داده
-    taxonomy-terms.php / services.php / doctors.php
-    testimonials.php / faqs.php / pages.php / posts.php
-    posts-data/batch-*.php     ۲۹ مقاله SEO
-    menus.php / options.php
-
-  page-templates/
-    appointment.php      رزرو نوبت 4 مرحله
-    contact.php          تماس + نقشه + فرم
-    faq.php              FAQ با جستجو
-    gallery.php          گالری + lightbox
-    pricing.php          تعرفه جدول دسته‌بندی
-    sitemap.php          نقشه سایت بصری
-    knowledge-base.php   مرکز آموزش
-    privacy-policy.php   حریم خصوصی
-    patient-rights.php   حقوق بیمار
-    cancellation-policy.php  لغو نوبت
-    medical-disclaimer.php   سلب مسئولیت
-
-  template-parts/
-    card-service.php / card-category.php / testimonial-card.php
-    cta-banner.php / faq-accordion.php / before-after.php
-    toc-sidebar.php / social-share.php / rating-display.php
-    key-takeaways.php / poll.php
-
-  assets/
-    css/main.css     کامپوننت‌ها RTL responsive
-    css/print.css    استایل‌های چاپ
-    js/main.js       FAQ, nav, forms, booking, search, ToC, polls
-    fonts/Irancell/ + FontAwesome/
+React/
+├── style.css              # WordPress theme header
+├── functions.php          # WordPress theme functions
+├── index.php              # Main template
+├── template-react.php     # React template loader
+├── header.php             # Header template
+├── footer.php             # Footer template
+├── front-page.php         # Front page template
+├── single.php             # Single post template
+├── page.php               # Page template
+├── archive.php            # Archive template
+├── search.php             # Search template
+├── 404.php                # 404 template
+├── comments.php           # Comments template
+├── inc/                   # WordPress includes
+│   ├── setup.php          # Theme setup
+│   ├── enqueue.php        # Asset loading
+│   ├── post-types.php     # Custom post types
+│   ├── taxonomies.php     # Custom taxonomies
+│   ├── customizer.php     # Theme customizer
+│   └── ...
+├── template-parts/        # Template parts
+├── page-templates/        # Page templates
+├── assets/                # Static assets
+│   ├── css/               # CSS files
+│   ├── js/                # JavaScript files
+│   └── images/            # Images
+├── languages/             # Translation files
+├── data/                  # Demo data
+├── src/                   # React source
+│   ├── components/        # React components
+│   ├── pages/             # Page components
+│   ├── hooks/             # Custom hooks
+│   ├── contexts/          # React contexts
+│   ├── types/             # TypeScript types
+│   ├── App.tsx            # Main app component
+│   ├── main.tsx           # Entry point
+│   ├── routes.tsx         # Router configuration
+│   └── index.css          # Global styles
+├── vite.config.ts         # Vite configuration (Figma Make)
+├── vite.config.wordpress.ts # WordPress-specific Vite config
+├── package.json           # Dependencies
+└── README.md              # This file
 ```
 
----
+## Installation
 
-## Schema Markup — 12 نوع
+### As a WordPress Theme
 
-| Schema | شرط |
-|--------|-----|
-| Dentist (LocalBusiness) | همه صفحات |
-| Organization | صفحه اصلی |
-| WebSite + SearchAction | صفحه اصلی |
-| MedicalProcedure + HowTo | صفحات خدمت |
-| MedicalWebPage | صفحات خدمت |
-| FAQPage | خدمت + دسته + صفحه FAQ |
-| Physician | صفحه پزشک |
-| AggregateRating + Review | صفحات دارای testimonial |
-| EmergencyService | خدمات اورژانسی |
-| BlogPosting + Article | پست‌های بلاگ |
-| BreadcrumbList | همه صفحات غیر از خانه |
-| Speakable | پست‌ها و خدمات |
-| ImageObject | صفحات دارای تصویر شاخص |
+1. **Build the React app:**
+   ```bash
+   cd React
+   npm install
+   npm run build:wordpress
+   ```
 
----
+2. **Copy the React folder to your WordPress themes directory:**
+   ```bash
+   cp -r React /path/to/wordpress/wp-content/themes/fasdent
+   ```
 
-## تنظیمات Customizer
+3. **Activate the theme in WordPress admin:**
+   - Go to Appearance > Themes
+   - Activate "Fasdent Theme"
 
-| بخش | کلیدهای مهم |
-|-----|------------|
-| اطلاعات کلینیک | fasdent_clinic_name, fasdent_phone, fasdent_phone_intl, fasdent_email, fasdent_address, fasdent_hours, fasdent_geo_lat/lng, fasdent_map_embed |
-| شبکه‌های اجتماعی | fasdent_instagram, fasdent_telegram, fasdent_whatsapp |
-| آمار صفحه اصلی | fasdent_stat_patients/years/implants/rating |
-| آنالیتیکس | fasdent_ga4_id, fasdent_clarity_id, fasdent_turnstile_key/secret, fasdent_cookie_text, fasdent_indexnow_key |
+### Development Mode
 
----
+For development, you can run the React app with hot reloading:
 
-## جداول پایگاه داده
+```bash
+cd React
+npm install
+npm run dev
+```
 
-| جدول | هدف |
-|------|-----|
-| wp_fasdent_bookings | نوبت‌های رزرو شده با status workflow |
-| wp_fasdent_polls | سوالات نظرسنجی |
-| wp_fasdent_poll_votes | آرای نظرسنجی با IP hash |
+Then configure WordPress to use the development server by adding to `wp-config.php`:
 
-جداول به‌صورت خودکار هنگام فعال‌سازی قالب ایجاد می‌شوند.
+```php
+define('FASDENT_DEV_MODE', true);
+```
 
----
+## Configuration
 
-## جریان رزرو نوبت
+### Theme Customizer
 
-  مرحله 1: اطلاعات شخصی (نام، تلفن، ایمیل، سن، جنسیت)
-  مرحله 2: پزشکی (شرح مشکل، سابقه، دارو، آلرژی)
-  مرحله 3: نوبت (خدمت، پزشک، تاریخ، بازه، اورژانسی)
-  مرحله 4: خلاصه + حریم خصوصی + ارسال
-    => DB row در wp_fasdent_bookings
-    => wp_mail به ادمین
-    => gtag booking_submitted + clarity event
-    => ادمین: admin.php?page=fasdent-bookings
-    => تغییر وضعیت: pending/confirmed/completed/cancelled
+The theme supports WordPress Customizer for:
+- Phone number
+- Booking URL
+- Social media links
+- Colors and branding
+- Menu configurations
 
----
+### Required Plugins
 
-## راهنمای clone برای کلینیک مشابه
+- **Advanced Custom Fields (ACF)** - For custom fields
+- **WP REST API** - Already included in WordPress core
 
-1. رنگ: فقط --color-primary و --color-secondary در :root در main.css
-2. فونت: پوشه Irancell/ را جایگزین + irancell.css بنویسید + enqueue.php بروز کنید
-3. Schema: Dentist را به MedicalBusiness تغییر دهید
-4. CPT slugs: service را در post-types.php تغییر دهید
-5. Text Domain: جستجوی سراسری fasdent به slug جدید
+### Custom Post Types
 
----
+The theme registers the following custom post types:
+- `service` - Dental services
+- `doctor` - Doctors/team members
+- `testimonial` - Patient testimonials
+- `faq` - Frequently asked questions
 
-## Changelog
+### Custom Taxonomies
 
-### v2.1.2 — 2026-07-16
+- `service_category` - Service categories
+- `kb_topic` - Knowledge base topics
 
-#### Demo Content System (complete)
-- **Appearance → بارگذاری نمونه داده** fully functional
-- 10 service categories, ~20 services, 3 doctors, 8 testimonials, 12 FAQs
-- 14 pages (Home, Blog, Appointment, Contact, About, FAQ, Pricing, Gallery, legal pages, Sitemap, Knowledge Base)
-- **29 SEO blog posts** with trust meta, related_posts linking, categories
-- Menus assigned to `main-menu` / `footer-menu` / `legal-menu`
-- Customizer options (phone, hours, geo, stats, emergency) pre-filled
-- Post-import relationship resolution (related services, testimonials → services, related posts)
+## Building for Production
 
-#### Bug Fixes & Hardening
-- **Removed UTF-8 BOM** from all remaining PHP files (`post-meta`, `booking`, `polls`, `security`, `performance`, `dashboard`, `admin-bookings`, `cookies`, `related-posts`, `ajax-search`, `toc`)
-- **View counter** — increments on every real page view (was limited to +1/day)
-- **Reading time** — character-based estimate suitable for Persian (`mb_strlen / 1000`)
-- **related-posts.php** — now prefers `related_posts` meta (from demo) before category fallback
-- Version sync: `style.css` + `FASDENT_VERSION` = 2.1.2
+```bash
+npm run build:wordpress
+```
 
-### v2.1.1 — 2026-07-13
+This will create a `dist` folder with optimized assets that WordPress will load.
 
-#### Bug Fixes
-- **`assets/js/single-post.js`** — AJAX `action` key corrected from `fasdent_react` to `fasdent_post_reaction`
-- **`inc/post-meta.php`** — reaction handler nonce fix
-- **`inc/enqueue.php`** — single-post assets enqueued on singular posts
-- **`style.css`** — version header corrected
-- **`template-parts/toc-sidebar.php`** — BOM removed
-- **`README.md`** — install path typo fixed
-- **`data/fasdent-import.xml`** — closing tags restored
+## WordPress Integration
 
-#### New Files Added
-- **`screenshot.png`** — theme recognition
-- **`languages/fasdent.pot`** — translation stub
+The theme provides:
 
-### v2.1.0 — 2026-07-12
-- performance, security, schema, Consent Mode v2, booking admin, medical-disclaimer
+1. **React Data Context** - Access WordPress data in React components
+2. **REST API Integration** - Fetch posts, pages, and other content
+3. **Menu Integration** - Use WordPress menus in React
+4. **Customizer Integration** - Access theme options
 
-### v2.0.0 — 2026-07-12
-- Irancell font, Phase 9 features
+### Using WordPress Data in React
 
-### v1.0.0 — initial
-- Theme scaffold
+```tsx
+import { useWordPress } from './contexts/WordPressContext'
 
----
+function MyComponent() {
+  const { data, isLoaded } = useWordPress()
+  
+  if (!isLoaded) return <div>Loading...</div>
+  
+  return (
+    <div>
+      <h1>{data.site.name}</h1>
+      <p>Phone: {data.phone}</p>
+    </div>
+  )
+}
+```
 
-Fasdent Dev Team — https://fasdent.ir
+### Fetching Posts
+
+```tsx
+import { usePosts } from './hooks/useWordPressApi'
+
+function BlogPosts() {
+  const { data: posts, loading, error } = usePosts({ per_page: 10 })
+  
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+  
+  return (
+    <div>
+      {posts?.map(post => (
+        <article key={post.id}>
+          <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+        </article>
+      ))}
+    </div>
+  )
+}
+```
+
+## Browser Support
+
+- Chrome (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (latest 2 versions)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+GNU General Public License v2 or later
+
+## Version History
+
+- **v3.0.0** - React-based theme with Vite + Tailwind CSS
+- **v2.6.0** - Previous PHP-based version
+
+## Support
+
+For support, please contact the Fasdent development team.
