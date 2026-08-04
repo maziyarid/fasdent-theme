@@ -164,7 +164,7 @@ function fasdent_use_react() {
 	}
 	
 	// Don't use React for trackback/pingback
-	if ( is_trackback() || is_pingback() ) {
+	if ( is_trackback() || ( function_exists( 'is_pingback' ) && is_pingback() ) ) {
 		return false;
 	}
 	
@@ -290,7 +290,7 @@ function fasdent_disable_admin_bar() {
 		add_filter( 'show_admin_bar', '__return_false' );
 	}
 }
-add_action( 'init', 'fasdent_disable_admin_bar' );
+add_action( 'wp', 'fasdent_disable_admin_bar' );
 
 /**
  * Add preload for React assets
