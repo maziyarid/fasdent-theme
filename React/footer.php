@@ -6,8 +6,9 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
+?>
 
 		</div><!-- .site-content -->
 		<footer id="colophon" class="site-footer" role="contentinfo">
