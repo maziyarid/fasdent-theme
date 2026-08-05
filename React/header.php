@@ -14,6 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link rel="icon" type="image/webp" href="<?php echo esc_url( FASDENT_URI ); ?>/assets/images/Favicon.webp" />
+	<!-- Local Fonts -->
+	<link rel="stylesheet" href="<?php echo esc_url( FASDENT_URI ); ?>/assets/fonts/Irancell/irancell.css" />
+	<link rel="stylesheet" href="<?php echo esc_url( FASDENT_URI ); ?>/assets/fonts/FontAwesome/css/all.css" />
+	<link rel="stylesheet" href="<?php echo esc_url( FASDENT_URI ); ?>/assets/fonts/FontAwesome/css/solid.css" />
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

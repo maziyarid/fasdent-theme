@@ -1,0 +1,6 @@
+# Exclude all webfont files - they're large
+*.woff2
+*.woff
+*.eot
+*.ttf
+*.svg

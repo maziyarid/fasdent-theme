@@ -1,0 +1,4 @@
+# Exclude all CSS files except all.css and solid.css
+*.css
+!all.css
+!solid.css
