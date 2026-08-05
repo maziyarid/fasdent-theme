@@ -113,13 +113,13 @@ function fasdent_enqueue_react_css(): void {
 	}
 
 	$ir_css = FASDENT_DIR . '/assets/fonts/Irancell/irancell.css';
-	if ( file_exists( $ir_css ) ) {
-		wp_enqueue_style(
-			'fasdent-irancell',
-			FASDENT_URI . '/assets/fonts/Irancell/irancell.css',
-			array(),
-			FASDENT_VERSION
-		);
+	if ( ! file_exists( $ir_css ) ) {
+		$ir_css = FASDENT_DIR . '/assets/Irancell/irancell.css';
+		if ( file_exists( $ir_css ) ) {
+			wp_enqueue_style( 'fasdent-irancell', FASDENT_URI . '/assets/Irancell/irancell.css', array(), FASDENT_VERSION );
+		}
+	} else {
+		wp_enqueue_style( 'fasdent-irancell', FASDENT_URI . '/assets/fonts/Irancell/irancell.css', array(), FASDENT_VERSION );
 	}
 
 	$app_css = FASDENT_DIR . '/dist/assets/app.css';
