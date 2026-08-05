@@ -46,6 +46,7 @@ export const clinic = {
 
 export type Clinic = typeof clinic
 
+/** Read data injected by WordPress (window.FASDENT_REACT) with fallback to static clinic data */
 export function getClinicRuntime() {
   const w = typeof window !== 'undefined' ? (window as any).FASDENT_REACT : null
   if (!w?.clinic) return clinic
@@ -75,6 +76,7 @@ export function getClinicRuntime() {
   }
 }
 
+/** Resolve asset URL under the active theme. */
 export function themeAsset(path: string): string {
   const w = typeof window !== 'undefined' ? (window as any).FASDENT_REACT : null
   const base = (w?.theme?.assets as string) || '/wp-content/themes/fasdent-theme/assets'

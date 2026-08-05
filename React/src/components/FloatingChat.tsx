@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import FaIcon from './FaIcon'
+import { clinic } from '../data/clinic'
 
 const channels = [
-  { icon: '📞', label: 'تماس تلفنی', sub: '۰۲۱-۸۸۸۸۸۸۸۸', href: 'tel:+982188888888', color: '#0D54AF' },
-  { icon: '💬', label: 'واتساپ', sub: 'پیام آنلاین', href: 'https://wa.me/989121234567', color: '#25D366' },
-  { icon: '✈️', label: 'تلگرام', sub: '@fasdentclinic', href: 'https://t.me/fasdentclinic', color: '#0088cc' },
-  { icon: '📸', label: 'اینستاگرام', sub: '@fasdent.ir', href: 'https://instagram.com/fasdent.ir', color: '#E1306C' },
+  { icon: 'fa-solid fa-phone', label: 'تماس تلفنی', sub: clinic.phoneDisplay, href: clinic.phoneLink, color: '#0D54AF' },
+  { icon: 'fa-brands fa-whatsapp', label: 'واتساپ', sub: 'پیام آنلاین', href: clinic.whatsapp, color: '#25D366' },
+  { icon: 'fa-brands fa-instagram', label: 'اینستاگرام پزشک', sub: '@' + clinic.instagramDoctor, href: clinic.instagramDoctorUrl, color: '#E1306C' },
+  { icon: 'fa-brands fa-instagram', label: 'اینستاگرام کلینیک', sub: '@' + clinic.instagramClinic, href: clinic.instagramClinicUrl, color: '#C13584' },
 ]
 
 export default function FloatingChat() {
@@ -28,44 +30,39 @@ export default function FloatingChat() {
               className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
               aria-label="بستن"
             >
-              <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
+              <FaIcon icon="fa-solid fa-xmark" className="text-white text-sm" />
             </button>
           </div>
           <div className="p-2">
-            {channels.map(ch => (
+            {channels.map((ch) => (
               <a
                 key={ch.label}
                 href={ch.href}
-                target={ch.href.startsWith('http') ? '_blank' : undefined}
+                target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-                  style={{ backgroundColor: ch.color + '20' }}
+                <span
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg"
+                  style={{ backgroundColor: ch.color }}
                 >
-                  {ch.icon}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-800">{ch.label}</p>
-                  <p className="text-xs text-gray-500 ltr">{ch.sub}</p>
-                </div>
+                  <FaIcon icon={ch.icon} />
+                </span>
+                <span className="text-right">
+                  <span className="block text-sm font-bold text-[#071F3F]">{ch.label}</span>
+                  <span className="block text-xs text-gray-500 ltr" dir="ltr">{ch.sub}</span>
+                </span>
               </a>
             ))}
           </div>
         </div>
       )}
       <button
-        onClick={() => setOpen(!open)}
-        className="relative w-14 h-14 bg-gradient-to-br from-[#0D54AF] to-[#08CBCD] rounded-full shadow-2xl flex items-center justify-center text-white hover:scale-110 transition-transform float-chat-btn"
-        aria-label="تماس با کلینیک"
-        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="w-14 h-14 rounded-full bg-gradient-to-br from-[#0D54AF] to-[#08CBCD] text-white shadow-lg flex items-center justify-center text-xl hover:scale-105 transition-transform"
+        aria-label={open ? 'بستن منوی ارتباط' : 'باز کردن منوی ارتباط'}
       >
-        {open ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-        )}
+        <FaIcon icon={open ? 'fa-solid fa-xmark' : 'fa-solid fa-comments'} />
       </button>
     </div>
   )
