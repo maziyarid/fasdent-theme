@@ -10,6 +10,8 @@ import FAQ from './pages/FAQ'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import KnowledgeBase from './pages/KnowledgeBase'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import Sitemap from './pages/Sitemap'
 import MedicalDisclaimer from './pages/MedicalDisclaimer'
 import CancellationPolicy from './pages/CancellationPolicy'
@@ -36,6 +38,8 @@ export const router = createBrowserRouter([
       { path: 'services/:category', Component: ServiceDetail },
       { path: 'knowledge-base', Component: KnowledgeBase },
       { path: 'knowledge-base/:slug', Component: KnowledgeBase },
+      { path: 'blog', Component: Blog },
+      { path: 'blog/:slug', Component: BlogPost },
       { path: 'sitemap', Component: Sitemap },
       { path: 'medical-disclaimer', Component: MedicalDisclaimer },
       { path: 'cancellation-policy', Component: CancellationPolicy },
