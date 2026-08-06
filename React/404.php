@@ -1,6 +1,6 @@
 <?php
 /**
- * 404 — React SPA
+ * Template: 404.php — React SPA
  * @package Fasdent
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }

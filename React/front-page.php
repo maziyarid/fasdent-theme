@@ -1,6 +1,6 @@
 <?php
 /**
- * Front page — React SPA
+ * Template: front-page.php — React SPA
  * @package Fasdent
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }

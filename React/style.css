@@ -3,117 +3,28 @@ Theme Name: Fasdent Theme
 Theme URI: https://fasdent.ir/
 Author: Fasdent Dev Team
 Author URI: https://fasdent.ir/
-Description: کلینیک تخصصی دندانپزشکی فسدنت - دکتر کیوان علی پسندی. طراحی مدرن با React و Tailwind CSS.
-Version: 3.0.0
-Requires at least: 6.5
-Tested up to: 7.0
-Requires PHP: 8.2
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Description: React 19 + Vite SPA theme for Fasdent dental clinic. Local Font Awesome 7 Pro, Irancell fonts, real clinic data.
+Version: 3.2.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 7.4
 Text Domain: fasdent
-Tags: rtl-language-support, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready
+Tags: rtl, custom-menu, featured-images, full-width-template
 */
 
-/* v3.0.0: React-based theme with Vite + Tailwind CSS */
-
-/* Import Tailwind CSS */
-@import "tailwindcss";
-
-/* Local Fonts - Irancell */
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_ExtraLight.eot');
-  src: url('assets/fonts/Irancell/Irancell_ExtraLight.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_ExtraLight.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_ExtraLight.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_ExtraLight.eot') format('eot');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
+/* Minimal base — full UI styles come from dist/assets/app.css */
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
 }
-
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_Light.eot');
-  src: url('assets/fonts/Irancell/Irancell_Light.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_Light.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_Light.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_Light.eot') format('eot');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+body {
+  margin: 0;
+  direction: rtl;
+  text-align: right;
+  font-family: Irancell, Tahoma, Arial, sans-serif;
+  background: #F4F9FF;
+  color: #1a2f4a;
 }
-
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_Regular.eot');
-  src: url('assets/fonts/Irancell/Irancell_Regular.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_Regular.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_Regular.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_Regular.eot') format('eot');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_Medium.eot');
-  src: url('assets/fonts/Irancell/Irancell_Medium.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_Medium.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_Medium.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_Medium.eot') format('eot');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_Bold.eot');
-  src: url('assets/fonts/Irancell/Irancell_Bold.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_Bold.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_Bold.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_Bold.eot') format('eot');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Irancell';
-  src: url('assets/fonts/Irancell/Irancell_Extrabold.eot');
-  src: url('assets/fonts/Irancell/Irancell_Extrabold.eot?#iefix') format('embedded-opentype'),
-       url('assets/fonts/Irancell/Irancell_Extrabold.woff2') format('woff2'),
-       url('assets/fonts/Irancell/Irancell_Extrabold.woff') format('woff'),
-       url('assets/fonts/Irancell/Irancell_Extrabold.eot') format('eot');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Import Irancell CSS for additional styles */
-@import url('assets/fonts/Irancell/irancell.css');
-
-/* Font Awesome 7.2 Pro - Local */
-@import url('assets/fonts/FontAwesome/css/all.css');
-@import url('assets/fonts/FontAwesome/css/solid.css');
-
-/* RTL Support */
-@layer base {
-  html[dir="rtl"] {
-    direction: rtl;
-  }
-  
-  body {
-    font-family: 'Irancell', sans-serif;
-  }
-}
-
-/* Custom RTL styles */
-@layer utilities {
-  .fasdent-rtl {
-    direction: rtl;
-    text-align: right;
-  }
+#root {
+  min-height: 100vh;
 }

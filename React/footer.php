@@ -1,15 +1,13 @@
 <?php
 /**
- * Footer Template
+ * Footer — React SPA shell
+ *
  * @package Fasdent
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+wp_footer();
 ?>
-
-		</div><!-- .site-content -->
-	</div><!-- .site -->
-	<?php wp_footer(); ?>
 </body>
 </html>
