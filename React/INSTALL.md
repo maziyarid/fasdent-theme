@@ -1,22 +1,26 @@
-# Fasdent React Theme v3.1.0 — Ready to Install
+# Fasdent Theme v3.2.0 — Install
 
-## Install
-1. Upload/unzip this folder to `wp-content/themes/fasdent-theme` (or any name)
-2. Appearance → Themes → Activate **Fasdent Theme**
-3. Settings → Permalinks → Save (flush rewrites — fixes blog 404s)
-4. Clear browser + server cache
+## Upload
+1. Upload this **entire folder** to `wp-content/themes/fasdent-theme`
+   - Or zip the folder and use Appearance → Themes → Add New → Upload
+2. Appearance → Themes → **Activate Fasdent Theme**
+3. Settings → Permalinks → **Save Changes** (once — fixes /blog 404s)
+4. Hard-refresh the site (Ctrl+Shift+R)
 
-## What is included
-- React 19 + Vite production build (`dist/assets/app.js`, `app.css`)
-- Font Awesome 7.2 Pro (local, no CDN)
-- Irancell font (local, no Google Fonts)
-- Real clinic data (دکتر کیوان علی پسندی, نوشهر address, phone, map, brands)
-- Blog routes `/blog` and `/blog/:slug` via WP REST API
-- Custom post types: service, doctor, testimonial, faq
-- Emojis replaced with FA Pro icons
-- All prior fatal errors fixed (module script, container #root, undefined constants)
+## Requirements
+- WordPress 6.0+
+- PHP 7.4+
+- Pretty permalinks enabled (Post name)
 
-## Rebuild (optional, only if you edit src/)
+## Included
+- React 19 production build (`dist/assets/app.js` + `app.css`)
+- Font Awesome 7.2 Pro (local webfonts)
+- Irancell font (local)
+- Real clinic data (دکتر کیوان علی پسندی)
+- Blog via WP REST API (`/blog`, `/blog/:slug`)
+- CPTs: service, doctor, testimonial, faq
+
+## Rebuild (only if you edit src/)
 ```bash
 cd wp-content/themes/fasdent-theme
 npm install
