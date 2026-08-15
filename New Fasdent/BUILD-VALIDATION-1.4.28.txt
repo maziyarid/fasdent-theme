@@ -1,0 +1,69 @@
+BUILD VALIDATION — Theme 1.4.28 / Plugin 1.3.3
+Date: 2026-08-14
+Status: STAGING CANDIDATE ONLY — PRODUCTION APPROVAL NO
+
+ARTIFACTS
+PASS deterministic Theme build repeated twice, byte-identical
+PASS deterministic Plugin build repeated twice, byte-identical
+PASS Theme ZIP archive integrity
+PASS Plugin ZIP archive integrity
+Theme SHA-256: 1e07600cadd4bbb50de2edd7cc1e2e8379d76fdfcef980c3f1718ea1976a8100
+Plugin SHA-256: bf01b35e02abecc6e64800f851e442761e70d8bf3348a3775fcac88df9d4768f
+
+BLOCKER FIX FROM 1.3.2
+PASS reproduced historical literal \tWP_CLI::add_command typo in Plugin 1.3.2
+PASS Plugin 1.3.3 uses WP_CLI::add_command for migrate/schema-repair/health
+PASS permanent source gate rejects suspicious escaped-whitespace class tokens and historical \t/\n/\r WP_CLI variants
+PASS executable local WP-CLI registration bootstrap: all three commands registered without Fatal
+PASS executable schema-repair dry-run callback: write=false, pass=true
+PASS schema-repair apply fails closed when environment=production
+PASS schema-repair apply on Staging requires matching dry-run plan_sha256
+PASS full repair plan must PASS before any write
+PASS every proposed repair is revalidated before first write; payload hash drift/sanitizer drift stops operation
+PASS post-write marker/payload verification; best-effort rollback attempted on verification failure
+PASS wp-admin direct schema-repair apply handler removed; apply is WP-CLI-only
+
+ADDITIONAL REVIEW HARDENING
+PASS Rank Math local-entity observation stores state + observed_at + exact RANK_MATH_VERSION
+PASS Operational Health rejects stale/version-mismatched local-entity observation
+PASS Operational Health checks static front-page mode, valid front page, valid blog page, and distinct IDs
+PASS Operational Health surfaces production WP_DEBUG_DISPLAY as Critical and WP_DEBUG/WP_DEBUG_LOG as review warnings
+PASS Theme 1.4.28 production-pair minimum Plugin = 1.3.3
+
+FINAL-ZIP LOCAL EVIDENCE — IMPORTANT SCOPE
+Runtime available in this workspace: PHP 8.4.23 CLI; no real WordPress/WP-CLI installation, PHPCS, PHPStan or PHP 8.2 binary.
+PASS final-ZIP PHP syntax under PHP 8.4.23
+PASS final-ZIP source contract audit: 40 PASS / 0 FAIL
+PASS final-ZIP WP-CLI bootstrap smoke (stub WordPress API, executable class/registration path)
+PASS local Registry/Date/OpeningHours/Phone contract smoke: 27/27
+PASS local form/rate-limit policy smoke: 13/13
+PASS JS syntax
+PASS stale old-domain/Gmail/Maps runtime scan
+PASS Theme remains presentation/read-only; no Theme form handler/business-data write ownership
+
+ACTUAL PRODUCTION FACTS PREVIOUSLY PROVIDED — NOT NEW-BUILD PASS
+OBSERVED WordPress 7.0.4, site language fa_IR, timezone Asia/Tehran, HTTPS, production environment
+OBSERVED PHP 8.5.7 64-bit, LiteSpeed SAPI; Apache reported; MariaDB 10.6.24
+OBSERVED Rank Math Free 1.0.276, auto-update disabled, no Search Console permission/token; temporarily activated for inventory then deactivated
+OBSERVED WP_DEBUG=true / WP_DEBUG_DISPLAY=true / WP_DEBUG_LOG=true
+OBSERVED loopback HTTP 503 and recovery_mode_clean_expired_keys scheduled event failure
+OBSERVED four Service records schema_invalid with migration_completed=true on Plugin 1.3.1 snapshot
+OBSERVED missing/invalid operational Notify/From/phone/address/booking settings and Opening Hours not configured
+
+NOT PROVEN / HARD BLOCKERS
+BLOCKED real PHP 8.2 lint + activation + migration/forms/Rank Math/Health
+BLOCKED real WordPress 6.4 activation/revisions/meta/Settings/Site Health/WP-CLI
+BLOCKED Production-identical WordPress 7.0.4 / PHP 8.5.7 smoke on NEW hashes
+BLOCKED actual WP-CLI runtime: wp --info, plugin status, health, schema-repair dry-run/apply on isolated Staging
+BLOCKED actual WordPress PHPUnit TestDox/JUnit execution
+BLOCKED WPCS/PHPCS, PHPStan and deprecated API scans
+BLOCKED Rank Math 1.0.276 active→inactive→reactivated SEO/indexability/graph/sitemap runtime
+BLOCKED owner-approved NAP snapshot, Opening Hours decision, 365-day horizon and 0-minute lead decision
+BLOCKED SMTP provider + inbox + From/From Name/Return-Path/SPF/DKIM/DMARC
+BLOCKED Production WP_DEBUG_DISPLAY fix + debug-log security/retention review
+BLOCKED loopback/WP-Cron remediation and rerun
+BLOCKED isolated backup/restore rehearsal
+BLOCKED cache/post_modified/sitemap-lastmod, security headers, CWV/images/browser/A11y/Admin RTL
+BLOCKED Privacy/medical-claim/asset approvals
+
+PRODUCTION APPROVAL: NO

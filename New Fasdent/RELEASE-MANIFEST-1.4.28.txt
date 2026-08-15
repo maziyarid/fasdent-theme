@@ -1,0 +1,24 @@
+RELEASE MANIFEST — Theme 1.4.28 / Plugin 1.3.3
+Date: 2026-08-14
+Actual build UTC: 2026-08-14T19:58:46Z
+Deterministic ZIP epoch: 2026-08-14T00:00:00Z
+Status: STAGING CANDIDATE ONLY — PRODUCTION APPROVAL NO
+
+Theme artifact: alipasandi-clinic-1.4.28.zip
+Theme SHA-256: 1e07600cadd4bbb50de2edd7cc1e2e8379d76fdfcef980c3f1718ea1976a8100
+Plugin artifact: alipasandi-service-content-1.3.3.zip
+Plugin SHA-256: bf01b35e02abecc6e64800f851e442761e70d8bf3348a3775fcac88df9d4768f
+
+Support contract:
+- WordPress minimum claim: 6.4 — real minimum-lane runtime still required.
+- PHP minimum claim: 8.2 — real PHP 8.2 runtime still required.
+- Actual Production observed: WordPress 7.0.4 / PHP 8.5.7, but the observation was on Theme 1.4.26 / Plugin 1.3.1 and is not new-build PASS evidence.
+- Production candidate pair: Theme 1.4.28 + Plugin 1.3.3.
+- Rank Math final SEO owner: Free 1.0.276 observed in Production inventory; currently deactivated after temporary evidence capture. Final runtime ownership requires active exact-version freeze + regression.
+
+Historical release status:
+- Theme 1.4.27 / Plugin 1.3.2: SUPERSEDED / NOT FREEZABLE because Plugin WP-CLI schema-repair registration contained a literal \tWP_CLI class-token typo.
+- Theme 1.4.26 / Plugin 1.3.1: superseded by later code fixes.
+- Theme 1.4.22: historical known-critical canonical-fatal build; never deploy.
+
+Any code-byte change after these hashes requires a new version/hash and targeted regression.

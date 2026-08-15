@@ -1,0 +1,4 @@
+PASS WP-CLI registration: alipasandi service migrate, alipasandi service schema-repair, alipasandi service health
+PASS schema-repair dry-run callback: write=false pass=true
+PASS schema-repair production apply guard: blocked=true write=false
+PASS schema-repair staging confirm-plan guard and matching-plan apply

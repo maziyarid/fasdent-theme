@@ -1,0 +1,14 @@
+PASS	precheck_1	
+PASS	precheck_2	
+PASS	precheck_3	
+PASS	precheck_4	
+PASS	precheck_5	
+PASS	sixth_limited	
+PASS	appointment_separate	
+PASS	raw_ip_not_key	alipasandi_form_c5c36c59fd8facfbe53d14de44391ceeb6392ab3afc232aefc677de9b4f5f901
+PASS	values_counter_only	
+PASS	mail_failure_precheck_valid	
+PASS	mail_failure_not_consumed	
+PASS	invalid_ip_fail_closed	
+PASS	invalid_ip_no_counter	
+SUMMARY	PASS=13	FAIL=0	PHP=8.4.23

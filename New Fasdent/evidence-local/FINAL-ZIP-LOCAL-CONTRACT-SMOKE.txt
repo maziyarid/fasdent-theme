@@ -1,0 +1,28 @@
+PASS	registry_default_count	count=8
+PASS	allowed_services_stable_keys	implant,crown,surgery,general,consultation,root-canal,cleaning,other
+PASS	label_not_identity	
+PASS	implant_label_resolves	
+PASS	duplicate_label_warns	duplicate_label:implant:dupe
+PASS	unknown_field_fail_closed	unknown_field:bad:evil
+PASS	horizon_365	
+PASS	lead_0	
+PASS	today_date_valid	
+PASS	same_day_past_fail	
+PASS	same_day_equal_minute_fail	
+PASS	same_day_future_pass	
+PASS	plus365_pass	
+PASS	plus366_fail	
+PASS	invalid_2026_leap_fail	
+PASS	valid_2028_leap_pass	
+PASS	hours_aa462fa0	
+PASS	hours_9d335e4c	خط 2: روز MO تکراری است.
+PASS	hours_c8d76e66	خط 1: بازه‌های ساعات کاری هم‌پوشانی دارند.
+PASS	hours_72b30ee6	خط 1: ساعت پایان باید بعد از شروع باشد.
+PASS	hours_07c054b2	خط 1: بازه CLOSED معتبر نیست.
+PASS	hours_820cc9a0	
+PASS	e164_valid	
+PASS	e164_leading_zero_fail	
+PASS	country_ir_normalizes	
+PASS	geo_bounds	
+PASS	phone_real_digits	
+SUMMARY	PASS=27	FAIL=0	PHP=8.4.23
