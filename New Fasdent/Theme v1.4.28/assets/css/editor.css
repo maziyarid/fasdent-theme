@@ -1,0 +1,14 @@
+/* Editor-only alignment with the locked design system. Front-end layout CSS is intentionally not loaded in wp-admin. */
+.editor-styles-wrapper {
+	direction: rtl;
+	font-family: "Vazirmatn", Tahoma, Arial, sans-serif;
+	line-height: 1.9;
+}
+.editor-styles-wrapper .wp-block {
+	max-width: 820px;
+}
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3 {
+	line-height: 1.45;
+}
