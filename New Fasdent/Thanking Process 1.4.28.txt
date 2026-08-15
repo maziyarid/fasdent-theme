@@ -1,0 +1,458 @@
+Rewriting the theme and plugin as requested.
+I am preparing a comprehensive solution tailored to your needs, incorporating feedback from Persian-speaking clients to ensure cultural and functional alignment.
+While I cannot generate a physical zip file, I will provide detailed, step-by-step instructions that enable seamless implementation.
+The deliverable includes a thorough report outlining changes, enhancements, and guidance for deployment.
+Preparing a comprehensive response that balances clarity and completeness
+I am assessing the constraints of the current environment to deliver the most useful outcome despite limitations on file attachment
+I consider offering detailed, step-by-step instructions and complete code modifications as a substitute for a downloadable archive
+My goal is to ensure the solution remains actionable, transparent, and fully reproducible without relying on binary outputs
+Refining the theme and plugin update documentation with precision and clarity
+I am assessing the scope of changes required for the latest version release, focusing on eliminating hardcoded fallback values to ensure data integrity and flexibility.
+I am prioritizing the removal of the static street address in the front-page template, ensuring that only dynamic, user-defined content is rendered when available.
+This adjustment aligns with best practices for maintainability and localization while preserving full control over presentation logic.
+Render only reliable data with graceful fallbacks
+I am ensuring the interface remains functional and truthful by omitting incomplete or speculative information, prioritizing clarity over appearance
+When essential details like street are missing, I avoid fabricating content and instead use neutral placeholders that reflect the absence of verified data
+This approach maintains integrity while guiding users toward accurate, authoritative sources without implying false certainty
+Ensure accurate local entity data without fabricating information
+I am evaluating the completeness and validity of essential business details, prioritizing authenticity over placeholder content to maintain trust and compliance.
+When critical fields like street address are missing, I flag them discreetly in preview environments while avoiding misleading displays for live audiences.
+I align validation logic across systems to uphold consistency, ensuring that only verified data contributes to structured schema integrity.
+Ensure NAP data integrity by validating complete address fields before schema emission.
+I assess whether all required address components are present and valid, refraining from emitting partial or incomplete postal information.
+When fields are missing, I clear the address and geo data to maintain schema consistency and avoid health-critical failures.
+I track readiness status and missing elements through a shared validation state, enabling precise observation and system health monitoring.
+Enhancing schema validation and health checks for entity completeness and consistency.
+I am designing a cohesive set of utility functions to determine required fields, detect missing ones, and assess schema readiness across integrations.
+These tools will support both Health and Rank Math by providing clear diagnostics on configuration gaps and conflicts.
+I am also implementing cross-validation between booking slots and opening hours to flag overlaps or missing coverage, ensuring operational integrity.
+Ensure form readiness aligns with actual availability by validating scheduling constraints.
+I am refining the logic to determine when a form should be considered ready, ensuring it reflects true usability based on configured opening hours and available slots.
+This involves cross-verifying operational parameters, detecting gaps in coverage, and identifying invalid or overlapping schedules.
+The outcome will provide clearer feedback on system health and prevent misleading readiness states.
+Assessing the validity and usability of booking slots against configured opening hours
+I am evaluating each time slot against defined schedule ranges across weekdays to determine if it falls within any valid period.
+For days with active schedules, I identify whether any slots are available within those periods; if not, the day is flagged as having no slots despite being open.
+When opening hours are not configured or are invalid, all provided slots are considered usable by default.
+Evaluating system health and operational readiness
+I am assessing the interplay between opening hours, booking availability, and contact fallback mechanisms to ensure robustness.
+I prioritize fail-safe design by treating phone availability as essential for direct contact in case of mail failure, even if it means temporarily disabling forms.
+This approach strengthens reliability, aligning with production standards where both mail and phone must be functional to maintain seamless user access.
+Ensure form readiness includes valid phone verification.
+I am evaluating the necessity of requiring a functional phone number for form submission, recognizing that while email can serve as a fallback, a working phone is critical for urgent health communications.
+I consider enforcing both a non-empty display phone and a properly formatted E.164 number to maintain reliable contact routing, especially for clinics where direct phone access is expected.
+This approach balances operational reliability with user experience by preventing form errors that leave patients without clear guidance when no contact method is viable.
+Ensure phone validation balances usability and correctness
+I'm prioritizing functional reliability by validating the patient's direct phone through normalized digits while allowing flexibility for display formats
+The system checks both presence and validity of the display phone and its normalized form, ensuring it meets operational standards without blocking due to E.164 format gaps
+This approach supports clinical needs, maintains data integrity, and aligns with user expectations for a working communication path
+Refining the messaging logic to align with availability and contact configuration.
+I am evaluating how to present contact options based on whether a phone link is available and whether the form is disabled due to missing information.
+When a phone number is absent, the message should avoid suggesting a direct call while still acknowledging unavailability.
+I am ensuring that the user experience remains consistent, clear, and contextually appropriate across all scenarios.
+Adjust the templates to conditionally display contact options based on availability of a phone link.
+I am refining the messaging logic to ensure that when contact methods are unavailable, the response adapts appropriately depending on whether a phone number is configured.
+This approach ensures users receive clear guidance—either a direct call option if available or a polite suggestion to try again later.
+The updates will enhance user experience by aligning the interface with real-time service status and system configuration.
+Reviewing the messaging logic for error states and phone availability
+I am assessing how error messages should adapt based on whether a phone number is present, ensuring that direct contact instructions only appear when a valid number exists.
+I consider the implications of conditional display in templates versus relying solely on backend form readiness checks to prevent misleading prompts.
+My goal is to maintain consistency across themes while avoiding user confusion caused by references to calls without available numbers.
+Finalize the form validation logic with conditional messaging and enhanced error handling
+I am aligning the form's readiness criteria with operational realities by ensuring phone validation is context-aware, allowing submission when email is functional even if phone is absent, while preserving critical health checks for production environments
+I am refining template messaging to avoid referencing unavailable call options when no phone number is present, maintaining clarity and user trust across all scenarios
+I am reinforcing deployment consistency and content freshness through structured validation and proactive monitoring
+Initiate a targeted observation to validate Rank Math's local entity output.
+I am designing a dedicated probe mechanism that simulates frontend rendering conditions within the WordPress environment.
+This involves crafting a controlled context where the plugin’s structured data generation can be triggered and verified.
+The solution ensures reliability by bypassing conditional checks that fail in CLI, enabling accurate assessment of the plugin’s active behavior.
+Testing integration between the system and a structured data generator through conditional checks and contextual probes.
+I'm evaluating whether the presence of a specific entity type in the output confirms actual emission by the generator during frontend rendering.
+To validate this, I consider using indirect methods like simulated requests to verify consistency across different execution contexts.
+The goal is to ensure reliability without relying on potentially unstable internal loops or direct code exposure.
+Implementing a dedicated observation mechanism to independently verify service health without relying on traffic patterns.
+I am designing a structured approach to probe critical service components by introducing a context-aware evaluation layer that dynamically adapts based on the current environment—whether it's a live frontend request or a command-line execution.
+This involves establishing a shared state to track the observation context, ensuring consistent behavior across different execution modes while preserving the integrity of data collection through filtered outputs.
+The solution integrates seamlessly into the existing architecture, leveraging transient storage for results and maintaining clear diagnostic signals for both operational monitoring and troubleshooting.
+Update the transient storage to track observations separately by context
+I am rethinking how data is preserved across different contexts to ensure accurate health validation.
+Instead of overwriting previous context data, I now store each context’s observation independently in a unified structure.
+This enables reliable checks for both front and contact pages, supporting future compatibility and precise diagnostics.
+Update the observation storage mechanism with a new key
+I am transitioning to a more streamlined identifier for entity observations, ensuring backward compatibility by maintaining both old and new keys during the shift.
+The health checks will now validate each context's data integrity, flagging issues like missing or stale entries with precise, consistent naming.
+This approach ensures robust monitoring while aligning with existing audit expectations and minimizing disruption.
+Ensure health checks capture and report context-specific observation issues accurately.
+I am refining the system to detect version mismatches and stale or missing observations, assigning them descriptive identifiers for clarity.
+The context detection logic is being enhanced to reflect current page conditions without overcomplicating the output.
+This ensures the health report includes a comprehensive view of entity observation status across relevant contexts.
+Recording entity observations with contextual state and metadata
+I am ensuring that each observation captures the current context, whether the entity is matched or missing, along with timestamps and version details.
+The logic accounts for both standard frontend scenarios and CLI probes by dynamically assessing schema readiness and field completeness.
+I am refining the data flow to maintain consistency across environments while preserving traceability through transient storage.
+Verify integration integrity through internal filter validation
+I am assessing whether the system's core integration remains functional by testing the presence and responsiveness of a critical filter, ensuring it operates correctly even when external dependencies are inactive.
+This approach prioritizes deterministic local verification, avoiding reliance on network traffic or external triggers.
+The outcome confirms operational readiness while maintaining clarity about what is being validated and what remains unproven.
+Implementing schema validation for local entity markup
+I am designing a function to assess the proper rendering of local business schema in specific contexts, ensuring it aligns with Rank Math's expected output.
+The logic checks active plugin status, sets context-specific environments, and applies filters to generate structured data dynamically.
+Finally, it verifies schema consistency and version integrity by comparing observed outputs against expected patterns.
+Ensure callback logic respects global context without relying on conditional checks.
+Refine data validation to handle edge cases while preserving reliability during probing.
+Enhance schema repair transparency by incorporating human-readable snapshots of key content elements.
+Maintain plan integrity and safety while enriching outputs with meaningful, stable metadata.
+Enhancing content structure with enriched metadata and dynamic field extraction
+I am expanding the content model by incorporating title variants, introductory text, frequently asked questions, call-to-action elements, and image details while ensuring semantic coherence through a unified heading hierarchy.
+I am refining the schema repair process to capture and validate state snapshots during preflight checks, enabling precise change detection and integrity verification through consistent hashing across execution phases.
+I am also enriching the result output with human-readable change summaries and side-by-side snapshot comparisons to provide clear visibility into applied modifications.
+Ensure schema repair applies only in staging environments, not production or other non-staging contexts.
+I am verifying that the snapshot function correctly handles mock data without disrupting the integrity of the plan's checksum.
+I confirm that the snapshot process extracts empty fields appropriately and does not alter the payload hash used for validation.
+The system maintains consistency by relying on a stable, fake metadata response during testing to preserve expected behavior.
+Update the environment guard logic to require explicit staging designation for apply operations
+I am refining the conditional checks to ensure that only isolated clones with explicit staging configuration can proceed, maintaining strict isolation for production and development environments
+The existing smoke test expectations are being adjusted to align with the new validation message while preserving the original production safeguard
+This evolution ensures clarity and security in deployment workflows without compromising established testing integrity
+Refining environment validation logic for staging-specific operations
+I am ensuring that only staging environments are permitted for critical actions, with clear fallbacks for undefined or production contexts.
+I am updating documentation to clarify the distinction between address components and aligning policy reports with UI behavior.
+I am enhancing system integrity by synchronizing health checks with booking availability and validating configuration assumptions.
+Ensure NAP consistency across all touchpoints with synchronized updates.
+I am aligning contact information across the site by linking display values directly to the master source, ensuring accuracy and reducing discrepancies.
+I’m enhancing documentation and maintenance guidance with a dedicated freeze table and clear audit trails for transparency.
+I’m introducing a lightweight diagnostic tool that surfaces real-time data from the single source of truth to support verification and validation.
+Finalizing consistency checks and documentation updates
+I am refining the integrity of site data by validating critical elements such as contact information and service details, ensuring alignment across all components.
+I am enhancing diagnostic capabilities with structured output for verification and improving theme coherence to maintain uniformity in user-facing content.
+I am preparing for the next release by updating version identifiers and aligning all system references to reflect the latest configuration.
+Preparing a comprehensive response to the user's request for a ZIP file containing updated project assets.
+I am assessing the constraints of the current environment, which limits direct file attachment or binary output.
+I recognize the user's need for a downloadable archive but must clarify that I cannot generate it directly here.
+Instead, I will provide a complete set of modified source files and a deterministic build script to recreate the ZIP locally.
+Preparing a comprehensive release package under constrained conditions
+I am evaluating the optimal approach to deliver the requested update given technical limitations and project requirements.
+I am focusing on clarity and completeness by structuring the output with essential components: strategic decisions, key changes, file modifications, and actionable build guidance.
+This ensures full transparency and reproducibility while adhering to the constraints of the environment.
+Refine the location display logic to ensure consistency and eliminate redundancy.
+I am evaluating the necessity of fallback values for city and street, recognizing that both theme and plugin define نوشهر as default.
+Since the system relies on a single source of truth, I am considering removing the hardcoded city fallback to prevent conflicting defaults.
+My focus is on ensuring the street information is conditionally displayed only when available, maintaining data integrity.
+Update contact page to rely solely on dynamic configuration
+I am ensuring the theme no longer includes hardcoded fallbacks by removing default city values and instead using only the configured clinic city via a dedicated function.
+When critical data like city or street is missing, I present a clear, user-friendly message that indicates incomplete setup without technical jargon.
+The design prioritizes accuracy and compliance while maintaining a clean, professional presentation aligned with real-time configuration.
+Adjusting status messages based on availability and contact options
+I am refining the messaging logic to distinguish between temporary unavailability and configuration issues, ensuring clarity and helpfulness. When a direct contact option exists, I'm incorporating it into the message with a properly escaped link, while keeping fallbacks simple and user-friendly. The approach maintains consistency across pages and respects both usability and technical constraints.
+Adjusting error messaging based on availability of contact information and form readiness conditions
+I am refining the display logic for system unavailability messages to reflect whether direct clinic contact is possible through available phone links
+When contact details are missing and the form depends on phone input, I'm ensuring a neutral message that acknowledges ongoing updates without misleading users
+This adjustment balances clarity, user trust, and consistency across different access scenarios
+Update documentation and versioning for upcoming release
+I am assessing the need to transition from version 1.4.28 to 1.4.29 across key operational documents, ensuring clarity and historical accuracy by either updating existing files or creating new ones with proper versioning.
+I am evaluating changes in contracts and preflight checks, verifying that updated content reflects current standards while preserving legacy references for audit purposes.
+I am aligning testing and validation scripts with new expectations, incorporating checks for critical functionality such as fallback mechanisms and data integrity.
+Reviewing system readiness across interconnected components
+I am assessing the integrity of configuration and validation logic by tracing key indicators through code structures.
+Each element—ranging from entity schema readiness to routing conditions and maintenance protocols—is evaluated for consistency and correctness.
+The goal is to ensure alignment between settings, themes, plugins, and runtime behaviors without relying on external tools or explicit directives.
+Refining the plugin's compatibility and functionality to align with evolving requirements
+I am assessing how to enhance the plugin’s structure by integrating new utility functions and ensuring backward compatibility, particularly around theme versioning and feature dependencies.
+I'm considering where best to place helper functions for entity validation, direct phone routing, and booking schedule reporting, favoring logical grouping within existing components.
+I'm also evaluating adjustments to metadata handling to maintain consistency across updates while preventing unintended failures during audits.
+Validate and refine entity completeness
+I assess whether essential details are present to form a coherent and reliable representation.
+If core elements like name or address are missing, I withhold the full schema to prevent incomplete data.
+I ensure only verified and complete information is included, preserving accuracy and integrity.
+Validating entity completeness before finalizing output
+I ensure that only fully formed entities are processed, verifying all required fields including business name and address components.
+If any essential data is missing, I omit the address entirely to maintain consistency and reliability.
+I defer observation recording until after the entire dataset has been evaluated, ensuring accurate and singular reporting.
+Update entity records after loop with matched and schema_ready status.
+I am ensuring accurate tracking of local entities by verifying at least one match, while maintaining compatibility with existing health check indicators.
+I’m refining the validation logic to include missing street details and consistent NAP data, preserving key checks like city mismatch against نوشهر.
+The goal is to streamline diagnostics using unified helpers without compromising required fields or current issue naming.
+Enhancing diagnostic reporting and data validation across the platform
+I am refining the health assessment system by incorporating additional checks for address completeness, local entity readiness, and phone routing integrity, ensuring comprehensive coverage of potential issues.
+I am expanding the report suite to include NAP consistency metrics and Rank Math observations, aligning front-end and backend data quality insights with actionable diagnostics.
+These updates are being integrated with existing validation logic and site configuration tools to maintain consistency and improve reliability without duplicating or overlooking critical signals.
+Refining the service readiness and scheduling logic with enhanced validation and cross-reporting capabilities.
+Integrating human-readable snapshots into service repair processes to improve transparency and traceability.
+Enhancing the repair plan schema with snapshot data and enriching output with detailed post-repair snapshots where applicable.
+Introducing a diagnostic command to probe ranking configurations, ensuring alignment with current site settings.
+Refining the integration of validation and consistency checks across the system
+I am ensuring that all components, from local entity probing to cross-validation mechanisms, are aligned with updated standards while maintaining backward compatibility.
+I'm enhancing test coverage by introducing targeted validations and improving smoke tests to reflect new functionalities without overburdening execution.
+The goal is to deliver a robust, consistent, and maintainable foundation through thoughtful refinement and incremental improvements.
+Refining the test environment logic to explicitly handle staging and development contexts
+I am ensuring the system correctly identifies and responds to environment-specific restrictions by validating explicit staging configurations.
+I am simplifying the snapshot generation process to rely only on essential, stubbed functions, avoiding reliance on unmocked WordPress utilities.
+This approach enhances robustness and maintainability while preserving functionality across different execution contexts.
+Validating and refining the logic for snapshot generation
+I am ensuring that the snapshot function operates safely by relying on sanitized data inputs while avoiding direct HTML escaping, trusting instead in structured data handling.
+I confirm that required functions are properly stubbed or conditionally loaded to maintain compatibility without introducing dependencies.
+The approach prioritizes clean, secure extraction of content and metadata, using appropriate sanitization methods aligned with the system’s architecture.
+Ensuring data integrity and functionality across interconnected components.
+I am verifying that the function properly processes metadata and returns structured output without relying on external sanitization utilities.
+I am systematically validating link extraction from both string and array fields, preserving semantic structure while ensuring compatibility with expected formats.
+I am addressing dependency gaps by introducing necessary stubs to maintain execution flow during testing, aligning behavior with real-world expectations.
+Reviewing dependencies and function references in the codebase for potential runtime issues.
+Assessing whether stubs are necessary for functions used within form handling logic that aren't directly invoked during smoke testing.
+Confirming that current test coverage aligns with actual execution paths, particularly around rate limiting and channel readiness checks.
+Deciding to maintain minimal intervention unless a concrete risk emerges from undefined function references.
+Refining validation logic and testing structure for improved reliability and clarity.
+Designing a robust cross-report function that operates on raw inputs while supporting optional configuration through a wrapper.
+Ensuring comprehensive test coverage with smoke tests validating edge cases and operational behavior.
+Updating documentation and audit processes to align with current implementation and deployment standards.
+Preparing a concise summary for the final report
+I am focusing on delivering a clear, accurate overview of the changes while maintaining transparency about the build process.
+I acknowledge that exact artifact hashes cannot be provided without a deterministic build, so I will emphasize that the release source is fully specified and can be used to generate the ZIP and its corresponding hashes.
+To support this, I may offer a minimal base64-encoded ZIP as a reference, ensuring the client understands the integrity and reproducibility of the output.
+Preparing a concise and structured response to address the request for code modifications.
+I am focusing on delivering only the modified portions of the files, ensuring clarity and minimal redundancy.
+The changes are presented as a source delta, preserving all unchanged content from the original version.
+This approach enables seamless integration while maintaining compatibility with the existing codebase.
+Ensure proper dependency ordering for runtime validation functions
+I am verifying that all required components are loaded before execution, particularly ensuring validators are available when called during runtime.
+The function relies on a valid phone format check that depends on external validation logic, which must be initialized prior to use.
+I confirm the sequence of loading ensures safety and correctness in field processing.
+Validating country code presence and correctness with safety checks.
+I am ensuring that the country code is properly validated only when the necessary function exists, avoiding potential errors.
+This approach safeguards against undefined function calls while maintaining data integrity.
+The logic gracefully handles missing or invalid entries without disrupting the overall flow.
+Validating and structuring data for consistency and completeness
+I am ensuring that missing or invalid fields are properly identified and categorized, particularly focusing on geographic and contact details.
+I am integrating standardized values for NAP (Name, Address, Phone) to maintain accuracy across platforms.
+I am refining observation contexts to reflect real-time site conditions with precision and clarity.
+Record observation context for local entity validation
+I am assessing the need to distinguish between real frontend interactions and CLI probe activities by assigning specific, unique contexts.
+The goal is to ensure health checks accurately reflect front_page and contact page states without interference from deterministic probe operations.
+Even if probes overwrite existing observations, their predictable nature ensures reliable validation outcomes.
+Updating the central business information with verified details
+I am ensuring the business profile reflects accurate and standardized data by validating essential fields such as name, contact number, address, and geographic coordinates.
+I verify that all required elements are present and properly formatted before finalizing the schema.
+Any missing or invalid information is gracefully handled to maintain consistency and compliance.
+Validate and refine local entity data to ensure completeness and integrity
+I am assessing whether to include or omit the local entity based on critical NAP information, recognizing that incomplete data risks schema invalidity and system health.
+I consider unsetting fields only when empty to avoid injecting placeholder values, preserving authenticity.
+Ultimately, I lean toward excluding the entity entirely if essential details are missing, prioritizing correctness over partial emission.
+Removing incomplete local entities to preserve schema integrity
+When essential details are missing, I consider the entity fundamentally incomplete and potentially misleading.
+To maintain accuracy and avoid partial or incorrect data, I opt to exclude the entire entity rather than risk emitting an incomplete representation.
+This decision aligns with the priority of safeguarding critical health-related information while upholding data quality.
+Remove local entities when schema is not ready to prevent incomplete data exposure
+I am ensuring that no partial or invalid local information is silently emitted by eliminating entities that would compromise data integrity
+This approach maintains strict validation, triggering critical alerts when essential NAP details are missing
+It safeguards the overall health of the schema by enforcing completeness before any output is finalized
+Remove local entity when required NAP data is incomplete.
+I am evaluating the integrity of local business schema, recognizing that incomplete essential details like address or geographic information may render the entity invalid under both schema.org standards and platform-specific requirements.
+While preserving references to entities is desirable, maintaining a partially filled structure risks misleading validation and user experience.
+Thus, I opt to exclude such entities entirely, ensuring only fully compliant representations remain, with a clear state indicating the absence of valid data.
+Validate local entity presence and completeness
+I am assessing whether a local entity exists and is fully configured, ensuring accurate state tracking for observation purposes.
+If the entity is absent or incomplete, I mark the state as missing and flag schema readiness accordingly, preserving context integrity.
+When valid and complete, I confirm the entity's presence and update the status to reflect successful alignment.
+Evaluating the integrity and freshness of observational data across contexts
+I am assessing whether each context's recorded data remains valid and up to date by verifying its version consistency and temporal relevance.
+I check for missing observations or discrepancies in versioning that could indicate outdated or incomplete information.
+Any deviation triggers a failure flag, ensuring only accurate, timely data is considered reliable.
+Validating and refining entity state assessments with precision
+I am ensuring that the validation logic accurately reflects the status of local entities by aligning state checks with schema readiness.
+When schema data is incomplete, I confirm that the system appropriately removes the local entity reference while preserving correct diagnostic flags.
+I am also verifying that time constants are properly defined in all execution contexts to prevent runtime inconsistencies.
+Validating and parsing configuration data for operational hours and booking slots
+I assess whether the provided settings for operational hours and booking availability are properly formatted and logically consistent.
+I verify each component by checking its structure and content, identifying any discrepancies or errors in the input.
+I compile a comprehensive report that reflects the validity of both configurations while aggregating all detected issues.
+Validate and categorize time slots based on schedule availability
+I assess each proposed time slot against the configured operating schedule to determine usability.
+Slots falling within any defined open period are marked as usable, while those outside are categorized as unavailable.
+I then summarize availability by identifying which slots are valid and whether any usable options exist.
+Ensuring form readiness hinges on validating both time slots and opening hours with precision.
+I am verifying that only when both booking times and operational hours are valid can the system consider the form ready.
+If slots are invalid but hours remain valid, the system must mark the availability as unusable to prevent misleading scheduling.
+This approach maintains consistency by relying on canonical sorted data and ensures the interface reflects accurate, actionable status.
+Refine the channel readiness logic to enforce strict validation of opening hours and booking slots.
+I ensure that when opening hours are configured but slots are invalid, the system returns false if allowed times are empty.
+I verify that invalid opening hours always trigger a failure regardless of other conditions.
+I confirm the presence and functionality of the direct phone route readiness check, ensuring it only activates when the required plugin is present and properly loaded.
+Enhance validation logic for required fields with a unified approach.
+I am refining the checks to include street while preserving existing issue identifiers to maintain compatibility.
+A shared helper function will streamline the detection of missing fields, ensuring consistency across all required inputs.
+I am also introducing safeguards for undefined functions to prevent runtime errors.
+Enhancing system readiness assessment with comprehensive validation checks
+I am integrating critical functionality to ensure operational integrity by verifying scheduling alignment, opening hours consistency, and local entity schema completeness.
+I am also introducing a unified consistency evaluation for business data across platforms, ensuring accuracy and reliability in representation.
+The framework now dynamically assesses readiness across multiple dimensions, prioritizing actionable insights for optimization.
+Checking the current status of content optimization metrics
+I am evaluating whether the latest observations align with the active version and freshness criteria.
+Each context is assessed for consistency in state, schema readiness, and timing to ensure accuracy.
+If any discrepancy arises, it signals potential issues requiring attention.
+Refine the health check reporting logic to prioritize observations over legacy state tracking
+I am streamlining the diagnostic output by replacing the outdated state transient with a more dynamic observation-based approach, ensuring consistency and future-proofing without disrupting existing functionality
+The transition preserves compatibility by reusing the same report key under a new conceptual framework while eliminating redundant data sources
+I am also preparing for enhanced content analysis by integrating link extraction capabilities into the human snapshot service
+Constructing a structured snapshot from metadata
+I extract and harmonize key content elements such as titles, introductions, and call-to-action text, ensuring clarity and consistency.
+I process frequently asked questions by pairing each query with its corresponding answer, and gather all internal links from relevant fields to maintain navigational integrity.
+Finally, I organize and deduplicate the collected links to deliver a clean, unified reference for seamless user experience.
+Prepare the snapshot data for service entries with enhanced validation and structured output.
+I ensure that only valid HTML content is processed to extract links, preserving integrity and avoiding null or malformed inputs.
+When handling metadata, I verify its structure and assign a human-readable snapshot only when it's properly formatted, otherwise leaving it as null.
+After writing the plan, I capture the post-repair state by comparing sanitized outputs, enriching the result with a clear distinction between pre- and post-repair snapshots.
+Verify snapshot consistency through cryptographic hashing to detect unintended changes.
+I assess whether the serialized state before and after an operation remains identical, ensuring deterministic behavior.
+If a mismatch occurs despite verified payload integrity, it indicates potential drift requiring corrective action.
+This safeguard maintains reliability while respecting operational constraints and enabling safe recovery.
+Implement the requested functionality and ensure all components are properly integrated.
+I am finalizing the implementation by incorporating the necessary checks and updates to maintain consistency and reliability.
+I am ensuring that the system accurately reflects the current state through precise conditional logic in theme templates.
+I am validating that all required functions are available and properly initialized, particularly within the site settings context.
+I am enhancing documentation by updating the readme with clear instructions for the new command-line interface features.
+Refining the error message logic for improved clarity and user guidance
+I am streamlining the conditional display of support options based on specific error types, ensuring each message offers relevant next steps without redundancy.
+For cases where a direct contact option is available, I'm incorporating it naturally while avoiding repetition across different error states.
+I’m maintaining simplicity and consistency in messaging, prioritizing user experience over excessive detail.
+Move the phone contact variable definition earlier in the script to ensure availability before conditional checks.
+I am adjusting the order of variable initialization to resolve a dependency issue.
+The contact reference must be established prior to any conditionals that rely on it.
+This change ensures consistent behavior across all user scenarios, especially when the booking system is unavailable.
+Update the error message display logic to conditionally show contact instructions based on phone availability.
+I am refining the conditional rendering to ensure users receive appropriate guidance whether a clinic phone number is available or not.
+The message now dynamically adapts: suggesting official contact details when available, otherwise prompting a retry later.
+I am also enhancing the hero section’s information presentation for clarity and consistency with the updated messaging standards.
+Refine the display logic for clinic information with graceful fallbacks and user-friendly messaging
+I am ensuring the UI remains functional and informative even when data is missing by incorporating a clear, non-operational notice that guides users without disrupting the experience
+I'm evaluating whether to retain a default city value in the theme's core functions, considering both backward compatibility and clean configuration practices
+The goal is to maintain robustness while avoiding unnecessary defaults that might confuse users about actual settings
+Remove hard-coded operational defaults from theme compatibility
+I am evaluating whether to eliminate the minimal defaults embedded in the theme's fallback logic, as they risk causing data drift if the plugin is missing or outdated.
+While these defaults ensure basic display continuity—such as showing city, region, and country—they may conflict with the intended single source of truth when the plugin is absent.
+Removing them could lead to empty fields, but it would align better with a fail-safe approach and encourage reliance on the plugin or SEO schema for fallback data.
+Refine theme configuration to eliminate redundant defaults and align with plugin's single source of truth.
+I am ensuring the theme avoids operational assumptions by initializing minimal data as empty, preventing conflicts when the plugin is active.
+I am safeguarding against PHP notices by returning empty strings where values might be missing, particularly for critical fields like business name.
+This approach strengthens consistency, maintains fallback safety, and supports clean, maintainable code without duplicating plugin logic.
+Deliver a structured response that balances completeness with practicality
+I am carefully assessing the user's need for precision while acknowledging constraints around file delivery.
+My approach focuses on providing actionable, verifiable changes through clear documentation and targeted code excerpts.
+This ensures integrity and reproducibility without compromising clarity or scope.
+Applying comprehensive updates across system components and documentation
+I am integrating new functionality and enhancements while preserving existing structure, ensuring compatibility and consistency across all modules.
+The changes include updated validation logic, improved form handling, enhanced health checks, and expanded site configuration options, all aligned with current requirements.
+Final output will be delivered in Persian with structured markdown formatting, incorporating tables and technical clarity for client review.
+Proceed with structured review and validation of system state
+I am systematically assessing each component against defined criteria, ensuring alignment with operational integrity and design constraints while maintaining a clear audit trail.
+Each client requirement is evaluated in sequence, with explicit attention to versioning, schema consistency, and fallback logic, particularly around NAP data handling and runtime behavior.
+The analysis integrates hypothesis testing and validation steps without exposing internal reasoning chains, focusing on transparency, correctness, and readiness for production.
+Maintaining system integrity through proactive validation and structured consistency checks.
+I am ensuring that all critical data elements are complete and aligned across the platform, with particular attention to entity completeness and schema accuracy.
+I validate configurations against established standards, document potential failures, and prepare recovery steps in a transparent and traceable manner.
+Every action is guided by a clear audit trail and designed to uphold reliability without relying on unpredictable user activity.
+Finalizing staging environment configuration and validation checks
+The system is undergoing rigorous verification to ensure data consistency and service integrity, with particular attention to entity completeness and health reporting accuracy.
+Pending updates include resolving schema issues in staging, confirming plugin and theme compatibility, and preparing for a new build with pending hash validations.
+No design changes are planned, and ongoing refinements focus on preventing mismatches between observed data and target entities.
+Update documentation to reflect latest release changes
+I am refining the project's documentation to ensure clarity and accuracy around recent updates.
+The focus is on aligning the theme and plugin changelogs with operational improvements, particularly regarding NAP completeness, form availability, and schema validation.
+I emphasize user experience by removing outdated fallbacks and ensuring context-aware messaging.
+Refining the implementation with precision and elegance
+I am ensuring the code remains clean and functional by verifying essential clinic data and phone route validity before proceeding.
+I am structuring helper functions to efficiently identify missing required fields without redundancy.
+I am crafting concise, reusable components that integrate seamlessly into the existing plugin architecture.
+Validating essential entity fields and ensuring country code integrity
+I am assessing the completeness and correctness of critical clinic data, verifying each required field is populated and checking the validity of the country designation.
+I ensure consistency by cross-referencing key attributes against established standards and validating them through trusted functions.
+The system confirms readiness by filtering and sanitizing inputs, leveraging established tools to maintain reliability and coherence across records.
+Validate entity completeness and context integrity
+I assess whether the local entity data meets all required criteria for consistency and freshness, ensuring both global and local contexts align.
+I verify that the schema is fully ready by confirming no missing fields and that the Rank Math version remains unchanged across checks.
+If any condition fails—such as incomplete NAP details, outdated data, or misaligned state—I flag the entity as missing without proceeding further.
+Validating and structuring business data for schema markup
+I assess whether the entity type aligns with relevant categories to ensure relevance.
+I extract and sanitize essential business details such as name, contact information, and location, ensuring only valid data is included.
+I construct a properly formatted address object within the schema structure, preparing it for seamless integration.
+Preparing structured data for local business entities
+I am gathering essential details such as physical address, geographic coordinates, and operational hours from clinic-specific settings.
+I validate the accuracy of location and opening times, ensuring only reliable information is included.
+Finally, I clean and organize the data into a standardized format before recording it for analysis.
+Reviewing and refining the logic for entity matching and schema validation
+I am ensuring that when schema readiness is false, the system correctly marks entities as unmatched and records missing states, particularly when no local entity exists in the graph.
+I am verifying that null values in data arrays are handled appropriately, with confidence that array filtering will not disrupt valid entries.
+I am preparing concise, targeted updates for health checks and form readiness, focusing on clarity and completeness without overloading the response.
+Refining test coverage and environmental validation
+I am ensuring the test suite accurately reflects edge cases by verifying overlapping and non-overlapping booking scenarios, while confirming that day-specific slot availability is correctly identified.
+I am validating that normalization functions are properly mocked to isolate dependencies and maintain test integrity.
+I am enhancing environment-specific assertions to explicitly block unintended actions in staging contexts, reinforcing deployment safety.
+Ensure schema repair operations are properly guarded and validated
+The system enforces explicit staging environment requirements before any repair action proceeds, preventing unintended changes.
+A human-readable snapshot is confirmed to be present in the plan output, ensuring traceability and clarity for debugging.
+Version checks are updated to verify consistency across core files, maintaining integrity and compliance with release standards.
+Validating theme and plugin integrity through content checks
+I am ensuring the theme's hardcoded address is properly handled by verifying its presence in the front-page template.
+I am confirming the existence of critical functions and conditions across essential configuration and health-check files to maintain system reliability.
+Each check serves to uphold consistency, functionality, and compliance with defined standards across the codebase.
+Remove outdated maintenance verification and enhance operational defaults validation
+The legacy maintenance check is being phased out to streamline the validation process.
+A new safeguard ensures theme configuration defaults are current, preventing reliance on obsolete settings.
+Documentation will be updated to guide users toward proper maintenance alignment and configuration practices.
+Initiate deterministic build process for the specified components
+I am preparing a reproducible, verifiable build of the requested software components ensuring consistency and integrity through standardized procedures.
+I acknowledge the constraints regarding file attachment and have structured the response to transparently communicate this limitation while offering alternative ways to access the full source-level build details.
+Should you require, I can provide individual file contents in subsequent exchanges to support verification.
+Verify the integration integrity and observational consistency
+The system confirms that the health check accurately reflects the active state of the SEO framework, ensuring observations are properly recorded only when conditions are met.
+It accounts for potential interference from external filters by validating their behavior in isolated execution contexts, while maintaining robustness through transient data handling.
+The refresh mechanism aligns with freshness requirements, guaranteeing reliable results even under rapid consecutive checks.
+Ensure service health is accurately reflected through validation and conditional logic
+I am verifying that phone validation adheres to length and format constraints while ensuring forms behave securely when incomplete
+I am confirming that appointment availability depends on valid opening hours and time slots, with appropriate warnings issued when configurations are missing or invalid
+I am validating that user interface elements respond correctly to state changes, particularly in displaying contact options only when necessary
+تایید نهایی برای انتشار نسخه ۱.۴.۲۹ به همراه ویرایش ۱.۳.۴ انجام شد.
+در فرآیند بررسی، تمام قراردادهای پایداری حفظ شده‌اند: کلیدهای ثابت، راه‌حل‌های پیش‌فرض سئو، و امنیت بازیابی ساختار داده‌ها بدون تغییر باقی ماندند.
+هیچ تغییری در طراحی، آدرس‌های وب یا ساختار صفحات اعمال نشد، بنابراین تجربه کاربری و سازگاری سیستمی به‌طور کامل حفظ شد.
+فهرست فایل‌های تغییرکرده شامل تغییرات در فایل‌های اصلی تم، مستندات فنی و مستندات عملیاتی است که نیازمند بروزرسانی هش‌ها پس از ساخت هستند.
+تهیه نسخهٔ نهایی بستهٔ انتشار با جزئیات کامل و قابل ساخت
+در حال تهیهٔ فایل‌های اصلاح‌شده با حفظ تمامی محتوای ضروری و بهینه‌سازی ساختار، بدون درج بخش‌های بدون تغییر و با تأکید بر اجرای دقیق تغییرات عملیاتی است.
+همهٔ تغییرات به‌صورت واضح و مستقل، با قطعات کد مناسب، در قالب «جایگزینی تابع» نمایش داده می‌شوند تا انتقال آسان و قابل بررسی فراهم شود.
+نکتهٔ اجرایی دربارهٔ عدم امکان آپلود فایل باینری ذکر شده و پیشنهاد ارسال فایل‌ها به صورت جداگانه برای ساخت ZIP در پیام بعدی ارائه گردید.
+به‌روزرسانی و تنظیم اجزای ساختاری پوسته و پلاگین به‌منظور حفظ سازگاری و عملکرد صحیح در شرایط مختلف
+در حال بررسی و تنظیم متغیرهای مورد نیاز برای صفحات اصلی و تماس، با تأکید بر حفظ اطلاعات کلیدی مانند نام مطب و آدرس در صورت عدم دسترسی به پلاگین
+با به‌کارگیری راه‌حل‌های پیش‌فرض هوشمند، اطمینان حاصل می‌شود که فضای نمایش همواره معنا دارد و حتی در شرایط اضطراری، محتوا بی‌نقص و قابل استفاده باقی می‌ماند
+همه جزئیات به‌صورت یکپارچه و بدون نقص در قالب زبان فارسی پیاده‌سازی می‌شوند.
+Ensure version compatibility and runtime environment consistency for plugin functionality
+I am verifying that the core constants required for time-based operations are properly defined across all execution contexts, including both web and command-line interfaces.
+I am confirming that critical dependencies like Rank Math are active and correctly initialized before probing local entity configurations.
+I am safeguarding against undefined behavior by establishing fallback definitions where necessary, ensuring robust operation regardless of environment.
+Validating observational data integrity across contexts
+I assess whether each context's recorded observations are present, up to date, and consistent with the current system version.
+I verify that the data was recently collected and matches the expected state to ensure reliability.
+If any discrepancy is detected, I flag it for further review to maintain accuracy.
+Validate entity and schema status with precision
+I assess whether the local entity is properly matched and the schema is fully prepared, ensuring data integrity.
+When either condition fails, I flag the issue clearly while preserving context for accurate diagnosis.
+My logic ensures clean removal of incomplete states and consistent feedback through a unified response structure.
+Refine the health check mechanism with contextual awareness and enhanced validation.
+I am streamlining the diagnostic process by integrating global context for accurate state assessment.
+I am introducing utility functions to extract and format service content, ensuring clarity in snapshots.
+I am restructuring the environment verification to selectively block non-production deployments with clear rationale.
+Enhance schema repair validation with snapshot integrity checks
+I am refining the schema repair process by introducing a pre-apply snapshot hash verification to detect unintended changes.
+The system now captures a cryptographic fingerprint of the human-readable state before any modifications and compares it afterward to ensure consistency.
+This safeguard prevents silent drift during execution, maintaining data integrity through explicit verification.
+Initiating repair validation with environmental safeguards
+I assess the operational context to ensure the repair process is confined to appropriate environments, verifying that it only proceeds in staging or non-production settings.
+I confirm the integrity of the repair plan by validating its cryptographic signature against an expected value, ensuring alignment with a trusted configuration.
+I then execute preflight checks across all services, preparing for safe modifications while maintaining rollback readiness should any step fail.
+Validating data integrity through cryptographic verification
+I ensure consistency by comparing hash values before and after operations to detect any unauthorized changes.
+Any discrepancy triggers an immediate rollback to preserve system reliability.
+This safeguard maintains trust in the environment's state across all transitions.
+Enhance service snapshot handling and ensure null values for missing human-readable data
+I am refining the service repair plan to include a consistent snapshot mechanism, ensuring that when metadata is absent or invalid, a null value is safely assigned. This maintains integrity during rollback operations by preserving original state information. I am also integrating command-line tools for diagnostics and consistency checks.
+Ensure NAP consistency across all layers with synchronized address updates
+I am evaluating the alignment between display and schema-level address data, recognizing that both clinic_address and clinic_street must be updated in tandem to prevent schema drift.
+The current state reveals a dependency on partial data where missing street information triggers fail-safe mechanisms, risking incomplete local entity representation.
+To resolve this, I am considering a unified readiness model that enforces complete NAP validation before allowing production deployment, ensuring robustness through fail-closed safeguards.
+Thinking completed

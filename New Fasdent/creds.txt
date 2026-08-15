@@ -1,0 +1,17 @@
+TetraHydroCannabinol12345!@#$%
+
+
+n%5BzghS%25k24UoQxYY
+n[zghS%k24UoQxYY
+
+
+1!2!3!4!5!6!
+
+
+0@000QN123NN987N
+
+FLASK_ENV=production
+M_A_Z_I_Y_A_R_I_D
+DATABASE_URL=mysql+pymysql://maziyarid_crm:n[zghS%k24UoQxYY@127.0.0.1:3306/maziyarid_crm?charset=utf8mb4
+SITE_URL=https://maziyarid.com
+MAIL_DEFAULT_SENDER=maziyarid@gmail.com
