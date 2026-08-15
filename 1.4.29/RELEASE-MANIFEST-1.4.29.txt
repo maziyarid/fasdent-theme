@@ -1,0 +1,155 @@
+================================================================================
+FasDent Release Manifest
+Theme v1.4.29 / Plugin v1.3.4
+================================================================================
+
+Build Date: 2026-08-15
+Build Type: Code-level fixes (Issues 1-6) + Health/Schema contracts (7-13)
+
+================================================================================
+CHANGELOG
+================================================================================
+
+THEME v1.4.29
+-------------
+
+Files Changed:
+  - front-page.php
+    * Removed hard-coded address fallback (Issue 1)
+    * SSOT-only address display
+    * Non-operational UI for missing data
+    * Schema.org PostalAddress markup
+
+PLUGIN v1.3.4
+-------------
+
+Files Changed:
+  - includes/health-checks.php
+    * Added check_street_missing() (Issue 2)
+    * Added check_booking_hours_interoperability() (Issue 4)
+    * Added check_form_readiness() with phone validation (Issue 5)
+    * Added check_nap_completeness() using NAP_Helper (Issue 6)
+    * Added check_rank_math_observation() with freshness check (Issue 7)
+    * Added explicit observation probe (Issue 7)
+    * Added check_debug_display() (Issue 15)
+    * Enhanced check_loopback_status() (Issue 18)
+    
+  - includes/validators.php
+    * Added validate_booking_hours_interoperability() (Issue 4)
+    * Added generate_available_dates() with cross-validation (Issue 11)
+    * Added validate_nap_completeness()
+    * Enhanced validate_phone() with E.164 suggestion
+    
+  - includes/site-settings.php
+    * Added NAP_Helper class (Issue 6)
+      - get_required_nap()
+      - is_complete()
+      - get_missing_fields()
+      - validate()
+    * Added NAP_Freeze class (Issue 12)
+      - freeze_and_signoff()
+      - is_frozen()
+      - get_frozen_state()
+      - verify_integrity()
+    * Added documentation: clinic_address vs clinic_street difference
+    
+  - includes/forms.php
+    * Added check_form_readiness() with phone route (Issue 5)
+    * Contract A: Valid operational phone is part of form readiness
+    * Added phone_only_mode, mail_only_mode, full_mode states
+    * Enhanced error messages to never say "call us" without number
+    
+  - tests/nap-consistency-test.php (NEW)
+    * Test NAP consistency across Home, Contact, Footer, Email, Schema (Issue 13)
+    * diff_nap_sources() for detailed comparison
+
+================================================================================
+SHA256 CHECKSUMS
+================================================================================
+
+Theme v1.4.29:
+  front-page.php:     [TO BE COMPUTED ON BUILD]
+
+Plugin v1.3.4:
+  health-checks.php:      [TO BE COMPUTED ON BUILD]
+  validators.php:         [TO BE COMPUTED ON BUILD]
+  site-settings.php:      [TO BE COMPUTED ON BUILD]
+  forms.php:              [TO BE COMPUTED ON BUILD]
+  nap-consistency-test.php: [TO BE COMPUTED ON BUILD]
+
+================================================================================
+ISSUES ADDRESSED
+================================================================================
+
+✅ Issue 1:  Homepage NAP hard-coded fallback removed
+✅ Issue 2:  Operational Health validates clinic_street
+✅ Issue 3:  Partial/invalid Local PostalAddress prevented (via NAP_Helper)
+✅ Issue 4:  Booking Slots ↔ Opening Hours cross-validation added
+✅ Issue 5:  Form fail-safe with phone route validation
+✅ Issue 6:  NAP readiness helper (shared contract)
+✅ Issue 7:  Rank Math Health freshness + deployment determinism
+✅ Issue 8:  Rank Math Graph runtime observation metadata
+✅ Issue 9:  Schema Repair human-readable diff (documented)
+✅ Issue 10: Schema Repair environment validation (staging-only)
+✅ Issue 11: Opening Hours ↔ Booking UX cross-validator
+✅ Issue 12: Owner-approved NAP Freeze
+✅ Issue 13: Home/Contact/Footer NAP consistency test
+📋 Issue 14: Production environment blockers (documented in checklist)
+📋 Issue 15: Production WP_DEBUG (check added)
+📋 Issue 16: Production schema-invalid Services (documented)
+📋 Issue 17: Rank Math active state (documented)
+📋 Issue 18: Loopback/WP-Cron (check enhanced)
+📋 Issue 19: Horizon/Lead targets (documented)
+📋 Issue 20: Claims register (documented)
+📋 Issue 21: Build decision (v1.4.29/1.3.4 created)
+
+================================================================================
+DEPLOYMENT REQUIREMENTS
+================================================================================
+
+Before Production Deployment:
+
+1. Deploy to staging environment with:
+   - WP_ENVIRONMENT_TYPE=staging
+   - Production-identical PHP 8.2+
+   - Production-identical WordPress 6.4+
+
+2. Run NAP Freeze:
+   - NAP_Freeze::freeze_and_signoff(['approved' => true, 'owner_name' => '...'])
+   - Verify all 17 fields are frozen
+
+3. Run Runtime Evidence:
+   - Execute health checks: run_health_checks()
+   - Execute NAP consistency test: test_nap_consistency()
+   - Execute booking/hours validation: validate_booking_hours()
+   - Verify all checks pass
+
+4. Verify Production Hard Gates:
+   - See docs/production-checklist.md
+   - All items must be checked before production deploy
+
+5. Owner Approval:
+   - NAP Freeze sign-off
+   - Claims register approval
+   - Horizon/Lead targets approval
+
+================================================================================
+BUILD DECISION
+================================================================================
+
+From client feedback:
+"از نظر ما 1.4.28 دیگر WP-CLI blocker نسخه قبل را ندارد.
+اما موارد 1 تا 6 بالا Code-level هستند.
+اگر اصلاح شوند: Version/Hash جدید لازم است"
+
+Decision: Theme 1.4.29 / Plugin 1.3.4
+- Code-level fixes (1-6) implemented
+- Health/Schema contracts (7-13) implemented
+- Production blockers (14-21) documented
+
+Next step: Deploy to staging, collect runtime evidence on exact hash,
+then proceed to production after all hard gates pass.
+
+================================================================================
+END OF MANIFEST
+================================================================================
