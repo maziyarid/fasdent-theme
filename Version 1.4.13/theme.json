@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.2/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "820px",
+      "wideSize": "1320px"
+    },
+    "color": {
+      "palette": [
+        { "slug": "hero-brown-primary", "name": "قهوه‌ای اصلی", "color": "#4A3022" },
+        { "slug": "hero-brown-light", "name": "قهوه‌ای روشن", "color": "#684936" },
+        { "slug": "dark-espresso", "name": "اسپرسو تیره", "color": "#2C1D16" },
+        { "slug": "cream-primary", "name": "کرم اصلی", "color": "#F2E9DA" },
+        { "slug": "cream-light", "name": "کرم روشن", "color": "#F8F2E8" },
+        { "slug": "caramel-accent", "name": "کاراملی Accent", "color": "#C58D52" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "Vazirmatn, Tahoma, Arial, sans-serif",
+          "name": "Vazirmatn",
+          "slug": "vazirmatn"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#F2E9DA",
+      "text": "#2C1D16"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--vazirmatn)",
+      "lineHeight": "1.8"
+    }
+  }
+}
