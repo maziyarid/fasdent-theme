@@ -1,0 +1,31 @@
+ALIPASANDI RELEASE MANIFEST
+Release date: 2026-08-14
+Production approval: NO - staging/environment evidence required
+
+Theme: Dr Keyvan Alipasandi Dental Clinic 1.4.25
+File: alipasandi-clinic-1.4.25.zip
+SHA-256: 00b45209dde2d98f227b4585c0fb71b2adc6ddc9e42a85fb8eb95888f224e35f
+Files in archive: 85
+Requires WordPress: 6.4+
+Requires PHP: 8.0+
+
+Plugin: Alipasandi Service Content 1.3.0
+File: alipasandi-service-content-1.3.0.zip
+SHA-256: 4039615ee34a96b85355938da4dbcd4c8d0f51339810d6bdaedadbb9b0bce25b
+Files in archive: 10
+API: 1.3
+Requires WordPress: 6.4+
+Requires PHP: 8.0+
+
+Production pairing: Theme 1.4.25 + Plugin 1.3.0
+Theme 1.4.24: superseded compatibility-only
+Theme 1.4.22: historical known-critical canonical fallback release; do not deploy
+
+Deterministic ZIP timestamp normalization: 2026-08-14 00:00:00
+Archive ordering: lexical path order
+Archive permissions: regular files 0644
+
+Client report: CLIENT-RESPONSE-FINAL-1.4.25.md
+SHA-256: 3a09f73e1197c523e6608769359af5351dd690781757f31ee93c9a3e10773115
+Preflight: PRODUCTION-PREFLIGHT-1.4.25-FA.md
+SHA-256: 80f5ec5ba17174d2903678ccda4a80b2675ab067baef11e949d90c2966267eb7

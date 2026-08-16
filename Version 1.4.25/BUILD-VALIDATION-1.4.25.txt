@@ -1,0 +1,41 @@
+BUILD VALIDATION - RELEASE 1.4.25 / PLUGIN 1.3.0
+Date: 2026-08-14
+
+PASS - Theme ZIP archive integrity
+PASS - Plugin ZIP archive integrity
+PASS - Theme SHA-256: 00b45209dde2d98f227b4585c0fb71b2adc6ddc9e42a85fb8eb95888f224e35f
+PASS - Plugin SHA-256: 4039615ee34a96b85355938da4dbcd4c8d0f51339810d6bdaedadbb9b0bce25b
+PASS - PHP syntax sweep: 27 Theme PHP files + 8 Plugin PHP files on PHP 8.4.23
+PASS - Theme JS syntax with Node 22.16.0
+PASS - design-tokens.json parse
+PASS - No stale runtime drkeyvanalipasandi.com / hard-coded Gmail notify / hard-coded Maps default
+PASS - Theme has no add_action form handlers for Contact/Appointment
+PASS - Theme has no save_post/add_meta_boxes/after_switch_theme business-data write hooks
+PASS - Theme version/header = 1.4.25 / fasdent.ir / accessibility-ready removed
+PASS - Plugin version/header = 1.3.0
+PASS - Dedicated editor stylesheet instead of full frontend CSS in editor
+PASS - Registry metadata SSOT source present
+PASS - Validated OpeningHoursSpecification Rank Math integration source present
+PASS - WordPress-timezone date validator + 365-day horizon source present
+PASS - Explicit From Name source present; hard-coded Gmail fallback absent
+PASS - HMAC one-way rate-limit key + invalid-IP fail-closed source present
+PASS - Feed X-Robots-Tag noindex source present
+PASS - Permanent SEO fallback WordPress PHPUnit test source present
+
+NOT RUN / BLOCKER - PHP 8.0 runtime/lint (runtime unavailable in workspace)
+NOT RUN / BLOCKER - PHP 8.2 runtime/lint (runtime unavailable in workspace)
+NOT RUN / BLOCKER - WordPress 6.4 activation/runtime
+NOT RUN / BLOCKER - actual Production WordPress smoke
+NOT RUN / BLOCKER - WordPress PHPUnit execution
+NOT RUN / BLOCKER - WPCS/PHPCS (tool unavailable)
+NOT RUN / BLOCKER - PHPStan/static/deprecated scan (tool unavailable)
+NOT RUN / BLOCKER - isolated backup/restore rehearsal
+NOT RUN / BLOCKER - Rank Math exact-version inventory/entity graph/sitemap/redirect regression
+NOT RUN / BLOCKER - server host redirects/canonical/security headers
+NOT RUN / BLOCKER - SMTP provider/SPF/DKIM/DMARC/inbox delivered headers
+NOT RUN / HIGH - cache/post_modified/lastmod
+NOT RUN / HIGH - CWV/browser/mobile/A11y/Admin RTL
+NOT RUN / HIGH - Privacy Policy/Medical Claim/Asset owner approvals
+
+Conclusion: SOURCE BUILD VALIDATION PASS only for checks explicitly listed above.
+Production Approval remains NO until environmental gates pass against the exact ZIP hashes.
