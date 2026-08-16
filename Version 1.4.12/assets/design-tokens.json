@@ -1,0 +1,89 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "name": "Alipasandi Clinic — Final Approved System",
+  "version": "1.4.11",
+  "color": {
+    "hero-brown-primary": {
+      "$type": "color",
+      "$value": "#4A3022"
+    },
+    "hero-brown-light": {
+      "$type": "color",
+      "$value": "#684936"
+    },
+    "dark-espresso": {
+      "$type": "color",
+      "$value": "#2C1D16"
+    },
+    "cream-primary": {
+      "$type": "color",
+      "$value": "#F2E9DA"
+    },
+    "cream-light": {
+      "$type": "color",
+      "$value": "#F8F2E8"
+    },
+    "caramel-accent": {
+      "$type": "color",
+      "$value": "#C58D52"
+    }
+  },
+  "colorFunctional": {
+    "error": {
+      "$type": "color",
+      "$value": "#B42318"
+    },
+    "error-bg": {
+      "$type": "color",
+      "$value": "#FEF3F2"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "#027A48"
+    },
+    "success-bg": {
+      "$type": "color",
+      "$value": "#ECFDF3"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "#667085"
+    }
+  },
+  "typography": {
+    "body": "Vazirmatn",
+    "logo": "Playfair Display",
+    "logoWeights": [
+      600,
+      700
+    ],
+    "hosting": "local-woff2"
+  },
+  "layout": {
+    "container": "1320px",
+    "radius": "12px",
+    "button-radius": "8px",
+    "breakpoints": {
+      "mobile-sm": "559px",
+      "mobile": "767px",
+      "tablet": "768px",
+      "desktop": "1200px"
+    }
+  },
+  "sourceOfTruth": {
+    "master": "assets/css/theme.css :root",
+    "documentationMirror": "assets/design-tokens.json",
+    "workflow": "theme.css :root is the runtime source of truth. design-tokens.json is the documentation/handoff mirror and must be updated in the same release whenever tokens change."
+  },
+  "rollout": {
+    "approved-scope": "site-wide",
+    "internal-pages": "extended",
+    "status": "staging-qa"
+  },
+  "operationalLocation": {
+    "city": "نوشهر",
+    "address": "نوشهر، ستارخان، امیراد ۱، طبقه ۵",
+    "maps": "https://maps.app.goo.gl/ycPem67fpYbvgdXZ7?g_st=atm",
+    "note": "Tehran is brand/history only — not an active booking branch."
+  }
+}
