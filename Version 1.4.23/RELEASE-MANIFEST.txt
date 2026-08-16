@@ -1,0 +1,11 @@
+# Alipasandi Clinic Theme 1.4.23 / Site Plugin 1.1.0
+# Build timestamp: 2026-08-14T15:00:00Z
+# Git commit: 2a4efbf4141c07ca526291591d4969d6669fe289
+# Git tag: v1.4.23
+# WordPress minimum: 6.4
+# PHP minimum: 8.0; production target: 8.2
+
+f7465a83e7f48b69eb14ba641ab6d5ad416953b2d98bc18981be8d03f24df2f9  alipasandi-clinic-1.4.23.zip
+659255883bc7fc55dce27a1462518c7c802eac7cb90508c1fef0958cbe00730e  alipasandi-service-content-1.1.0.zip
+
+# Hotfix: correct WordPress API is wp_get_canonical_url(); get_canonical_url is only the filter name.

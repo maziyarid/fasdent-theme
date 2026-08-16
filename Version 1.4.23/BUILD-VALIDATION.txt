@@ -1,0 +1,11 @@
+Build Validation — Theme 1.4.23
+
+PASS  Incorrect function call `get_canonical_url(` absent from executable theme code.
+PASS  Correct guarded call `wp_get_canonical_url()` present with `get_permalink()` fallback.
+PASS  Theme header/version constant/readme = 1.4.23.
+PASS  Theme and Plugin archive integrity (`unzip -t`).
+PASS  SHA-256 recorded and verified.
+PASS  Git commit/tag: 2a4efbf4141c07ca526291591d4969d6669fe289 / v1.4.23.
+
+NOT RUN  PHP/WordPress runtime in build workspace because PHP CLI/WordPress runtime is unavailable.
+REQUIRED  Staging smoke with Rank Math active, inactive, then reactivated; no fatal and duplicate metadata/schema zero.
