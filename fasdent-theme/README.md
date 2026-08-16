@@ -1,217 +1,67 @@
-# Fasdent Theme - React Version
+# Fasdent Theme — React Edition
 
-## Overview
+This folder contains a React-powered theme variant that pairs React + Vite + Tailwind with WordPress so you can deliver an app-like frontend while still leveraging WordPress content via REST API.
 
-This is the React-based version of the Fasdent WordPress theme. It combines the power of React, Vite, and Tailwind CSS to create a modern, fast, and maintainable WordPress theme.
+Important: The React variant is an alternative front-end approach — it complements the canonical PHP UI in the repository. Use one approach at a time on a given site.
 
-## Features
+## Key features
+- React 19 + TypeScript codebase
+- Vite 8 for fast dev / build
+- Tailwind CSS v4 styling
+- RTL support for Persian content
+- REST API integration for posts, menus, custom post types
+- Configurable theme customizer integration
 
-- ✅ **React 19** with TypeScript
-- ✅ **Vite 8** for fast builds and HMR
-- ✅ **Tailwind CSS v4** for styling
-- ✅ **RTL Support** for Persian content
-- ✅ **WordPress Integration** with REST API
-- ✅ **Responsive Design** for all devices
-- ✅ **Modern UI Components**
-- ✅ **Performance Optimized**
-
-## Theme Structure
-
-```
+## Structure (high-level)
 React/
-├── style.css              # WordPress theme header
-├── functions.php          # WordPress theme functions
-├── index.php              # Main template
-├── template-react.php     # React template loader
-├── header.php             # Header template
-├── footer.php             # Footer template
-├── front-page.php         # Front page template
-├── single.php             # Single post template
-├── page.php               # Page template
-├── archive.php            # Archive template
-├── search.php             # Search template
-├── 404.php                # 404 template
-├── comments.php           # Comments template
-├── inc/                   # WordPress includes
-│   ├── setup.php          # Theme setup
-│   ├── enqueue.php        # Asset loading
-│   ├── post-types.php     # Custom post types
-│   ├── taxonomies.php     # Custom taxonomies
-│   ├── customizer.php     # Theme customizer
-│   └── ...
-├── template-parts/        # Template parts
-├── page-templates/        # Page templates
-├── assets/                # Static assets
-│   ├── css/               # CSS files
-│   ├── js/                # JavaScript files
-│   └── images/            # Images
-├── languages/             # Translation files
-├── data/                  # Demo data
-├── src/                   # React source
-│   ├── components/        # React components
-│   ├── pages/             # Page components
-│   ├── hooks/             # Custom hooks
-│   ├── contexts/          # React contexts
-│   ├── types/             # TypeScript types
-│   ├── App.tsx            # Main app component
-│   ├── main.tsx           # Entry point
-│   ├── routes.tsx         # Router configuration
-│   └── index.css          # Global styles
-├── vite.config.ts         # Vite configuration (Figma Make)
-├── vite.config.wordpress.ts # WordPress-specific Vite config
-├── package.json           # Dependencies
-└── README.md              # This file
-```
+- style.css — WordPress theme header
+- functions.php — PHP bootstrapping / REST helpers
+- template-react.php — server template to load React root
+- header.php / footer.php / index.php — minimal theme wrappers
+- inc/ — theme setup, enqueue scripts, CPTs, customizer
+- assets/ — compiled assets for WordPress (CSS/JS/images)
+- src/ — React source
+  - components/, pages/, hooks/, contexts/, types/
+  - main.tsx, App.tsx, routes.tsx, index.css
+- vite.config.ts & vite.config.wordpress.ts
+- package.json
 
-## Installation
-
-### As a WordPress Theme
-
-1. **Build the React app:**
-   ```bash
+## Installation (production)
+1. Build the React app:
    cd React
    npm install
    npm run build:wordpress
-   ```
-
-2. **Copy the React folder to your WordPress themes directory:**
-   ```bash
+2. Copy the built React folder or the generated `dist`/`app` files to your WordPress themes directory:
    cp -r React /path/to/wordpress/wp-content/themes/fasdent
-   ```
+3. Activate the theme in WP admin (Appearance → Themes).
 
-3. **Activate the theme in WordPress admin:**
-   - Go to Appearance > Themes
-   - Activate "Fasdent Theme"
+## Development
+For development with HMR:
+1. cd React
+2. npm install
+3. npm run dev
 
-### Development Mode
+Use FASDENT_DEV_MODE or your functions.php to route asset URLs to the dev server (example included in the repo).
 
-For development, you can run the React app with hot reloading:
+## WordPress integration notes
+- The theme uses the REST API to fetch menus, posts, and theme options.
+- PHP templates provide minimal server-side markup and ensure WordPress hooks remain available.
+- Recommended plugins: Advanced Custom Fields (ACF) for complex content models (optional).
 
-```bash
-cd React
-npm install
-npm run dev
-```
+## Custom post types & taxonomies
+The React variant registers commonly used CPTs for the project:
+- service, doctor, testimonial, faq
+Taxonomies:
+- service_category, kb_topic
 
-Then configure WordPress to use the development server by adding to `wp-config.php`:
-
-```php
-define('FASDENT_DEV_MODE', true);
-```
-
-## Configuration
-
-### Theme Customizer
-
-The theme supports WordPress Customizer for:
-- Phone number
-- Booking URL
-- Social media links
-- Colors and branding
-- Menu configurations
-
-### Required Plugins
-
-- **Advanced Custom Fields (ACF)** - For custom fields
-- **WP REST API** - Already included in WordPress core
-
-### Custom Post Types
-
-The theme registers the following custom post types:
-- `service` - Dental services
-- `doctor` - Doctors/team members
-- `testimonial` - Patient testimonials
-- `faq` - Frequently asked questions
-
-### Custom Taxonomies
-
-- `service_category` - Service categories
-- `kb_topic` - Knowledge base topics
-
-## Building for Production
-
-```bash
+## Building for production
+Run:
 npm run build:wordpress
-```
+This outputs a production-ready set of assets that WordPress will reference.
 
-This will create a `dist` folder with optimized assets that WordPress will load.
+## Browser compatibility
+Modern evergreen browsers (Chrome, Firefox, Safari, Edge — latest 2 versions) are supported.
 
-## WordPress Integration
-
-The theme provides:
-
-1. **React Data Context** - Access WordPress data in React components
-2. **REST API Integration** - Fetch posts, pages, and other content
-3. **Menu Integration** - Use WordPress menus in React
-4. **Customizer Integration** - Access theme options
-
-### Using WordPress Data in React
-
-```tsx
-import { useWordPress } from './contexts/WordPressContext'
-
-function MyComponent() {
-  const { data, isLoaded } = useWordPress()
-  
-  if (!isLoaded) return <div>Loading...</div>
-  
-  return (
-    <div>
-      <h1>{data.site.name}</h1>
-      <p>Phone: {data.phone}</p>
-    </div>
-  )
-}
-```
-
-### Fetching Posts
-
-```tsx
-import { usePosts } from './hooks/useWordPressApi'
-
-function BlogPosts() {
-  const { data: posts, loading, error } = usePosts({ per_page: 10 })
-  
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
-  
-  return (
-    <div>
-      {posts?.map(post => (
-        <article key={post.id}>
-          <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-        </article>
-      ))}
-    </div>
-  )
-}
-```
-
-## Browser Support
-
-- Chrome (latest 2 versions)
-- Firefox (latest 2 versions)
-- Safari (latest 2 versions)
-- Edge (latest 2 versions)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
-## License
-
-GNU General Public License v2 or later
-
-## Version History
-
-- **v3.0.0** - React-based theme with Vite + Tailwind CSS
-- **v2.6.0** - Previous PHP-based version
-
-## Support
-
-For support, please contact the Fasdent development team.
+## Contributing & license
+- Fork, branch, PR, tests/lint before submitting.
+- License: GNU GPL v2 or later.
