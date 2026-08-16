@@ -27,7 +27,7 @@ The `React/`, `New Fasdent/`, `Manually updated/`, `Updated 1.4.29/`, `1.4.29/`,
 
 ## Version 1.5 Baseline
 
-Version 1.5 is based on the approved WordPress/PHP architecture and the last release candidate whose theme/plugin compatibility and artifact process were documented. It incorporates only verified fixes; it does not automatically inherit every historical experiment.
+Version 1.5 is based on the approved WordPress/PHP architecture and the last coherent baseline (theme 1.4.24 family + plugin 1.2.0). It incorporates only verified fixes; it does not automatically inherit every historical experiment.
 
 Before packaging, the release owner must record:
 
@@ -41,12 +41,10 @@ Before packaging, the release owner must record:
 - Database backup reference.
 - Staging URL or environment reference.
 
-## Known Risk Areas
-
-The following must be explicitly verified before customer delivery:
+## Known Risk Areas (must be verified before customer delivery)
 
 - Hero image URL, responsive variants, fallback, dimensions, and crop.
-- Logo source, Customizer value, URL, dimensions, and mobile rendering.
+- Logo source (this theme uses a code-based brand mark: text + tooth icon; not a separate logo.svg).
 - CSS and RTL stylesheet loading order.
 - JavaScript loading and duplicate event bindings.
 - Local font loading and Persian text reflow.
@@ -60,4 +58,4 @@ The following must be explicitly verified before customer delivery:
 
 No historical folder may be copied into the canonical source during release unless the change is reviewed, tested, and recorded in the Version 1.5 requirements register.
 
-No production approval may be inferred from a repository-only inspection. A release is ready only after code checks and environment evidence both pass.
+No production approval may be inferred from a repository-only inspection. A release is ready only after code checks and environment evidence both pass according to the Approval Truth Table in `REQUIREMENTS.md`.
