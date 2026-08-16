@@ -1,0 +1,17 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "name": "Alipasandi Clinic — Approved Recolor",
+  "version": "1.4.2",
+  "color": {
+    "hero-brown-primary": { "$type": "color", "$value": "#4A3022" },
+    "hero-brown-light": { "$type": "color", "$value": "#684936" },
+    "dark-espresso": { "$type": "color", "$value": "#2C1D16" },
+    "cream-primary": { "$type": "color", "$value": "#F2E9DA" },
+    "cream-light": { "$type": "color", "$value": "#F8F2E8" },
+    "caramel-accent": { "$type": "color", "$value": "#C58D52" }
+  },
+  "rollout": {
+    "approved-scope": "homepage-desktop-1440-and-mobile-390",
+    "internal-pages": "pending-client-color-approval"
+  }
+}
