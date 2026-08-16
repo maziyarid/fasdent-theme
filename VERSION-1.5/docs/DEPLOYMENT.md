@@ -1,60 +1,61 @@
-# Deployment Guide — Version 1.5.0
+# Fasdent Version 1.5 — Deployment Procedure
 
-## 1. Prepare
+## Package Layout
 
-1. Take a full backup of the current production files and database.
-2. Note the currently active theme and plugin versions.
-3. Confirm you have FTP / SFTP / file-manager access and wp-admin access.
+The WordPress ZIP must contain the theme root directly. Do not upload a ZIP that creates `VERSION-1.5/Theme/` inside `wp-content/themes/`.
 
-## 2. Upload Only the Canonical Folders
+Correct theme ZIP structure:
 
-- Upload the contents of `Theme/` into  
-  `wp-content/themes/<active-theme-slug>/`  
-  (overwrite existing files; do not leave old Version-* folders inside the theme directory).
+```text
+fasdent-theme-1.5.0/
+├── style.css
+├── functions.php
+├── front-page.php
+├── header.php
+├── footer.php
+├── assets/
+├── inc/
+└── template-parts/
+```
 
-- Upload the contents of `Plugin/` into  
-  `wp-content/plugins/alipasandi-service-content/`  
-  (or the exact slug used previously).
+Correct plugin ZIP structure:
 
-**Do not upload** any of these folders to the live server:
+```text
+alipasandi-service-content-1.2.0/
+├── alipasandi-service-content.php
+├── includes/
+└── readme.txt
+```
 
-- 1.4.29, Updated 1.4.29, New Fasdent, Manually updated, React, Version 1.4.x, Chat History, historical reports.
+## Pre-Deployment Stop Conditions
 
-## 3. Activate
+Stop if the active production versions are unknown, the backup is missing, the package hash is not recorded, or the package has nested/historical/prototype files.
 
-1. In wp-admin → Plugins: activate the companion plugin if not already active.
-2. In Appearance → Themes: activate the theme if needed.
-3. Confirm the version numbers shown match 1.5.0 / 1.2.0.
+## Deployment Sequence
 
-## 4. Cache & Settings
+1. Record active theme/plugin versions and WordPress/PHP versions.
+2. Create a full database and `wp-content/uploads` backup.
+3. Verify that the backup can be accessed and restoration instructions exist.
+4. Put the site in a maintenance window if necessary.
+5. Install the exact Version 1.5.0 theme package.
+6. Install and activate the exact Version 1.2.0 plugin package.
+7. Confirm WordPress Address and Site Address.
+8. Confirm the static homepage and menus.
+9. Confirm logo, site icon, phone, address, hours, booking URL, and floating-chat settings.
+10. Purge WordPress, object, server, CDN, and browser caches.
+11. Test the canonical HTTPS host and all redirect variants.
+12. Run the P0/P1 acceptance checklist.
+13. Record evidence and rollback reference.
 
-1. Purge every cache layer:
-   - WordPress cache plugin
-   - Object cache / Redis if present
-   - Server / LiteSpeed / Nginx cache
-   - CDN (Cloudflare etc.)
-   - Browser cache (or test in private window)
-2. Open Customizer and verify:
-   - Site identity / logo settings (note: this theme uses a code-based brand mark, not necessarily the Custom Logo)
-   - Phone, address, opening hours
-   - Floating chat / contact channels
-3. Confirm Settings → Reading uses the correct front page.
+## Rollback
 
-## 5. Verify
+If a P0 check fails:
 
-Follow the checklist in `ACCEPTANCE-CRITERIA.md`.  
-Collect the evidence screenshots and network/console results.
+1. Stop public delivery approval.
+2. Preserve the failure evidence.
+3. Restore the previous approved theme/plugin package or backup.
+4. Purge caches again.
+5. Re-run the smoke test.
+6. Record the rollback and new corrective action.
 
-## 6. Rollback
-
-If the site is worse after deploy:
-
-1. Restore the previous theme/plugin files from the backup taken in step 1.
-2. Purge caches again.
-3. Report the exact difference observed so the register can be updated.
-
-## Asset Paths
-
-All theme assets use `get_template_directory_uri()`.  
-After moving the theme folder the paths update automatically.  
-If you see 404s for CSS/JS/images, the wrong folder was activated or cache is still serving old URLs.
+Never delete the only backup or modify production database content while troubleshooting without a fresh backup.

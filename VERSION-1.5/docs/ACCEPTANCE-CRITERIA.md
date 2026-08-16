@@ -1,62 +1,101 @@
-# Acceptance Criteria & Production Bug Checklist — 1.5.0
+# Fasdent Version 1.5 — Customer Delivery Acceptance Criteria
 
-The design was confirmed. The live site showing broken hero / logo / sections is a **deployment / environment** problem until proven otherwise.
+This is the only customer-delivery gate for Version 1.5. Other findings are not release blockers unless they map to one of these requirements.
 
-## Pre-Deploy Identity Check (P0)
+## Status
 
-- [ ] Exact theme folder installed on server matches this package’s `Theme/`
-- [ ] Exact plugin folder matches this package’s `Plugin/`
-- [ ] Active theme version shown in wp-admin = 1.5.0
-- [ ] Active plugin version = 1.2.0
-- [ ] No files from historical Version folders are present in the active theme directory
-- [ ] Production database backup completed and verified
+- `PASS`: verified with evidence.
+- `FAIL`: defect reproduced and must be corrected.
+- `PENDING`: not yet verified.
+- `N/A`: explicitly excluded after review.
 
-## Visual Integrity (P0)
+No production approval may be claimed while a required P0 item is `FAIL` or `PENDING`.
 
-- [ ] Logo (text “Dr Keyvan Alipasandi” + tooth icon) is visible on desktop header
-- [ ] Same logo visible on mobile header
-- [ ] Hero section has non-zero height and shows the implant/clinic image
-- [ ] Hero image loads without 404 at mobile and desktop widths
-- [ ] Hero text is readable (contrast) and correctly RTL-aligned
-- [ ] Header does not overlap or clip the hero
-- [ ] Service cards, doctor section, footer render without missing images or empty columns
-- [ ] Floating contact / chat widget appears with correct channels (or is intentionally hidden)
-- [ ] No broken-image placeholders or missing-icon squares
+## P0 — Identity and Deployment
 
-## Technical Integrity (P0)
+- [ ] Active WordPress theme is exactly Version 1.5.0.
+- [ ] Active companion plugin is exactly Version 1.2.0.
+- [ ] The live theme directory contains no `Version-*`, historical release, React, prototype, backup, or manual-upload files.
+- [ ] The deployed ZIP matches the approved Version 1.5 manifest and SHA-256 hashes.
+- [ ] A full production backup of the database and `wp-content/uploads` exists.
+- [ ] Backup restoration has been tested or the release remains blocked.
+- [ ] Rollback package and procedure are available.
 
-- [ ] Browser console: zero uncaught JavaScript errors
-- [ ] Network panel: theme.css, rtl.css, theme.js, all hero images, font files return HTTP 200
-- [ ] No mixed-content (HTTP assets on HTTPS page)
-- [ ] No CSS or JS MIME-type errors
-- [ ] Cache fully purged (WordPress + server + CDN + browser)
-- [ ] Mobile menu opens, closes, Escape key works, backdrop behaves
-- [ ] Forms (booking + contact) submit successfully and show user-safe messages
+## P0 — Visual Integrity
 
-## Data & SEO (P1)
+- [ ] Logo brand text and tooth icon are visible on desktop.
+- [ ] Logo brand text and tooth icon are visible on mobile.
+- [ ] Hero image returns HTTP 200 at 375px.
+- [ ] Hero image returns HTTP 200 at 768px.
+- [ ] Hero image returns HTTP 200 at 1024px.
+- [ ] Hero image returns HTTP 200 at 1440px.
+- [ ] Hero has the approved height and crop.
+- [ ] Hero text is readable and correctly aligned RTL.
+- [ ] Header does not overlap or clip the hero.
+- [ ] Service cards are intact.
+- [ ] Doctor block is intact.
+- [ ] Footer is intact.
+- [ ] No broken-image icon, placeholder, unexpected blank section, or horizontal overflow appears.
 
-- [ ] Customizer / plugin settings contain production phone, address, hours
-- [ ] No test/demo or localhost URLs remain
-- [ ] Canonical host is consistent (www vs non-www, HTTPS only)
-- [ ] Schema / Rank Math does not emit contradictory NAP
+## P0 — Technical Runtime
 
-## Evidence to Collect Before Declaring Done
+- [ ] `theme.css` returns HTTP 200 with `text/css`.
+- [ ] `rtl.css` returns HTTP 200 with `text/css` when loaded.
+- [ ] `theme.js` returns HTTP 200 with the expected JavaScript MIME type.
+- [ ] Every rendered image request returns HTTP 200.
+- [ ] Every rendered font request returns HTTP 200.
+- [ ] Browser console has zero uncaught errors.
+- [ ] Browser console has zero mixed-content warnings.
+- [ ] CSS has no broken `url(...)` references.
+- [ ] JavaScript is loaded once and does not double-bind the mobile menu.
+- [ ] All WordPress, server, CDN, object, and browser caches have been purged.
+- [ ] A clean-browser request renders Version 1.5 after cache purge.
+- [ ] Mobile menu opens correctly.
+- [ ] Mobile menu closes correctly.
+- [ ] Escape closes the mobile menu.
+- [ ] Focus returns to the menu trigger after close.
+- [ ] Keyboard navigation remains usable.
 
-1. Desktop screenshot of homepage (hero + logo visible)
-2. Mobile screenshot of homepage
-3. Network panel export or list of any 404s
-4. Console log (clean)
-5. Screenshot of Appearance → Themes showing version 1.5.0
-6. Screenshot of Plugins list showing companion plugin active
-7. Confirmation that cache was purged
+## P0 — Forms and Core Actions
 
-## What Is Explicitly Out of Scope for This Code Release
+- [ ] Booking form renders without PHP or JavaScript errors.
+- [ ] Booking form validates invalid input safely.
+- [ ] Booking form submits a synthetic staging request successfully.
+- [ ] Booking success and error states are understandable.
+- [ ] Contact form renders without PHP or JavaScript errors.
+- [ ] Contact form submits a synthetic staging request successfully.
+- [ ] No form test uses real patient data.
+- [ ] No user input is exposed in logs or error responses.
 
-- Live Core Web Vitals numbers
-- Full accessibility audit with axe/WAVE on production
-- SPF / DKIM / DMARC mail configuration
-- Google Business Profile / Search Console verification
-- Backup restore rehearsal (must be done by host)
-- Any redesign or new visual direction not already approved
+## P1 — Production Data and Canonical Host
 
-These items are environment or operational tasks. They do not require further theme code changes.
+- [ ] Production phone is correct.
+- [ ] Production address is correct.
+- [ ] Production opening hours are correct.
+- [ ] Production floating-chat channels are configured correctly.
+- [ ] Header, footer, contact page, schema, and plugin settings use one NAP source of truth.
+- [ ] One canonical HTTPS host is selected.
+- [ ] HTTP redirects directly to canonical HTTPS.
+- [ ] `www` behavior is intentional and tested.
+- [ ] Canonical, sitemap, robots, and form URLs use the canonical host.
+
+## Evidence Required
+
+For each item record:
+
+- Requirement ID.
+- PASS/FAIL/PENDING status.
+- URL or screen.
+- Theme version and plugin version.
+- Release commit and artifact hashes.
+- Browser/device/viewport.
+- Test date and timezone.
+- Tester.
+- Screenshot, network export, console export, log, or backup reference.
+- Corrective action and owner.
+
+## Delivery Decision
+
+- **READY:** all required P0 checks PASS; P1 checks PASS or are explicitly approved as non-blocking.
+- **BLOCKED:** any required P0 check is FAIL or PENDING.
+- **NOT PRODUCTION-APPROVED:** repository files alone are insufficient evidence.
