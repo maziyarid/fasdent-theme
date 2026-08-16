@@ -1,0 +1,112 @@
+/*
+ * Explicit RTL layer.
+ * Loaded after the base stylesheet for every locale because this site is Persian-first.
+ */
+html[dir="rtl"],
+html[dir="rtl"] body,
+body.alipasandi-rtl {
+  direction: rtl !important;
+  text-align: right;
+}
+
+body.alipasandi-rtl main,
+body.alipasandi-rtl section,
+body.alipasandi-rtl article,
+body.alipasandi-rtl nav,
+body.alipasandi-rtl form,
+body.alipasandi-rtl .entry-content {
+  direction: rtl;
+}
+
+.header-inner {
+  direction: rtl;
+  flex-direction: row;
+}
+
+.primary-nav,
+.header-actions,
+.nav-list,
+.mobile-menu nav {
+  direction: rtl;
+}
+
+.brand-copy,
+[dir="ltr"],
+input[type="tel"],
+input[type="date"],
+.num {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.brand-copy {
+  text-align: left;
+}
+
+input:not([type="tel"]):not([type="date"]),
+select,
+textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+input[type="tel"],
+input[type="date"] {
+  text-align: left;
+}
+
+select {
+  background-position: left 12px center;
+  padding-inline: 13px 38px;
+}
+
+.service-card,
+.benefit-card,
+.value-card,
+.content-card,
+.service-row-copy,
+.post-card-copy,
+.field,
+.contact-info-item,
+.medical-note,
+.step-card {
+  text-align: right;
+}
+
+.entry-content ul,
+.entry-content ol,
+.comment-content ul,
+.comment-content ol {
+  padding-inline-start: 1.5rem;
+  padding-inline-end: 0;
+}
+
+.entry-content blockquote {
+  margin-inline: 0;
+  padding-inline: 20px 0;
+  border-inline-start: 3px solid var(--gold);
+}
+
+.wp-block-table,
+.entry-content table {
+  direction: rtl;
+  text-align: right;
+}
+
+.pagination .nav-links,
+.post-navigation .nav-links,
+.comment-navigation .nav-links {
+  direction: rtl;
+}
+
+.screen-reader-text {
+  right: -9999px;
+  left: auto;
+}
+
+@media (max-width: 1199px) {
+  .mobile-menu nav > a,
+  .mobile-menu .button {
+    text-align: right;
+  }
+}
