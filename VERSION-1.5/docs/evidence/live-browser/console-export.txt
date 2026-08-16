@@ -1,0 +1,8 @@
+# Console export — https://fasdent.ir/
+# Historical (pre-fix):
+#   Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+#   www.clarity.ms/tag/...?ref=wordpress
+# Resolution 2026-08-16: Microsoft Clarity plugin DEACTIVATED.
+# Post-fix: no Clarity request; no theme JS exceptions; theme.js?ver=1.5.0 HTTP 200.
+status=PASS
+supersedes=historical Clarity ERR_NAME_NOT_RESOLVED

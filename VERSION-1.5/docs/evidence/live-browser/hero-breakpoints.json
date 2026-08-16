@@ -1,0 +1,10 @@
+{
+  "production_url": "https://fasdent.ir/",
+  "tested_at_utc": "2026-08-16T20:30:00Z",
+  "viewports": [
+    {"viewport": 375, "result": "PASS", "hero_visible": true, "image_status": 200, "horizontal_overflow": false, "rtl_readable": true},
+    {"viewport": 412, "result": "PASS", "hero_visible": true, "horizontal_overflow": false, "rtl_readable": true},
+    {"viewport": 768, "result": "PASS", "hero_visible": true, "horizontal_overflow": false, "rtl_readable": true},
+    {"viewport": 1440, "result": "PASS", "hero_visible": true, "horizontal_overflow": false, "rtl_readable": true}
+  ]
+}

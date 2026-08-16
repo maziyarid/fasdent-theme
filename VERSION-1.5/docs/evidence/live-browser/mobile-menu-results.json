@@ -1,0 +1,9 @@
+{
+  "tested_at_utc": "2026-08-16T20:30:00Z",
+  "viewport": 412,
+  "hamburger_visible": true,
+  "menu_opens": true,
+  "links_visible": ["صفحه اصلی", "درباره ما", "خدمات", "تماس با ما", "رزرو نوبت"],
+  "result": "PASS",
+  "note": "Open state captured in production screenshots 2026-08-16"
+}
