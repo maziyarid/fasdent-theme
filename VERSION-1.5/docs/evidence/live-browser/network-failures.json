@@ -1,0 +1,10 @@
+{
+  "historical": [{
+    "url": "https://www.clarity.ms/tag/...",
+    "error": "ERR_NAME_NOT_RESOLVED",
+    "date": "2026-08-16",
+    "status": "SUPERSEDED",
+    "resolution": "Microsoft Clarity plugin deactivated 2026-08-16"
+  }],
+  "current_required_assets_failures": []
+}

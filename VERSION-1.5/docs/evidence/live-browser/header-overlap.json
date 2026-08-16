@@ -1,0 +1,9 @@
+{
+  "tested_at_utc": "2026-08-16T20:30:00Z",
+  "viewports": [
+    {"viewport": 375, "header_overlaps_hero": false, "result": "PASS"},
+    {"viewport": 412, "header_overlaps_hero": false, "result": "PASS"},
+    {"viewport": 768, "header_overlaps_hero": false, "result": "PASS"},
+    {"viewport": 1440, "header_overlaps_hero": false, "result": "PASS"}
+  ]
+}

@@ -1,0 +1,10 @@
+requested_url,final_url,type,status,notes
+https://fasdent.ir/.../theme.css?ver=1.5.0,same,stylesheet,200,V15-105
+https://fasdent.ir/.../rtl.css?ver=1.5.0,same,stylesheet,200,V15-105
+https://fasdent.ir/.../theme.js?ver=1.5.0,same,script,200,V15-105
+implant-hero-480.webp,same,webp,200,V15-103 mobile
+implant-hero-768.webp,same,webp,200,V15-103
+implant-hero-920.webp,same,webp,200,V15-103 desktop
+vazirmatn-arabic-400-normal.woff2,same,font,200,V15-105
+playfair-display-latin-600-normal.woff2,same,font,200,V15-105
+favicon.svg,same,svg,200,favicon

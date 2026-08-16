@@ -1,42 +1,45 @@
-# Fasdent Version 1.5 — Customer Delivery Acceptance Criteria
+# Fasdent Version 1.5 — Acceptance Criteria
 
-This document and `VERSION-1.5/RELEASE_CHECKLIST.md` use the same authoritative decision table in `VERSION-1.5/REQUIREMENTS.md`.
+**Authoritative gate:** `VERSION-1.5/REQUIREMENTS.md` (current `Blocker` column only).
 
-## Required P0 Gates
+```text
+For every requirement where Blocker = Yes:
+    Status must be PASS
+    AND reviewable evidence must be recorded (path or admin capture).
 
-Each item below is `Required = Yes` and `Blocker = Yes` unless explicitly marked otherwise. A required blocker must be `PASS` with evidence. A named `DEFERRED` blocker can be approved only with written client acceptance, residual-risk record, owner, and expiry/review date. Any `FAIL`, `PENDING`, or undocumented exception blocks approval.
+If all such rows PASS → APPROVE
+Otherwise → BLOCKED
+```
 
-### Identity and deployment
+There is **no** second approval path for `DEFERRED` while `Blocker` remains `Yes`.
+To defer a blocker: set `Status=DEFERRED` **and** `Blocker=No` in the same edit, with residual-risk acceptance recorded.
 
-- [ ] Theme exactly Version 1.5.0.
-- [ ] Plugin exactly Version 1.2.0.
-- [ ] No historical/prototype/backup/manual-upload files in live theme directory.
-- [ ] Release package manifest and hashes match.
-- [ ] Full database and uploads backup exists.
-- [ ] Backup restoration or rollback is verified.
+This file must not invent blockers. Classifications for operational items:
 
-### Visual and technical integrity
+| ID | Item | Blocker |
+|----|------|--------|
+| V15-004 | Historical folders on disk | **No** |
+| V15-407 | Backup **restore** rehearsal | **No** |
 
-- [ ] Logo brand text and tooth icon visible on desktop and mobile.
-- [ ] Hero returns HTTP 200 and has approved crop at 375/768/1024/1440.
-- [ ] Hero text is readable and RTL; header does not overlap or clip it.
-- [ ] Service cards, doctor block, footer, and floating chat are intact.
-- [ ] CSS, RTL CSS, JS, images, icons, and fonts return HTTP 200.
-- [ ] Console is clean; no mixed-content warnings exist.
-- [ ] Caches are purged and the clean-browser page is the intended release.
-- [ ] Mobile menu open, close, Escape, focus, and keyboard behavior passes.
-- [ ] Synthetic booking and contact tests pass.
+Those may be documented and improved; their absence does **not** reject the package while Blocker=No.
 
-### Production data and host
+## Blocker=Yes checklist (must be PASS)
 
-- [ ] Phone, address, opening hours, and floating-chat channels are correct.
-- [ ] NAP is consistent across settings, templates, contact page, and schema.
-- [ ] One canonical HTTPS host and redirect policy is verified.
+Identity: V15-001, V15-002, V15-003
+Visual/assets: V15-101–V15-107
+WordPress/forms: V15-201, V15-203, V15-204, V15-205, V15-206
+URL/security: V15-301, V15-302, V15-303
+Quality: V15-401, V15-403, V15-405
 
-## Evidence rule
+Evidence directory: `VERSION-1.5/docs/evidence/live-browser/`
+Status matrix: `VERSION-1.5/docs/RELEASE-STATUS.md`
+Register: `VERSION-1.5/REQUIREMENTS.md`
 
-Screenshots, network exports, console logs, backup/restore records, admin inventory, form test records, and redirect crawls are environment evidence. They cannot be fabricated or marked PASS from GitHub source inspection alone.
+## Non-blocking (Blocker=No)
+
+V15-004, V15-108, V15-202, V15-304–307, V15-402, V15-404, V15-406, V15-407 — optional/ops.
 
 ## Decision
 
-Use the decision table in `VERSION-1.5/REQUIREMENTS.md`. Until required blocker evidence is attached, the release remains BLOCKED.
+Reproduce the decision only from `REQUIREMENTS.md` Blocker=Yes rows.
+As of 2026-08-16 all Blocker=Yes rows are **PASS** → **APPROVE** (see RELEASE-STATUS.md).

@@ -1,0 +1,5 @@
+PASS — post Clarity deactivation
+URL: https://fasdent.ir/contact/
+Date: 2026-08-16
+Observation: Clarity disabled; no ERR_NAME_NOT_RESOLVED for clarity.ms.
+Historical failure retained in network-failures.json

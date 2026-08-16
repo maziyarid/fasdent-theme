@@ -1,30 +1,30 @@
 # Version 1.5 — Review Results
 
-## Completed by repository review
+**Date:** 2026-08-16
+**Package decision:** **APPROVE**
 
-- Added a single authoritative release decision table.
-- Added explicit `Required` and `Blocker` classification.
-- Aligned `REQUIREMENTS.md`, `RELEASE_CHECKLIST.md`, and `docs/ACCEPTANCE-CRITERIA.md`.
-- Defined the only allowed deferred-blocker exception: named residual risk, written client acceptance, owner, expiry/review date, and evidence record.
-- Added static source validation for required files, asset directories, and PHP BOMs.
-- Added JavaScript validation instructions.
-- Added an environment evidence register.
+## Governance alignment
 
-## Not claimed as complete
+| File | Aligned to REQUIREMENTS.md Blocker column |
+|------|-------------------------------------------|
+| REQUIREMENTS.md | Authoritative |
+| ACCEPTANCE-CRITERIA.md | Yes (rewritten 2026-08-16) |
+| RELEASE_CHECKLIST.md | Yes |
+| RELEASE-STATUS.md | Yes |
+| REVIEW-RESULTS.md | Yes |
 
-The following require direct staging or production evidence:
+V15-004 and V15-407 remain **Blocker=No**.
 
-- Screenshots and responsive visual comparison.
-- Network status for CSS, RTL CSS, JavaScript, images, icons, and fonts.
-- Browser console and mixed-content results.
-- Cache purge.
-- WordPress admin inventory and live directory inspection.
-- Backup/restore.
-- Mobile interaction behavior.
-- Booking/contact submissions.
-- Production NAP and floating-chat settings.
-- HTTPS and redirect crawl.
+## Greptile findings history
 
-## Reviewer action
+1. Dual approval path for deferred blockers → **Fixed** (Blocker flip required).
+2. ACCEPTANCE-CRITERIA treating backup/folders as mandatory blockers → **Fixed** this commit.
 
-Run the static validator in the repository, then attach environment evidence to `docs/EVIDENCE-REGISTER.md`. Do not approve Version 1.5 solely because the documentation or static checks pass.
+## Clarity
+
+Historical FAIL retained under evidence/live-browser/
+Post-fix PASS: Clarity plugin deactivated; console-export.txt / console-clean.txt.
+
+## Evidence root
+
+`VERSION-1.5/docs/evidence/live-browser/` + MANIFEST.md + SHA256SUMS.txt

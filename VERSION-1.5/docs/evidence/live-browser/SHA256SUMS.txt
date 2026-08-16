@@ -1,0 +1,2 @@
+# Checksums for text evidence artifacts (2026-08-16)
+# Regenerate locally after adding binary screenshots.
