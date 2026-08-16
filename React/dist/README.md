@@ -1,18 +1,16 @@
-# Production build assets
+# Production build assets — React theme
 
-**Preferred install:** use the release package `fasdent-react-theme.zip` (includes latest `app.js` + `app.css`).
+This folder contains production-ready build output for the React theme.
 
-**Or rebuild after cloning:**
+Preferred install:
+- Use the release archive `fasdent-react-theme.zip` (includes optimized app.js + app.css).
 
-```bash
-cd React
-npm install
-npm run build
-```
+Rebuild steps (from repo root):
+1. cd React
+2. npm install
+3. npm run build
 
-Source is complete:
-- BlogPost + useWpPosts (fixes blog 404s via WP REST API)
-- Font Awesome 7 Pro icons (local, no CDN)
-- Irancell font (local)
-- Real clinic data (دکتر کیوان علی پسندی)
-- CPTs + taxonomies in `inc/`
+Notes:
+- The build bundles WordPress REST integration fixes (e.g., blog post fetching).
+- Font Awesome 7 Pro may be included locally depending on build configuration — ensure you have the correct licensing for production use.
+- If deploying to WP, copy the built output into the theme folder and ensure `functions.php` enqueues the generated CSS/JS.
