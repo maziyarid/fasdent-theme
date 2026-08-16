@@ -1,0 +1,66 @@
+FASDENT IMMUTABLE RELEASE MANIFEST
+==================================
+Manifest version: 1
+Release date: 2026-08-15
+Release state: CORRECTED STAGING CANDIDATE; PRODUCTION HOLD
+
+INSTALLABLE CHILD ARTIFACTS
+---------------------------
+File: alipasandi-clinic-1.4.29.zip
+Type: WordPress Theme
+Declared version: 1.4.29
+Canonical ZIP root: alipasandi-clinic/
+SHA-256: a8ffcec325c77abecad87d23dbfba530616e4d4477c2f32ac515ea385a3edd24
+
+File: alipasandi-service-content-1.3.4.zip
+Type: WordPress Plugin
+Declared version: 1.3.4
+Canonical ZIP root: alipasandi-service-content/
+SHA-256: 2b4750fa75f6e842bbfa4f960c9265b3d926dabd6578a96d59bbd112b3b1baac
+
+COMPATIBILITY CONTRACT
+----------------------
+Minimum WordPress: 6.4
+Minimum PHP: 8.2
+Production-identical requested lane: WordPress 7.0.4 / PHP 8.5.7
+Theme-required Plugin floor: 1.3.4
+Plugin-required Theme floor for Production: 1.4.29
+
+PACKAGING CONTRACT
+------------------
+- One canonical root per child archive.
+- No wrapper folder, absolute path, traversal path, symlink or duplicate member.
+- Exact same child bytes must be deployed to Staging and Production.
+- Do not rebuild, edit in place or manually merge after hashing.
+- Any byte change requires a new version, new hashes and regression evidence.
+
+PARENT-BUNDLE DOCUMENTS
+-----------------------
+- README-FIRST.txt
+- FASDENT-1.4.29-1.3.4-COMPLETE-DELIVERY-REPORT.md
+- LIVE-SITE-DIAGNOSIS-2026-08-15.md
+- STAGING-RUNBOOK-1.4.29-1.3.4.md
+- RELEASE-MANIFEST-1.4.29-1.3.4.txt
+- SHA256SUMS.txt
+- SOURCE-VALIDATION-EVIDENCE.txt
+
+REJECTED INPUT PROVENANCE — DO NOT INSTALL
+------------------------------------------
+Theme_1.4.29.zip
+SHA-256: 1fae13b2e2c832737d77bd0eb7f4a4f405940f72841396e89e40f6228fbb2214
+
+Plugin.zip
+SHA-256: e2735c2e06a9900e405fc2d7989bf1d33ba299ec2a3bc7c15d4be2a65570072a
+
+PUBLIC-SITE INCIDENT AT DELIVERY
+--------------------------------
+- A partial/stale Theme 1.4.26 homepage rendered during the audit.
+- Internal routes and /wp-admin/ then returned 502 Bad Gateway with
+  [Errno 111] Connection refused.
+- Hosting recovery is required before artifact upload.
+- No live-site mutation was performed.
+
+AUTHORITATIVE DECISION
+----------------------
+Source artifacts: Accepted for isolated Staging after origin recovery.
+Production: Hold until every critical runbook gate passes.

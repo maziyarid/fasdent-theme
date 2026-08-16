@@ -1,0 +1,2 @@
+a8ffcec325c77abecad87d23dbfba530616e4d4477c2f32ac515ea385a3edd24  alipasandi-clinic-1.4.29.zip
+2b4750fa75f6e842bbfa4f960c9265b3d926dabd6578a96d59bbd112b3b1baac  alipasandi-service-content-1.3.4.zip
