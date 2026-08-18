@@ -38,8 +38,8 @@ $home_faqs = array(
 				<p class="hero-subtitle">با برندهای معتبر جهانی</p>
 				<p class="hero-description">ایمپلنت دندان راهکاری برای جایگزینی دندان از دست‌رفته است که پس از بررسی دقیق می‌تواند عملکرد و ظاهر طبیعی را بازسازی کند.</p>
 				<div class="button-row">
-					<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php echo alipasandi_icon( 'calendar', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> رزرو نوبت</a>
-					<a class="button button-outline-light" href="<?php echo esc_url( alipasandi_page_url( 'services' ) ); ?>">مشاهده خدمات <?php echo alipasandi_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+					<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php alipasandi_the_icon( 'calendar', 17 ); ?> رزرو نوبت</a>
+					<a class="button button-outline-light" href="<?php echo esc_url( alipasandi_page_url( 'services' ) ); ?>">مشاهده خدمات <?php alipasandi_the_icon( 'arrow', 16 ); ?></a>
 				</div>
 			</div>
 
@@ -48,13 +48,13 @@ $home_faqs = array(
 			</div>
 		</div>
 		<div class="site-container hero-info-grid" aria-label="اطلاعات سریع کلینیک">
-			<div class="hero-info-item"><?php echo alipasandi_icon( 'location', 25 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>مطب <?php echo esc_html( alipasandi_clinic_option( 'clinic_city' ) ?: 'نوشهر' ); ?></strong><small><?php echo esc_html( alipasandi_clinic_option( 'clinic_street' ) ?: 'ستارخان، امیراد ۱، طبقه ۵' ); ?></small></span></div>
+			<div class="hero-info-item"><?php alipasandi_the_icon( 'location', 25 ); ?><span><strong>مطب <?php echo esc_html( alipasandi_clinic_option( 'clinic_city' ) ?: 'نوشهر' ); ?></strong><small><?php echo esc_html( alipasandi_clinic_option( 'clinic_street' ) ?: 'ستارخان، امیراد ۱، طبقه ۵' ); ?></small></span></div>
 			<?php if ( alipasandi_show_treatment_count() ) : ?>
-				<div class="hero-info-item"><?php echo alipasandi_icon( 'general', 25 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>بیش از ۱۰٬۰۰۰</strong><small>کیس درمانی تأییدشده</small></span></div>
+				<div class="hero-info-item"><?php alipasandi_the_icon( 'general', 25 ); ?><span><strong>بیش از ۱۰٬۰۰۰</strong><small>کیس درمانی تأییدشده</small></span></div>
 			<?php else : ?>
-				<div class="hero-info-item"><?php echo alipasandi_icon( 'clipboard', 25 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>طرح درمان اختصاصی</strong><small>متناسب با شرایط هر بیمار</small></span></div>
+				<div class="hero-info-item"><?php alipasandi_the_icon( 'clipboard', 25 ); ?><span><strong>طرح درمان اختصاصی</strong><small>متناسب با شرایط هر بیمار</small></span></div>
 			<?php endif; ?>
-			<a class="hero-info-item" href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><?php echo alipasandi_icon( 'phone', 25 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>مشاوره و نوبت‌دهی</strong><small dir="ltr"><?php echo esc_html( alipasandi_clinic_option( 'clinic_phone' ) ); ?></small></span></a>
+			<a class="hero-info-item" href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><?php alipasandi_the_icon( 'phone', 25 ); ?><span><strong>مشاوره و نوبت‌دهی</strong><small dir="ltr"><?php echo esc_html( alipasandi_clinic_option( 'clinic_phone' ) ); ?></small></span></a>
 		</div>
 	</section>
 
@@ -67,10 +67,10 @@ $home_faqs = array(
 			<div class="service-grid">
 				<?php foreach ( $services as $service ) : ?>
 					<a class="service-card" href="<?php echo esc_url( alipasandi_page_url( 'services/' . $service[0] ) ); ?>" data-reveal>
-						<span class="icon-wrap"><?php echo alipasandi_icon( $service[1], 34 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<span class="icon-wrap"><?php alipasandi_the_icon( $service[1], 34 ); ?></span>
 						<h3><?php echo esc_html( $service[2] ); ?></h3>
 						<p><?php echo esc_html( $service[3] ); ?></p>
-						<span class="card-link">بیشتر بدانید <?php echo alipasandi_icon( 'arrow', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<span class="card-link">بیشتر بدانید <?php alipasandi_the_icon( 'arrow', 14 ); ?></span>
 					</a>
 				<?php endforeach; ?>
 			</div>
@@ -84,13 +84,13 @@ $home_faqs = array(
 				<h2 id="treatment-title">تصمیم درمانی، از یک بررسی دقیق آغاز می‌شود.</h2>
 				<p>درمان مناسب برای همه افراد یکسان نیست. وضعیت دندان‌ها، سلامت لثه، استخوان و شرایط عمومی باید پیش از انتخاب مسیر درمان بررسی شوند.</p>
 				<ul class="treatment-points">
-					<li><?php echo alipasandi_icon( 'check', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>تشخیص پیش از پیشنهاد درمان</strong><small>انتخاب گزینه مناسب بر پایه معاینه و اطلاعات تشخیصی</small></span></li>
-					<li><?php echo alipasandi_icon( 'check', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>توضیح شفاف گزینه‌ها</strong><small>آگاهی از مراحل، محدودیت‌ها و مراقبت‌های موردنیاز</small></span></li>
-					<li><?php echo alipasandi_icon( 'check', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>برنامه متناسب با هر بیمار</strong><small>بدون وعده قطعی یا درمان یکسان برای همه</small></span></li>
+					<li><?php alipasandi_the_icon( 'check', 18 ); ?><span><strong>تشخیص پیش از پیشنهاد درمان</strong><small>انتخاب گزینه مناسب بر پایه معاینه و اطلاعات تشخیصی</small></span></li>
+					<li><?php alipasandi_the_icon( 'check', 18 ); ?><span><strong>توضیح شفاف گزینه‌ها</strong><small>آگاهی از مراحل، محدودیت‌ها و مراقبت‌های موردنیاز</small></span></li>
+					<li><?php alipasandi_the_icon( 'check', 18 ); ?><span><strong>برنامه متناسب با هر بیمار</strong><small>بدون وعده قطعی یا درمان یکسان برای همه</small></span></li>
 				</ul>
 				<div class="button-row">
 					<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>">رزرو وقت مشاوره</a>
-					<a class="text-link" href="<?php echo esc_url( alipasandi_page_url( 'about' ) ); ?>">آشنایی با رویکرد کلینیک <?php echo alipasandi_icon( 'arrow', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+					<a class="text-link" href="<?php echo esc_url( alipasandi_page_url( 'about' ) ); ?>">آشنایی با رویکرد کلینیک <?php alipasandi_the_icon( 'arrow', 15 ); ?></a>
 				</div>
 			</div>
 			<figure class="treatment-visual" data-reveal>
@@ -107,16 +107,16 @@ $home_faqs = array(
 				<h2 id="about-title">تخصص، تجربه،<br><span class="gold-text">اعتماد.</span></h2>
 				<p>کلینیک دندانپزشکی دکتر کیوان علی‌پسندی با رویکردی مدرن و دقیق، خدمات تخصصی را در محیطی آرام و حرفه‌ای ارائه می‌دهد.</p>
 				<p>هر طرح درمان پس از معاینه و بررسی شرایط اختصاصی بیمار تنظیم می‌شود؛ اولویت ما درمان صحیح و تجربه‌ای قابل اعتماد است.</p>
-				<a class="button button-outline-light" href="<?php echo esc_url( alipasandi_page_url( 'about' ) ); ?>">بیشتر درباره ما <?php echo alipasandi_icon( 'arrow', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+				<a class="button button-outline-light" href="<?php echo esc_url( alipasandi_page_url( 'about' ) ); ?>">بیشتر درباره ما <?php alipasandi_the_icon( 'arrow', 16 ); ?></a>
 			</div>
 			<div class="clinic-image" data-reveal>
 				<?php alipasandi_theme_image( 'clinic-interior.jpg', 'فضای پذیرش کلینیک دندانپزشکی دکتر کیوان علی‌پسندی', array( 'sizes' => '(min-width: 1200px) 44vw, (min-width: 768px) 48vw, 100vw' ) ); ?>
 			</div>
 		</div>
 		<div class="site-container about-trust-grid" aria-label="اصول کلینیک">
-			<div class="about-trust-item" data-reveal><?php echo alipasandi_icon( 'shield', 27 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>تجهیزات به‌روز</strong><small>با هدف افزایش دقت درمان</small></span></div>
-			<div class="about-trust-item" data-reveal><?php echo alipasandi_icon( 'clipboard', 27 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>برنامه‌ریزی اختصاصی</strong><small>متناسب با شرایط هر بیمار</small></span></div>
-			<div class="about-trust-item" data-reveal><?php echo alipasandi_icon( 'crown', 27 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><strong>مواد و برندهای معتبر</strong><small>انتخاب بر پایه طرح درمان</small></span></div>
+			<div class="about-trust-item" data-reveal><?php alipasandi_the_icon( 'shield', 27 ); ?><span><strong>تجهیزات به‌روز</strong><small>با هدف افزایش دقت درمان</small></span></div>
+			<div class="about-trust-item" data-reveal><?php alipasandi_the_icon( 'clipboard', 27 ); ?><span><strong>برنامه‌ریزی اختصاصی</strong><small>متناسب با شرایط هر بیمار</small></span></div>
+			<div class="about-trust-item" data-reveal><?php alipasandi_the_icon( 'crown', 27 ); ?><span><strong>مواد و برندهای معتبر</strong><small>انتخاب بر پایه طرح درمان</small></span></div>
 		</div>
 	</section>
 
@@ -130,7 +130,7 @@ $home_faqs = array(
 			<div class="journey-grid">
 				<?php foreach ( $home_steps as $step ) : ?>
 					<article class="journey-card" data-reveal>
-						<div class="journey-card-head"><span class="journey-number"><?php echo esc_html( $step[0] ); ?></span><span class="journey-icon"><?php echo alipasandi_icon( $step[3], 28 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></div>
+						<div class="journey-card-head"><span class="journey-number"><?php echo esc_html( $step[0] ); ?></span><span class="journey-icon"><?php alipasandi_the_icon( $step[3], 28 ); ?></span></div>
 						<h3><?php echo esc_html( $step[1] ); ?></h3>
 						<p><?php echo esc_html( $step[2] ); ?></p>
 					</article>
@@ -145,25 +145,28 @@ $home_faqs = array(
 				<span class="eyebrow no-lines">پیش از مراجعه</span>
 				<h2 id="home-faq-title">پاسخ کوتاه به پرسش‌های رایج</h2>
 				<p>این پاسخ‌ها عمومی هستند و جایگزین معاینه، تشخیص یا توصیه اختصاصی پزشک نمی‌شوند.</p>
-				<a class="text-link" href="<?php echo esc_url( alipasandi_page_url( 'faq' ) ); ?>">مشاهده همه سوالات متداول <?php echo alipasandi_icon( 'arrow', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+				<a class="text-link" href="<?php echo esc_url( alipasandi_page_url( 'faq' ) ); ?>">مشاهده همه سوالات متداول <?php alipasandi_the_icon( 'arrow', 15 ); ?></a>
 			</div>
-			<div class="accordion-list home-accordion">
-				<?php foreach ( $home_faqs as $index => $faq ) : $panel_id = 'home-faq-' . $index; ?>
-					<div class="accordion-item">
-						<button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr( $panel_id ); ?>" data-accordion-trigger><span><?php echo esc_html( $faq[0] ); ?></span><?php echo alipasandi_icon( 'chevron', 19 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
-						<div class="accordion-panel" id="<?php echo esc_attr( $panel_id ); ?>" hidden><?php echo esc_html( $faq[1] ); ?></div>
-					</div>
-				<?php endforeach; ?>
-			</div>
+			<?php
+			$faq_items = array();
+			foreach ( $home_faqs as $index => $faq ) {
+				$faq_items[] = array(
+					'panel_id' => 'home-faq-' . $index,
+					'question' => esc_html( $faq[0] ),
+					'answer'   => esc_html( $faq[1] ),
+				);
+			}
+			alipasandi_accordion_list( $faq_items, 'home-accordion' );
+			?>
 		</div>
 	</section>
 
 	<section class="section-compact section-dark home-booking-section">
 		<div class="site-container final-cta appointment-banner" data-reveal>
-			<span class="appointment-banner-icon"><?php echo alipasandi_icon( 'phone', 30 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+			<span class="appointment-banner-icon"><?php alipasandi_the_icon( 'phone', 30 ); ?></span>
 			<div class="appointment-banner-copy"><h2>برای دریافت مشاوره یا رزرو نوبت با ما تماس بگیرید.</h2></div>
 			<div class="button-row">
-				<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php echo alipasandi_icon( 'calendar', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> رزرو وقت مشاوره</a>
+				<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php alipasandi_the_icon( 'calendar', 17 ); ?> رزرو وقت مشاوره</a>
 			</div>
 		</div>
 	</section>

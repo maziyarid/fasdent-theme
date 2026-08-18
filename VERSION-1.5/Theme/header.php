@@ -22,12 +22,12 @@
 
 		<div class="header-actions">
 			<a class="button button-gold header-book" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>">
-				<?php echo alipasandi_icon( 'calendar', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php alipasandi_the_icon( 'calendar', 17 ); ?>
 				<span>رزرو نوبت</span>
 			</a>
 			<button class="menu-toggle" type="button" aria-label="<?php esc_attr_e( 'باز کردن منو', 'alipasandi-clinic' ); ?>" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
-				<span class="menu-open-icon"><?php echo alipasandi_icon( 'menu', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-				<span class="menu-close-icon"><?php echo alipasandi_icon( 'close', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="menu-open-icon"><?php alipasandi_the_icon( 'menu', 24 ); ?></span>
+				<span class="menu-close-icon"><?php alipasandi_the_icon( 'close', 24 ); ?></span>
 			</button>
 		</div>
 	</div>

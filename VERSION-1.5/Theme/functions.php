@@ -13,6 +13,7 @@ define( 'ALIPASANDI_THEME_VERSION', '1.5.0' );
 define( 'ALIPASANDI_SERVICE_PLUGIN_MIN_VERSION', '1.2.0' );
 
 require_once get_template_directory() . '/inc/icons.php';
+require_once get_template_directory() . '/inc/template-helpers.php';
 require_once get_template_directory() . '/inc/service-data.php';
 // The companion Site Functionality plugin owns service content. Keep the
 // theme module only as a compatibility fallback when the plugin is absent.
@@ -240,7 +241,7 @@ function alipasandi_brand_logo( $extra_class = '' ) {
 	$classes = trim( 'site-brand ' . sanitize_html_class( $extra_class ) );
 	?>
 	<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php esc_attr_e( 'Dr Keyvan Alipasandi Dental Clinic — صفحه اصلی', 'alipasandi-clinic' ); ?>">
-		<span class="brand-mark"><?php echo alipasandi_icon( 'tooth', 34 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+		<span class="brand-mark"><?php alipasandi_the_icon( 'tooth', 34 ); ?></span>
 		<span class="brand-copy"><strong>Dr Keyvan Alipasandi</strong><small>DENTAL CLINIC</small></span>
 	</a>
 	<?php

@@ -1,7 +1,7 @@
 <?php
 /** Contact page — operational focus: Nowshahr clinic. */
 get_header();
-$status = isset( $_GET['form_status'] ) ? sanitize_key( wp_unslash( $_GET['form_status'] ) ) : '';
+$status = alipasandi_form_status();
 $maps   = alipasandi_clinic_option( 'clinic_maps' );
 ?>
 <main id="main-content">
@@ -9,15 +9,15 @@ $maps   = alipasandi_clinic_option( 'clinic_maps' );
 		<div class="site-container inner-hero-grid">
 			<div class="inner-hero-copy"><span class="eyebrow no-lines">تماس با ما</span><h1>در کنار شما هستیم.</h1><p>برای پرسش‌های اولیه، هماهنگی مراجعه یا پیگیری درمان با مطب نوشهر تماس بگیرید. برای تصمیم درمانی، معاینه حضوری لازم است.</p></div>
 			<div class="contact-info-list">
-				<div class="contact-info-item"><?php echo alipasandi_icon( 'phone', 22 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><div><strong>شماره تماس</strong><a href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>" dir="ltr"><?php echo esc_html( alipasandi_clinic_option( 'clinic_phone' ) ); ?></a></div></div>
-				<div class="contact-info-item"><?php echo alipasandi_icon( 'location', 22 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><div><strong>آدرس مطب نوشهر</strong>
+				<div class="contact-info-item"><?php alipasandi_the_icon( 'phone', 22 ); ?><div><strong>شماره تماس</strong><a href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>" dir="ltr"><?php echo esc_html( alipasandi_clinic_option( 'clinic_phone' ) ); ?></a></div></div>
+				<div class="contact-info-item"><?php alipasandi_the_icon( 'location', 22 ); ?><div><strong>آدرس مطب نوشهر</strong>
 					<?php if ( $maps ) : ?>
 						<a href="<?php echo esc_url( $maps ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( alipasandi_clinic_option( 'clinic_address' ) ); ?></a>
 					<?php else : ?>
 						<span><?php echo esc_html( alipasandi_clinic_option( 'clinic_address' ) ); ?></span>
 					<?php endif; ?>
 				</div></div>
-				<div class="contact-info-item"><?php echo alipasandi_icon( 'clock', 22 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><div><strong>پاسخ‌گویی</strong><span>در ساعات کاری مطب نوشهر</span></div></div>
+				<div class="contact-info-item"><?php alipasandi_the_icon( 'clock', 22 ); ?><div><strong>پاسخ‌گویی</strong><span>در ساعات کاری مطب نوشهر</span></div></div>
 			</div>
 		</div>
 	</section>
@@ -27,9 +27,7 @@ $maps   = alipasandi_clinic_option( 'clinic_maps' );
 			<div class="form-card" id="clinic-form" data-reveal>
 				<h2>پیام خود را ارسال کنید</h2>
 				<p class="text-muted">اطلاعات خود را ثبت کنید تا تیم کلینیک با شما تماس بگیرد.</p>
-				<?php if ( 'success' === $status ) : ?><div class="form-message success" role="status">پیام شما ثبت شد. تیم کلینیک در اولین فرصت با شما تماس می‌گیرد.</div>
-				<?php elseif ( 'rate_limited' === $status ) : ?><div class="form-message error" role="alert" tabindex="-1" autofocus>تعداد درخواست‌ها بیش از حد مجاز است. لطفاً ۱۵ دقیقه دیگر تلاش کنید یا با شماره کلینیک تماس بگیرید.</div>
-				<?php elseif ( in_array( $status, array( 'error', 'invalid', 'mail_error' ), true ) ) : ?><div class="form-message error" role="alert">ارسال پیام کامل نشد. لطفاً دوباره تلاش کنید یا مستقیماً تماس بگیرید.</div><?php endif; ?>
+				<?php alipasandi_form_status_notice( $status, 'پیام شما ثبت شد. تیم کلینیک در اولین فرصت با شما تماس می‌گیرد.', 'تعداد درخواست‌ها بیش از حد مجاز است. لطفاً ۱۵ دقیقه دیگر تلاش کنید یا با شماره کلینیک تماس بگیرید.', 'ارسال پیام کامل نشد. لطفاً دوباره تلاش کنید یا مستقیماً تماس بگیرید.' ); ?>
 				<form class="contact-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
 					<input type="hidden" name="action" value="alipasandi_contact">
 					<?php wp_nonce_field( 'alipasandi_contact', 'alipasandi_contact_nonce' ); ?>

@@ -24,7 +24,7 @@ $services = array(
 		<div class="site-container service-list">
 			<?php foreach ( $services as $service ) : ?>
 				<article class="service-row" data-reveal>
-					<div class="service-row-icon"><?php echo alipasandi_icon( $service[1], 48 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+					<div class="service-row-icon"><?php alipasandi_the_icon( $service[1], 48 ); ?></div>
 					<div class="service-row-copy">
 						<span class="eyebrow no-lines"><?php echo esc_html( $service[2] ); ?></span>
 						<h2><?php echo esc_html( $service[3] ); ?></h2>
@@ -32,7 +32,7 @@ $services = array(
 						<div class="tag-list"><?php foreach ( $service[5] as $tag ) : ?><span><?php echo esc_html( $tag ); ?></span><?php endforeach; ?></div>
 					</div>
 					<div class="service-row-actions">
-						<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'services/' . $service[0] ) ); ?>">اطلاعات بیشتر <?php echo alipasandi_icon( 'arrow', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+						<a class="button button-gold" href="<?php echo esc_url( alipasandi_page_url( 'services/' . $service[0] ) ); ?>">اطلاعات بیشتر <?php alipasandi_the_icon( 'arrow', 15 ); ?></a>
 						<a class="button button-outline-dark" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>">رزرو نوبت</a>
 					</div>
 				</article>

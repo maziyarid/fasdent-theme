@@ -3,13 +3,7 @@
 get_header();
 ?>
 <main id="main-content" class="content-area">
-	<header class="inner-hero">
-		<div class="narrow-container section-heading" style="padding-block:64px;position:relative">
-			<span class="eyebrow">دانش و مراقبت</span>
-			<h1><?php echo is_archive() ? wp_kses_post( get_the_archive_title() ) : esc_html__( 'مقالات آموزشی', 'alipasandi-clinic' ); ?></h1>
-			<p>مطالب عمومی برای آگاهی بهتر از سلامت دهان؛ این مطالب جایگزین معاینه و تشخیص فردی نیستند.</p>
-		</div>
-	</header>
+	<?php alipasandi_inner_hero( 'header', 'دانش و مراقبت', is_archive() ? wp_kses_post( get_the_archive_title() ) : esc_html__( 'مقالات آموزشی', 'alipasandi-clinic' ), esc_html( 'مطالب عمومی برای آگاهی بهتر از سلامت دهان؛ این مطالب جایگزین معاینه و تشخیص فردی نیستند.' ) ); ?>
 	<section class="section section-bone">
 		<div class="site-container">
 			<?php if ( have_posts() ) : ?>
@@ -24,4 +18,3 @@ get_header();
 	</section>
 </main>
 <?php get_footer(); ?>
-
