@@ -357,6 +357,7 @@ function alipasandi_provision_pages() {
 		'faq'          => 'سوالات متداول',
 	);
 	$created = array();
+	$failures = array();
 
 	foreach ( $pages as $slug => $title ) {
 		$page = get_page_by_path( $slug );
@@ -372,11 +373,20 @@ function alipasandi_provision_pages() {
 				'post_status'  => 'publish',
 				'post_type'    => 'page',
 				'post_content' => '',
-			)
+			),
+			true
 		);
 		if ( ! is_wp_error( $page_id ) ) {
 			$created[ $slug ] = $page_id;
+			continue;
 		}
+		$failure = array(
+			'slug'    => $slug,
+			'code'    => sanitize_key( $page_id->get_error_code() ),
+			'message' => sanitize_text_field( $page_id->get_error_message() ),
+		);
+		$failures[] = $failure;
+		alipasandi_log( 'Theme starter page provisioning failed', $failure );
 	}
 
 	$service_pages = array(
@@ -401,19 +411,75 @@ function alipasandi_provision_pages() {
 					'post_status'  => 'publish',
 					'post_type'    => 'page',
 					'post_content' => '',
-				)
+				),
+				true
 			);
+			if ( is_wp_error( $page ) ) {
+				$failure = array(
+					'slug'    => $slug,
+					'code'    => sanitize_key( $page->get_error_code() ),
+					'message' => sanitize_text_field( $page->get_error_message() ),
+				);
+				$failures[] = $failure;
+				alipasandi_log( 'Theme service page provisioning failed', $failure );
+			}
 		}
 	}
 
 	if ( empty( get_option( 'page_on_front' ) ) && isset( $created['home'] ) ) {
 		update_option( 'show_on_front', 'page' );
+		if ( 'page' !== get_option( 'show_on_front' ) ) {
+			$failure = array(
+				'slug'    => 'show_on_front',
+				'code'    => 'option_update_failed',
+				'message' => 'تنظیم نمایش صفحه اصلی ذخیره نشد.',
+			);
+			$failures[] = $failure;
+			alipasandi_log( 'Theme front-page option update failed', $failure );
+		}
 		update_option( 'page_on_front', $created['home'] );
+		if ( (int) get_option( 'page_on_front' ) !== (int) $created['home'] ) {
+			$failure = array(
+				'slug'    => 'page_on_front',
+				'code'    => 'option_update_failed',
+				'message' => 'صفحه اصلی پیش‌فرض ذخیره نشد.',
+			);
+			$failures[] = $failure;
+			alipasandi_log( 'Theme front-page assignment failed', $failure );
+		}
+	}
+
+	if ( ! empty( $failures ) ) {
+		$summary = array_slice( $failures, 0, 20 );
+		if ( ! update_option( 'alipasandi_theme_provision_failures', $summary, false ) && get_option( 'alipasandi_theme_provision_failures', array() ) !== $summary ) {
+			alipasandi_log( 'Theme provisioning failure summary option update failed', array( 'failure_count' => count( $summary ) ) );
+		}
 	}
 
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'alipasandi_provision_pages' );
+
+/** Show and clear bounded starter-page provisioning failures for administrators. */
+function alipasandi_theme_provision_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$failures = get_option( 'alipasandi_theme_provision_failures', array() );
+	if ( ! is_array( $failures ) || empty( $failures ) ) {
+		return;
+	}
+	delete_option( 'alipasandi_theme_provision_failures' );
+	echo '<div class="notice notice-error is-dismissible"><p><strong>' . esc_html( 'برخی از صفحه‌های اولیه یا تنظیم صفحه اصلی ساخته نشدند.' ) . '</strong></p><ul>';
+	foreach ( $failures as $failure ) {
+		$slug    = isset( $failure['slug'] ) ? $failure['slug'] : 'unknown';
+		$code    = isset( $failure['code'] ) ? $failure['code'] : 'unknown';
+		$message = isset( $failure['message'] ) ? $failure['message'] : '';
+		echo '<li>' . esc_html( $slug . ': ' . $code . ( $message ? ' — ' . $message : '' ) ) . '</li>';
+	}
+	echo '</ul></div>';
+}
+add_action( 'admin_notices', 'alipasandi_theme_provision_notice' );
 
 /** Make the required site plugin state visible without breaking the frontend. */
 function alipasandi_service_plugin_state() {

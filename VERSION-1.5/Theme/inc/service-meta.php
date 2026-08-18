@@ -476,6 +476,9 @@ function alipasandi_save_service_meta( $post_id ) {
 	}
 	if ( ! isset( $_POST['alipasandi_service_meta_nonce'] ) ||
 		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['alipasandi_service_meta_nonce'] ) ), 'alipasandi_save_service_meta' ) ) {
+		if ( isset( $_POST['alipasandi_service_meta_nonce'], $_POST['alipasandi_svc'] ) ) {
+			alipasandi_log( 'Theme service meta save rejected because the nonce is invalid' );
+		}
 		return;
 	}
 	// Incomplete request (meta box not submitted) → leave existing meta untouched.
@@ -483,6 +486,7 @@ function alipasandi_save_service_meta( $post_id ) {
 		return;
 	}
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		alipasandi_log( 'Theme service meta save rejected because edit capability was denied', array( 'post_id' => (int) $post_id ) );
 		return;
 	}
 	if ( ! alipasandi_service_key_for_post( $post_id ) ) {
@@ -569,7 +573,12 @@ function alipasandi_save_service_meta( $post_id ) {
 	}
 
 	$clean = alipasandi_sanitize_service_meta( $data );
-	update_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, $clean );
+	$previous = get_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, true );
+	$updated  = update_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, $clean );
+	if ( false === $updated && ( ! alipasandi_service_meta_exists( $post_id ) || $previous !== $clean ) ) {
+		alipasandi_log( 'Theme service meta save failed during post meta update', array( 'post_id' => (int) $post_id, 'error_code' => 'meta_write_failed' ) );
+		return;
+	}
 }
 add_action( 'save_post_page', 'alipasandi_save_service_meta' );
 

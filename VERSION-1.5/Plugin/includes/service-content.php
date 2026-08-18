@@ -341,10 +341,14 @@ function alipasandi_get_service_migration_status() {
 		$status = array(
 			'completed' => false,
 			'pages'     => array(),
+			'outcome'   => 'pending_with_failures',
 		);
 	}
 	if ( ! isset( $status['pages'] ) || ! is_array( $status['pages'] ) ) {
 		$status['pages'] = array();
+	}
+	if ( ! isset( $status['outcome'] ) ) {
+		$status['outcome'] = ! empty( $status['completed'] ) ? 'completed' : 'pending_with_failures';
 	}
 	return $status;
 }
@@ -360,7 +364,10 @@ function alipasandi_service_log_migration( $page_id, $key, $status, $reason = ''
 		'timestamp'=> current_time( 'mysql', true ),
 		'reason'   => sanitize_text_field( $reason ),
 	);
-	update_option( ALIPASANDI_SERVICE_MIGRATION_LOG, array_slice( $log, -100 ), false );
+	$bounded_log = array_slice( $log, -100 );
+	if ( ! update_option( ALIPASANDI_SERVICE_MIGRATION_LOG, $bounded_log, false ) && get_option( ALIPASANDI_SERVICE_MIGRATION_LOG, array() ) !== $bounded_log ) {
+		alipasandi_log( 'Service migration log option update failed', array( 'status' => sanitize_key( $status ), 'reason' => sanitize_key( $reason ) ) );
+	}
 }
 
 /**
@@ -371,11 +378,17 @@ function alipasandi_service_log_migration( $page_id, $key, $status, $reason = ''
 function alipasandi_migrate_service_content_to_meta() {
 	$status = alipasandi_get_service_migration_status();
 	if ( ! empty( $status['completed'] ) ) {
-		return;
+		return array( 'outcome' => 'completed', 'status' => $status );
 	}
 
 	if ( ! function_exists( 'alipasandi_get_service_legacy' ) ) {
-		return;
+		alipasandi_service_log_migration( 0, '', 'unavailable', 'legacy_source_unavailable' );
+		alipasandi_log( 'Service migration unavailable because the legacy source is unavailable' );
+		$status['outcome'] = 'unavailable';
+		if ( ! update_option( ALIPASANDI_SERVICE_META_STATUS, $status, false ) && get_option( ALIPASANDI_SERVICE_META_STATUS, array() ) !== $status ) {
+			alipasandi_log( 'Service migration status option update failed', array( 'outcome' => 'unavailable' ) );
+		}
+		return array( 'outcome' => 'unavailable', 'status' => $status );
 	}
 
 	$pages_status = isset( $status['pages'] ) ? $status['pages'] : array();
@@ -431,7 +444,14 @@ function alipasandi_migrate_service_content_to_meta() {
 
 	$status['pages'] = $pages_status;
 	$status['completed'] = $all_ok;
-	update_option( ALIPASANDI_SERVICE_META_STATUS, $status, false );
+	$status['outcome'] = $all_ok ? 'completed' : 'pending_with_failures';
+	if ( ! update_option( ALIPASANDI_SERVICE_META_STATUS, $status, false ) && get_option( ALIPASANDI_SERVICE_META_STATUS, array() ) !== $status ) {
+		alipasandi_log( 'Service migration status option update failed', array( 'outcome' => $status['outcome'] ) );
+	}
+	return array(
+		'outcome' => $status['outcome'],
+		'status'  => $status,
+	);
 }
 
 /** Preview migration without writing any post meta or status. */
@@ -597,6 +617,10 @@ function alipasandi_save_service_meta( $post_id ) {
 	}
 	if ( ! isset( $_POST['alipasandi_service_meta_nonce'] ) ||
 		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['alipasandi_service_meta_nonce'] ) ), 'alipasandi_save_service_meta' ) ) {
+		if ( isset( $_POST['alipasandi_service_meta_nonce'], $_POST['alipasandi_svc'] ) ) {
+			set_transient( 'alipasandi_service_notice_' . get_current_user_id(), 'invalid_nonce', 60 );
+			alipasandi_log( 'Service meta save rejected because the nonce is invalid' );
+		}
 		return;
 	}
 	// Incomplete request (meta box not submitted) → leave existing meta untouched.
@@ -609,6 +633,8 @@ function alipasandi_save_service_meta( $post_id ) {
 		return;
 	}
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		set_transient( 'alipasandi_service_notice_' . get_current_user_id(), 'capability_denied', 60 );
+		alipasandi_log( 'Service meta save rejected because edit capability was denied', array( 'post_id' => (int) $post_id ) );
 		return;
 	}
 	if ( ! alipasandi_service_key_for_post( $post_id ) ) {
@@ -681,7 +707,13 @@ function alipasandi_save_service_meta( $post_id ) {
 			return;
 		}
 	}
-	update_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, $clean );
+	$previous = get_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, true );
+	$updated  = update_post_meta( $post_id, ALIPASANDI_SERVICE_META_KEY, $clean );
+	if ( false === $updated && ( ! alipasandi_service_meta_exists( $post_id ) || $previous !== $clean ) ) {
+		set_transient( 'alipasandi_service_notice_' . get_current_user_id(), 'write_failed', 60 );
+		alipasandi_log( 'Service meta save failed during post meta update', array( 'post_id' => (int) $post_id, 'error_code' => 'meta_write_failed' ) );
+		return;
+	}
 	clean_post_cache( $post_id );
 }
 add_action( 'save_post_page', 'alipasandi_save_service_meta' );
@@ -747,6 +779,9 @@ function alipasandi_service_admin_notice() {
 		'required'     => 'عنوان H1 و مقدمه الزامی‌اند؛ هیچ تغییری ذخیره نشد.',
 		'image_alt'    => 'برای تصویر محتوایی ALT لازم است؛ ALT وارد کنید یا گزینه تزئینی را انتخاب کنید.',
 		'duplicate_key'=> 'Service Key تکراری است؛ برای جلوگیری از ویرایش Page اشتباه هیچ تغییری ذخیره نشد.',
+		'invalid_nonce' => 'اعتبار امنیتی فرم ذخیره‌سازی منقضی یا نامعتبر بود؛ دوباره صفحه را بارگذاری و تلاش کنید.',
+		'capability_denied' => 'شما اجازه ویرایش این صفحه را ندارید؛ هیچ تغییری ذخیره نشد.',
+		'write_failed' => 'ذخیره محتوای خدمت انجام نشد؛ خطای پایگاه‌داده یا دسترسی را بررسی کنید.',
 	);
 	if ( isset( $messages[ $code ] ) ) {
 		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $messages[ $code ] ) . '</p></div>';
@@ -815,9 +850,17 @@ function alipasandi_service_tools_page() {
 	$health = alipasandi_service_health_report();
 	$log    = get_option( ALIPASANDI_SERVICE_MIGRATION_LOG, array() );
 	$dry_run = alipasandi_service_migration_dry_run();
+	$migration_status = isset( $_GET['migration_status'] ) ? sanitize_key( wp_unslash( $_GET['migration_status'] ) ) : '';
 	?>
 	<div class="wrap" dir="rtl"><h1>Service Content</h1>
 	<p>Migration فقط به‌صورت صریح اجرا می‌شود و Meta موجود را overwrite نمی‌کند.</p>
+	<?php if ( 'completed' === $migration_status ) : ?>
+		<div class="notice notice-success is-dismissible"><p><?php echo esc_html( 'Migration با موفقیت کامل شد.' ); ?></p></div>
+	<?php elseif ( 'pending_with_failures' === $migration_status ) : ?>
+		<div class="notice notice-warning is-dismissible"><p><?php echo esc_html( 'Migration کامل نشد؛ برخی صفحه‌ها خطا داشتند و می‌توانید دوباره تلاش کنید.' ); ?></p></div>
+	<?php elseif ( 'unavailable' === $migration_status ) : ?>
+		<div class="notice notice-warning is-dismissible"><p><?php echo esc_html( 'منبع قدیمی محتوای خدمت در دسترس نیست؛ Migration انجام نشد.' ); ?></p></div>
+	<?php endif; ?>
 	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 		<input type="hidden" name="action" value="alipasandi_service_migrate"><?php wp_nonce_field( 'alipasandi_service_migrate' ); ?>
 		<?php submit_button( 'اجرای Migration / Retry', 'primary', 'submit', false ); ?>
@@ -838,8 +881,9 @@ function alipasandi_service_admin_migrate() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( esc_html__( 'Access denied.', 'alipasandi-service-content' ) );
 	}
-	alipasandi_migrate_service_content_to_meta();
-	wp_safe_redirect( admin_url( 'tools.php?page=alipasandi-service-content' ) );
+	$result = alipasandi_migrate_service_content_to_meta();
+	$outcome = is_array( $result ) && isset( $result['outcome'] ) ? $result['outcome'] : 'pending_with_failures';
+	wp_safe_redirect( add_query_arg( 'migration_status', sanitize_key( $outcome ), admin_url( 'tools.php?page=alipasandi-service-content' ) ) );
 	exit;
 }
 add_action( 'admin_post_alipasandi_service_migrate', 'alipasandi_service_admin_migrate' );
@@ -864,10 +908,14 @@ function alipasandi_service_admin_export() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( esc_html__( 'Access denied.', 'alipasandi-service-content' ) );
 	}
+	$json = wp_json_encode( alipasandi_service_export_payload(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+	if ( false === $json ) {
+		wp_die( esc_html__( 'تهیه فایل خروجی JSON انجام نشد.', 'alipasandi-service-content' ), '', array( 'response' => 500 ) );
+	}
 	nocache_headers();
 	header( 'Content-Type: application/json; charset=UTF-8' );
 	header( 'Content-Disposition: attachment; filename="alipasandi-service-content-' . gmdate( 'Ymd-His' ) . '.json"' );
-	echo wp_json_encode( alipasandi_service_export_payload(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+	echo $json;
 	exit;
 }
 add_action( 'admin_post_alipasandi_service_export', 'alipasandi_service_admin_export' );

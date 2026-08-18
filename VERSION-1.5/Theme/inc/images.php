@@ -9,6 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'alipasandi_log' ) ) {
+	function alipasandi_log( $message, $context = array() ) {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+			return;
+		}
+		$details = is_array( $context ) && $context ? ' ' . wp_json_encode( $context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) : '';
+		error_log( '[Alipasandi] ' . sanitize_text_field( $message ) . $details ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+	}
+}
+
 /**
  * Render a bundled image with explicit dimensions and available WebP sources.
  *
@@ -29,11 +39,13 @@ function alipasandi_theme_image( $filename, $alt = '', $args = array() ) {
 	$path     = get_template_directory() . '/assets/images/' . $filename;
 
 	if ( ! file_exists( $path ) ) {
+		alipasandi_log( 'Theme image unavailable', array( 'filename' => $filename, 'reason' => 'file_missing' ) );
 		return;
 	}
 
-	$size = getimagesize( $path );
+	$size = @getimagesize( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 	if ( ! $size ) {
+		alipasandi_log( 'Theme image unavailable', array( 'filename' => $filename, 'reason' => 'invalid_image' ) );
 		return;
 	}
 
