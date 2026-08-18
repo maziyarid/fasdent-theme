@@ -58,9 +58,9 @@ $values = array(
 	<?php
 	alipasandi_trust_strip(
 		array(
-			'detection'      => array( 'icon' => 'shield', 'number' => 'دقت', 'label' => 'در تشخیص', 'note' => 'ارزیابی پیش از انتخاب درمان' ),
-			'communication'  => array( 'icon' => 'clipboard', 'number' => 'شفافیت', 'label' => 'در ارتباط', 'note' => 'توضیح گزینه‌ها و محدودیت‌ها' ),
-			'follow_up'      => array( 'icon' => 'check', 'number' => 'پیگیری', 'label' => 'پس از درمان', 'note' => 'متناسب با نیاز هر بیمار' ),
+			array( 'icon' => 'shield', 'number' => 'دقت', 'label' => 'در تشخیص', 'note' => 'ارزیابی پیش از انتخاب درمان' ),
+			array( 'icon' => 'clipboard', 'number' => 'شفافیت', 'label' => 'در ارتباط', 'note' => 'توضیح گزینه‌ها و محدودیت‌ها' ),
+			array( 'icon' => 'check', 'number' => 'پیگیری', 'label' => 'پس از درمان', 'note' => 'متناسب با نیاز هر بیمار' ),
 		),
 		'check'
 	);

@@ -109,7 +109,7 @@ function alipasandi_trust_strip( $stats, $treatment_icon = '' ) {
 		}
 		echo '<strong class="stat-number">+۱۰٬۰۰۰</strong><span class="stat-label">کیس درمانی</span><span class="stat-note">تجربه انجام درمان‌های دندانپزشکی</span></div>';
 	}
-	foreach ( $stats as $key => $stat ) {
+	foreach ( $stats as $stat ) {
 		echo '<div class="stat-item">';
 		if ( ! empty( $stat['icon'] ) ) {
 			echo '<span class="stat-icon" aria-hidden="true">';
@@ -133,15 +133,12 @@ function alipasandi_trust_strip( $stats, $treatment_icon = '' ) {
  * @param bool   $region     Add the service-detail region attributes.
  */
 function alipasandi_accordion_item( $panel_id, $question, $answer, $trigger_id = '', $region = false ) {
-	$button = '' !== $trigger_id ? '<button id="' . esc_attr( $trigger_id ) . '" class="accordion-trigger" type="button" aria-expanded="false" aria-controls="' . esc_attr( $panel_id ) . '" data-accordion-trigger><span>' . $question . '</span>' : '<button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="' . esc_attr( $panel_id ) . '" data-accordion-trigger><span>' . $question . '</span>';
-	echo '<div class="accordion-item">' . $button;
+	$trigger_id_attr = '' !== $trigger_id ? ' id="' . esc_attr( $trigger_id ) . '"' : '';
+	echo '<div class="accordion-item"><button' . $trigger_id_attr . ' class="accordion-trigger" type="button" aria-expanded="false" aria-controls="' . esc_attr( $panel_id ) . '" data-accordion-trigger><span>' . $question . '</span>';
 	alipasandi_the_icon( 'chevron', 19 );
 	echo '</button>';
-	if ( $region ) {
-		echo '<div class="accordion-panel" id="' . esc_attr( $panel_id ) . '" role="region" aria-labelledby="' . esc_attr( $trigger_id ) . '" hidden>' . $answer . '</div>';
-	} else {
-		echo '<div class="accordion-panel" id="' . esc_attr( $panel_id ) . '" hidden>' . $answer . '</div>';
-	}
+	$region_attrs = $region ? ' role="region" aria-labelledby="' . esc_attr( $trigger_id ) . '"' : '';
+	echo '<div class="accordion-panel" id="' . esc_attr( $panel_id ) . '"' . $region_attrs . ' hidden>' . $answer . '</div>';
 	echo '</div>';
 }
 

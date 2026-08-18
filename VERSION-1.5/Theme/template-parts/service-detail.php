@@ -125,9 +125,9 @@ $faqs      = (array) $svc( 'faqs', array() );
 	<?php
 	alipasandi_trust_strip(
 		array(
-			'brand'    => array( 'number' => 'برندهای معتبر', 'label' => 'انتخاب متناسب', 'note' => 'بر پایه طرح درمان' ),
-			'planning' => array( 'number' => 'برنامه‌ریزی', 'label' => 'اختصاصی', 'note' => 'متناسب با شرایط هر بیمار' ),
-			'follow'   => array( 'number' => 'پیگیری', 'label' => 'درمان', 'note' => 'از مشاوره تا مراحل پس از درمان' ),
+			array( 'number' => 'برندهای معتبر', 'label' => 'انتخاب متناسب', 'note' => 'بر پایه طرح درمان' ),
+			array( 'number' => 'برنامه‌ریزی', 'label' => 'اختصاصی', 'note' => 'متناسب با شرایط هر بیمار' ),
+			array( 'number' => 'پیگیری', 'label' => 'درمان', 'note' => 'از مشاوره تا مراحل پس از درمان' ),
 		)
 	);
 	?>
@@ -142,11 +142,11 @@ $faqs      = (array) $svc( 'faqs', array() );
 				$panel_id     = 'service-faq-' . $alipasandi_service_key . '-' . substr( md5( (string) ( isset( $faq[0] ) ? $faq[0] : '' ) ), 0, 10 ) . '-' . $index;
 				$trigger_id   = $panel_id . '-trigger';
 				$faq_items[] = array(
-					'panel_id'  => $panel_id,
-					'trigger_id'=> $trigger_id,
-					'question'  => esc_html( isset( $faq[0] ) ? $faq[0] : '' ),
-					'answer'    => $kses( isset( $faq[1] ) ? $faq[1] : '' ),
-					'region'    => true,
+					'panel_id'   => $panel_id,
+					'trigger_id' => $trigger_id,
+					'question'   => esc_html( isset( $faq[0] ) ? $faq[0] : '' ),
+					'answer'     => $kses( isset( $faq[1] ) ? $faq[1] : '' ),
+					'region'     => true,
 				);
 			}
 			alipasandi_accordion_list( $faq_items );
