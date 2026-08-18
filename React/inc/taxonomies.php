@@ -62,6 +62,9 @@ function fasdent_save_term_fields( int $term_id ): void {
 	if ( ! isset( $_POST['fasdent_term_meta_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['fasdent_term_meta_nonce'] ), 'fasdent_term_meta' ) ) {
 		return;
 	}
+	if ( ! current_user_can( 'edit_term', $term_id ) ) {
+		return;
+	}
 	if ( isset( $_POST['fasdent_icon'] ) ) {
 		update_term_meta( $term_id, 'fasdent_icon', sanitize_text_field( wp_unslash( $_POST['fasdent_icon'] ) ) );
 	}

@@ -21,11 +21,11 @@ function fasdent_ajax_live_search(): void {
 	$results = [];
 	foreach ( $posts as $p ) {
 		$results[] = [
-			'title'     => get_the_title( $p ),
-			'url'       => get_permalink( $p ),
+			'title'     => wp_strip_all_tags( get_the_title( $p ) ),
+			'url'       => esc_url_raw( get_permalink( $p ) ),
 			'type'      => $type_labels[ $p->post_type ] ?? $p->post_type,
 			'excerpt'   => wp_trim_words( wp_strip_all_tags( $p->post_content ), 12 ),
-			'thumbnail' => has_post_thumbnail( $p ) ? get_the_post_thumbnail_url( $p, 'thumbnail' ) : '',
+			'thumbnail' => has_post_thumbnail( $p ) ? esc_url_raw( (string) get_the_post_thumbnail_url( $p, 'thumbnail' ) ) : '',
 		];
 	}
 	wp_send_json_success( [ 'results' => $results ] );
@@ -46,8 +46,8 @@ add_action( 'rest_api_init', function () {
 				's'              => $term,
 			] );
 			return rest_ensure_response( array_map( fn( $p ) => [
-				'title' => get_the_title( $p ),
-				'url'   => get_permalink( $p ),
+				'title' => wp_strip_all_tags( get_the_title( $p ) ),
+				'url'   => esc_url_raw( get_permalink( $p ) ),
 				'type'  => $p->post_type,
 			], $posts ) );
 		},

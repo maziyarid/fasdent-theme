@@ -290,10 +290,24 @@ document.addEventListener('DOMContentLoaded', function () {
               var a = document.createElement('a');
               a.href = item.url;
               a.className = 'search-result-item';
-              a.innerHTML = (item.thumbnail ? '<img src="' + item.thumbnail + '" alt="" loading="lazy">' : '')
-                + '<div class="search-result-item__body">'
-                + '<div class="search-result-item__title">' + item.title + '</div>'
-                + '<div class="search-result-item__type">' + item.type + '</div></div>';
+              if (item.thumbnail) {
+                var img = document.createElement('img');
+                img.src = item.thumbnail;
+                img.alt = '';
+                img.loading = 'lazy';
+                a.appendChild(img);
+              }
+              var body = document.createElement('div');
+              body.className = 'search-result-item__body';
+              var title = document.createElement('div');
+              title.className = 'search-result-item__title';
+              title.textContent = item.title;
+              var type = document.createElement('div');
+              type.className = 'search-result-item__type';
+              type.textContent = item.type;
+              body.appendChild(title);
+              body.appendChild(type);
+              a.appendChild(body);
               resultsBox.appendChild(a);
             });
           });
