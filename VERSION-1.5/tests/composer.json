@@ -1,0 +1,16 @@
+{
+	"name": "alipasandi/fasdent-v15-tests",
+	"description": "Unit tests for the canonical Fasdent Version 1.5 theme and plugin modules.",
+	"type": "project",
+	"license": "proprietary",
+	"require-dev": {
+		"phpunit/phpunit": "^9.6"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"scripts": {
+		"test": "phpunit",
+		"install-wp-core": "bash bin/install-wp-core.sh"
+	}
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="bootstrap.php"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	convertDeprecationsToExceptions="true"
+	failOnWarning="true"
+	failOnRisky="true"
+	cacheResultFile=".phpunit.cache/result.cache"
+	>
+	<testsuites>
+		<testsuite name="plugin">
+			<directory suffix="Test.php">plugin</directory>
+		</testsuite>
+		<testsuite name="theme">
+			<directory suffix="Test.php">theme</directory>
+		</testsuite>
+	</testsuites>
+	<coverage>
+		<include>
+			<directory suffix=".php">../Plugin/includes</directory>
+			<directory suffix=".php">../Theme/inc</directory>
+		</include>
+	</coverage>
+</phpunit>
