@@ -1,7 +1,7 @@
 # Evidence Register — Version 1.5
 
 Production URL: https://fasdent.ir/
-Evidence root: `VERSION-1.5/docs/evidence/live-browser/`
+Evidence root: VERSION-1.5/docs/evidence/live-browser/
 Date: 2026-08-16
 
 | ID | Blocker | Status | Evidence path(s) |
@@ -19,7 +19,7 @@ Date: 2026-08-16
 | V15-201 | Yes | PASS | Live front-page |
 | V15-203 | Yes | PASS | Theme 1.5.0 + Plugin 1.2.0 |
 | V15-204 | Yes | PASS | Live nav |
-| V15-205 | Yes | PASS | Booking success message |
+| V15-205 | Yes | PASS | Booking success message; docs/evidence/live-browser/2026-08-18-contact-form-delivery.md; inbox receipt at clinic@fasdent.ir, subject FASDENT-CONTACT-TEST-2145, 2026-08-18 21:50 local time; screenshot intended as docs/evidence/live-browser/2026-08-18-contact-form-inbox-receipt.jpg (not yet committed) |
 | V15-206 | Yes | PASS | Production NAP |
 | V15-301 | Yes | PASS | https://fasdent.ir |
 | V15-302 | Yes | PASS | HTTP→HTTPS |
@@ -29,3 +29,5 @@ Date: 2026-08-16
 | V15-405 | Yes | PASS | RTL screenshots |
 | V15-004 | No | PENDING | Ops optional |
 | V15-407 | No | PENDING | Ops optional |
+
+No binary screenshot is included in this commit. It will be added separately only when uploaded through a repository-capable file path.
