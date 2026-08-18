@@ -2,7 +2,7 @@
 Contributors: alipasandi-clinic
 Requires at least: 6.4
 Requires PHP: 8.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 
 Portable service-page content for Alipasandi Clinic. Owns registered post meta,
 the accessible editor UI, explicit migration, revisions, validation, export,
@@ -17,6 +17,10 @@ logging and health checks. The theme owns presentation only.
 No migration runs on front-end requests or merely because the theme updates.
 
 == Changelog ==
+
+= 1.2.1 =
+* Configure default form notifications for clinic@fasdent.ir and Dr.keyvan.alipasandii@gmail.com.
+* Configure noreply@fasdent.ir as the default production From address.
 
 = 1.2.0 =
 * Moved NAP settings UI, form processing, rate limiting and Rank Math integration out of the theme.

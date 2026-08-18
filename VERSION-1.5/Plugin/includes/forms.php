@@ -26,10 +26,6 @@ function alipasandi_validate_form_request( $action, $nonce_name ) {
 
 /** Count only structurally valid submissions; ordinary validation mistakes do not consume quota. */
 function alipasandi_form_rate_limit_status( $action ) {
-	// Lightweight, privacy-minimized rate limit: only a salted one-way IP hash
-	// is kept temporarily; no raw address or form content is logged.
-	// Never trust X-Forwarded-For directly. Hosting may provide a verified
-	// client address through this filter after configuring trusted proxies.
 	$remote  = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
 	$ip      = (string) apply_filters( 'alipasandi_form_client_ip', $remote, $action );
 	$key     = 'alipasandi_form_' . md5( wp_salt( 'nonce' ) . '|' . $action . '|' . $ip );
@@ -70,13 +66,10 @@ function alipasandi_allowed_times() {
 	return array_slice( $times, 0, 48 );
 }
 
-/** Notification inbox for forms (Customizer → clinic_notify_email). */
+/** Backward-compatible primary notification inbox. */
 function alipasandi_notify_email() {
-	$email = alipasandi_clinic_option( 'clinic_notify_email' );
-	if ( ! is_email( $email ) ) {
-		$email = 'drkeyvanalipasandi@gmail.com';
-	}
-	return $email;
+	$recipients = alipasandi_form_recipients();
+	return ! empty( $recipients ) ? $recipients[0] : 'clinic@fasdent.ir';
 }
 
 /** Build branded HTML email (RTL, palette). Fonts fall back in clients. */
@@ -88,8 +81,6 @@ function alipasandi_mail_html( $title, $rows ) {
 	foreach ( $rows as $label => $value ) {
 		$body_rows .= '<tr><td style="padding:10px 12px;border-bottom:1px solid #e8dcc8;color:#684936;font-size:13px;width:34%;">' . esc_html( $label ) . '</td><td style="padding:10px 12px;border-bottom:1px solid #e8dcc8;color:' . $espresso . ';font-size:14px;font-weight:600;">' . esc_html( $value ) . '</td></tr>';
 	}
-
-	// System font stack only — no external CDN dependency for reliability.
 	$font_stack = 'Tahoma, Arial, sans-serif';
 	$head       = '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
 		. '<style>body,table,td,div,p,a,span{font-family:' . $font_stack . ' !important;}</style>';
@@ -106,7 +97,7 @@ function alipasandi_mail_html( $title, $rows ) {
 		. '</table></body></html>';
 }
 
-/** Handle the contact form and email the WordPress administrator. */
+/** Handle the contact form and notify the configured recipient list. */
 function alipasandi_handle_contact() {
 	$request_status = alipasandi_validate_form_request( 'alipasandi_contact', 'alipasandi_contact_nonce' );
 	if ( 'valid' !== $request_status ) {
@@ -138,14 +129,14 @@ function alipasandi_handle_contact() {
 		)
 	);
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-	$sent    = wp_mail( alipasandi_notify_email(), $mail_subject, $html, $headers );
+	$sent    = wp_mail( alipasandi_form_recipients(), $mail_subject, $html, $headers );
 
 	alipasandi_form_redirect( 'contact', $sent ? 'success' : 'mail_error' );
 }
 add_action( 'admin_post_nopriv_alipasandi_contact', 'alipasandi_handle_contact' );
 add_action( 'admin_post_alipasandi_contact', 'alipasandi_handle_contact' );
 
-/** Handle appointment requests and email the WordPress administrator. */
+/** Handle appointment requests and notify the configured recipient list. */
 function alipasandi_handle_appointment() {
 	$request_status = alipasandi_validate_form_request( 'alipasandi_appointment', 'alipasandi_appointment_nonce' );
 	if ( 'valid' !== $request_status ) {
@@ -195,7 +186,7 @@ function alipasandi_handle_appointment() {
 		)
 	);
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-	$sent    = wp_mail( alipasandi_notify_email(), $mail_subject, $html, $headers );
+	$sent    = wp_mail( alipasandi_form_recipients(), $mail_subject, $html, $headers );
 
 	alipasandi_form_redirect( 'appointments', $sent ? 'success' : 'mail_error' );
 }
