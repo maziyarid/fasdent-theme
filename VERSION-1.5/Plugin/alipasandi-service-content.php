@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Alipasandi Service Content
  * Description: Portable service-page content, editing, migration, revisions, export and health checks.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Requires at least: 6.4
  * Requires PHP: 8.0
  * Author: Alipasandi Clinic
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ALIPASANDI_SERVICE_CONTENT_PLUGIN_VERSION', '1.2.0' );
+define( 'ALIPASANDI_SERVICE_CONTENT_PLUGIN_VERSION', '1.2.1' );
 define( 'ALIPASANDI_SERVICE_CONTENT_API_VERSION', '1.2' );
 define( 'ALIPASANDI_SERVICE_CONTENT_PLUGIN_FILE', __FILE__ );
 

@@ -16,8 +16,9 @@ function alipasandi_nap_fields() {
 		'clinic_city'           => array( 'شهر عملیاتی', 'text', 'sanitize_text_field', 'نوشهر' ),
 		'clinic_region'         => array( 'استان', 'text', 'sanitize_text_field', 'مازندران' ),
 		'clinic_country'        => array( 'کد کشور ISO', 'text', 'sanitize_text_field', 'IR' ),
-		'clinic_notify_email'   => array( 'ایمیل دریافت فرم', 'email', 'sanitize_email', '' ),
-		'clinic_mail_from'      => array( 'From ثابت دامنه Production', 'email', 'sanitize_email', '' ),
+		'clinic_notify_email'   => array( 'ایمیل دریافت فرم', 'email', 'sanitize_email', 'clinic@fasdent.ir' ),
+		'clinic_notification_cc'=> array( 'ایمیل دوم دریافت فرم', 'email', 'sanitize_email', 'Dr.keyvan.alipasandii@gmail.com' ),
+		'clinic_mail_from'      => array( 'From ثابت دامنه Production', 'email', 'sanitize_email', 'noreply@fasdent.ir' ),
 		'clinic_booking_times'  => array( 'ساعات رزرو؛ هر خط یک ساعت', 'textarea', 'sanitize_textarea_field', '' ),
 		'clinic_opening_hours'  => array( 'ساعات کاری رسمی Schema؛ مستقل از Slot رزرو', 'textarea', 'sanitize_textarea_field', '' ),
 		'clinic_postal_code'    => array( 'کدپستی رسمی', 'text', 'sanitize_text_field', '' ),
@@ -80,7 +81,8 @@ function alipasandi_operational_settings_page() {
 	<?php else : ?><input class="regular-text" dir="ltr" type="<?php echo esc_attr( $field[1] ); ?>" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $value ); ?>"><?php endif; ?>
 	</td></tr><?php endforeach; ?>
 	<tr><th scope="row">Claim +۱۰٬۰۰۰</th><td><label><input type="checkbox" name="alipasandi_show_treatment_count" value="1" <?php checked( get_option( 'alipasandi_show_treatment_count', false ) ); ?>> فقط پس از ثبت Claim approval فعال شود</label></td></tr>
-	</tbody></table><?php submit_button(); ?></form></div><?php
+	</tbody></table><?php submit_button(); ?></form></div>
+	<?php
 }
 
 function alipasandi_clinic_option( $key ) {
@@ -88,6 +90,14 @@ function alipasandi_clinic_option( $key ) {
 	$default = isset( $fields[ $key ][3] ) ? $fields[ $key ][3] : '';
 	$value = get_option( 'alipasandi_' . sanitize_key( $key ), null );
 	return null !== $value && '' !== $value ? $value : $default;
+}
+
+function alipasandi_form_recipients() {
+	$recipients = array(
+		sanitize_email( alipasandi_clinic_option( 'clinic_notify_email' ) ),
+		sanitize_email( alipasandi_clinic_option( 'clinic_notification_cc' ) ),
+	);
+	return array_values( array_unique( array_filter( $recipients, 'is_email' ) ) );
 }
 
 function alipasandi_normalize_digits( $value ) {
