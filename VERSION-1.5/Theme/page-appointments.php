@@ -1,26 +1,16 @@
 <?php
 /** Appointment request page. */
 get_header();
-$status   = isset( $_GET['form_status'] ) ? sanitize_key( wp_unslash( $_GET['form_status'] ) ) : '';
+$status   = alipasandi_form_status();
 $services = alipasandi_allowed_services();
 $times    = alipasandi_allowed_times();
 ?>
 <main id="main-content">
-	<section class="inner-hero">
-		<div class="narrow-container section-heading" style="padding-block:64px;position:relative">
-			<span class="eyebrow">نوبت‌دهی آنلاین</span><h1>رزرو نوبت</h1><p>درخواست نوبت برای <strong>مطب نوشهر</strong> ثبت می‌شود. تاریخ و ساعت انتخاب‌شده پیشنهادی است و نوبت پس از تماس کلینیک قطعی خواهد شد.</p>
-		</div>
-	</section>
+	<?php alipasandi_inner_hero( 'section', 'نوبت‌دهی آنلاین', esc_html( 'رزرو نوبت' ), 'درخواست نوبت برای <strong>مطب نوشهر</strong> ثبت می‌شود. تاریخ و ساعت انتخاب‌شده پیشنهادی است و نوبت پس از تماس کلینیک قطعی خواهد شد.' ); ?>
 
 	<section class="section section-bone">
 		<div class="narrow-container" id="clinic-form">
-			<?php if ( 'success' === $status ) : ?>
-				<div class="form-message success" role="status"><strong>درخواست نوبت شما ثبت شد.</strong><br>تیم کلینیک برای بررسی زمان پیشنهادی و تأیید نهایی با شما تماس می‌گیرد.</div>
-			<?php elseif ( 'rate_limited' === $status ) : ?>
-				<div class="form-message error" role="alert" tabindex="-1" autofocus>تعداد درخواست‌ها بیش از حد مجاز است. لطفاً ۱۵ دقیقه دیگر تلاش کنید یا مستقیماً با کلینیک تماس بگیرید.</div>
-			<?php elseif ( in_array( $status, array( 'error', 'invalid', 'mail_error' ), true ) ) : ?>
-				<div class="form-message error" role="alert">ثبت درخواست کامل نشد. لطفاً اطلاعات را بررسی کنید یا مستقیماً با کلینیک تماس بگیرید.</div>
-			<?php endif; ?>
+			<?php alipasandi_form_status_notice( $status, '<strong>درخواست نوبت شما ثبت شد.</strong><br>تیم کلینیک برای بررسی زمان پیشنهادی و تأیید نهایی با شما تماس می‌گیرد.', 'تعداد درخواست‌ها بیش از حد مجاز است. لطفاً ۱۵ دقیقه دیگر تلاش کنید یا مستقیماً با کلینیک تماس بگیرید.', 'ثبت درخواست کامل نشد. لطفاً اطلاعات را بررسی کنید یا مستقیماً با کلینیک تماس بگیرید.' ); ?>
 
 						<div class="booking-location-note" role="note">
 				<strong>محل مراجعه: مطب نوشهر</strong>
@@ -70,7 +60,7 @@ $times    = alipasandi_allowed_times();
 					</section>
 
 					<div class="validation-message" role="alert">لطفاً اطلاعات ضروری این مرحله را کامل کنید.</div>
-					<div class="booking-navigation"><button class="button button-outline-dark" type="button" data-booking-previous hidden>مرحله قبل</button><span></span><button class="button button-gold" type="button" data-booking-next>مرحله بعد</button><button class="button button-gold" type="submit" data-booking-submit hidden><?php echo alipasandi_icon( 'calendar', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ثبت درخواست نوبت</button></div>
+					<div class="booking-navigation"><button class="button button-outline-dark" type="button" data-booking-previous hidden>مرحله قبل</button><span></span><button class="button button-gold" type="button" data-booking-next>مرحله بعد</button><button class="button button-gold" type="submit" data-booking-submit hidden><?php alipasandi_the_icon( 'calendar', 17 ); ?> ثبت درخواست نوبت</button></div>
 				</form>
 			</div>
 			<p style="text-align:center;margin-top:24px;color:var(--ink-soft);font-size:.82rem">یا مستقیماً تماس بگیرید: <a class="phone-link" href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><span dir="ltr"><?php echo esc_html( alipasandi_clinic_option( 'clinic_phone' ) ); ?></span></a></p>

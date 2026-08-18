@@ -1,6 +1,5 @@
 <?php
 /** Site footer. */
-$phone = alipasandi_clinic_option( 'clinic_phone' );
 ?>
 <footer class="site-footer">
 	<div class="site-container footer-grid">
@@ -8,9 +7,7 @@ $phone = alipasandi_clinic_option( 'clinic_phone' );
 			<?php alipasandi_brand_logo( 'footer-logo' ); ?>
 			<p>کلینیک دندانپزشکی تخصصی با رویکرد مدرن، دقیق و قابل اعتماد — مراجعه حضوری در نوشهر.</p>
 			<div class="social-links">
-				<a href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_instagram' ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="اینستاگرام"><?php echo alipasandi_icon( 'instagram', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
-				<a href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_whatsapp' ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="واتساپ"><?php echo alipasandi_icon( 'whatsapp', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
-				<a href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_telegram' ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="تلگرام"><?php echo alipasandi_icon( 'telegram', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+				<?php foreach ( array( 'instagram', 'whatsapp', 'telegram' ) as $channel ) : alipasandi_contact_channel( $channel, 'social' ); endforeach; ?>
 			</div>
 		</section>
 
@@ -38,9 +35,9 @@ $phone = alipasandi_clinic_option( 'clinic_phone' );
 
 		<section class="footer-contact">
 			<h2>اطلاعات تماس</h2>
-			<a href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><?php echo alipasandi_icon( 'phone', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span dir="ltr"><?php echo esc_html( $phone ); ?></span></a>
+			<?php alipasandi_phone_link( '', 18 ); ?>
 						<p>
-				<?php echo alipasandi_icon( 'location', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php alipasandi_the_icon( 'location', 18 ); ?>
 				<?php if ( alipasandi_clinic_option( 'clinic_maps' ) ) : ?>
 					<a href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_maps' ) ); ?>" target="_blank" rel="noopener noreferrer"><span><?php echo esc_html( alipasandi_clinic_option( 'clinic_address' ) ); ?></span></a>
 				<?php else : ?>
@@ -66,20 +63,18 @@ $phone = alipasandi_clinic_option( 'clinic_phone' );
 </footer>
 
 <nav class="mobile-action-bar" aria-label="<?php esc_attr_e( 'دسترسی سریع موبایل', 'alipasandi-clinic' ); ?>">
-	<a href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><?php echo alipasandi_icon( 'phone', 19 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span>تماس با کلینیک</span></a>
-	<a class="mobile-book" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php echo alipasandi_icon( 'calendar', 19 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span>رزرو نوبت</span></a>
+	<?php alipasandi_phone_link( '', 19, 'تماس با کلینیک', 'text-span' ); ?>
+	<a class="mobile-book" href="<?php echo esc_url( alipasandi_page_url( 'appointments' ) ); ?>"><?php alipasandi_the_icon( 'calendar', 19 ); ?><span>رزرو نوبت</span></a>
 </nav>
 
 <aside class="contact-float" data-contact-float>
 	<div class="contact-options" id="contact-options" hidden>
-		<a class="contact-option whatsapp" href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_whatsapp' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo alipasandi_icon( 'whatsapp', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> واتساپ</a>
-		<a class="contact-option telegram" href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_telegram' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo alipasandi_icon( 'telegram', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> تلگرام</a>
-		<a class="contact-option instagram" href="<?php echo esc_url( alipasandi_clinic_option( 'clinic_instagram' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo alipasandi_icon( 'instagram', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> اینستاگرام</a>
-		<a class="contact-option direct" href="tel:<?php echo esc_attr( alipasandi_phone_href() ); ?>"><?php echo alipasandi_icon( 'phone', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> تماس مستقیم</a>
+		<?php foreach ( array( 'whatsapp', 'telegram', 'instagram' ) as $channel ) : alipasandi_contact_channel( $channel, 'float' ); endforeach; ?>
+		<?php alipasandi_phone_link( 'contact-option direct', 20, 'تماس مستقیم', 'text' ); ?>
 	</div>
 	<button type="button" class="contact-toggle" aria-label="تماس با ما" aria-expanded="false" aria-controls="contact-options" data-contact-toggle>
-		<span class="contact-chat-icon"><?php echo alipasandi_icon( 'chat', 25 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-		<span class="contact-close-icon"><?php echo alipasandi_icon( 'close', 23 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+		<span class="contact-chat-icon"><?php alipasandi_the_icon( 'chat', 25 ); ?></span>
+		<span class="contact-close-icon"><?php alipasandi_the_icon( 'close', 23 ); ?></span>
 	</button>
 </aside>
 
