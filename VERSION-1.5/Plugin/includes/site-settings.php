@@ -97,7 +97,19 @@ function alipasandi_form_recipients() {
 		sanitize_email( alipasandi_clinic_option( 'clinic_notify_email' ) ),
 		sanitize_email( alipasandi_clinic_option( 'clinic_notification_cc' ) ),
 	);
-	return array_values( array_unique( array_filter( $recipients, 'is_email' ) ) );
+	$recipients = array_values( array_unique( array_filter( $recipients, 'is_email' ) ) );
+	if ( ! empty( $recipients ) ) {
+		return $recipients;
+	}
+
+	$admin_email = sanitize_email( get_option( 'admin_email', '' ) );
+	if ( is_email( $admin_email ) ) {
+		alipasandi_log( 'Clinic notification recipients are unconfigured; using site admin email' );
+		return array( $admin_email );
+	}
+
+	alipasandi_log( 'Clinic notification recipients and site admin email are invalid' );
+	return array();
 }
 
 function alipasandi_normalize_digits( $value ) {

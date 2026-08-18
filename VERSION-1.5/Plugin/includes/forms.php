@@ -72,6 +72,35 @@ function alipasandi_notify_email() {
 	return ! empty( $recipients ) ? $recipients[0] : 'clinic@fasdent.ir';
 }
 
+/** Send a form notification while preserving the underlying WP mail failure. */
+function alipasandi_plugin_send_form_mail( $form_type, $recipients, $subject, $message, $headers ) {
+	$mail_error = null;
+	$capture    = function ( $error ) use ( &$mail_error ) {
+		if ( is_wp_error( $error ) ) {
+			$mail_error = $error;
+		}
+	};
+	add_action( 'wp_mail_failed', $capture );
+	$sent = wp_mail( $recipients, $subject, $message, $headers );
+	remove_action( 'wp_mail_failed', $capture );
+
+	if ( ! $sent ) {
+		$code    = $mail_error instanceof WP_Error ? $mail_error->get_error_code() : 'wp_mail_returned_false';
+		$details = $mail_error instanceof WP_Error ? $mail_error->get_error_message() : 'wp_mail returned false without an error';
+		alipasandi_log(
+			'Form notification failed',
+			array(
+				'form_type'       => sanitize_key( $form_type ),
+				'recipient_count' => count( (array) $recipients ),
+				'error_code'      => sanitize_key( $code ),
+				'error_message'   => sanitize_text_field( $details ),
+			)
+		);
+	}
+
+	return (bool) $sent;
+}
+
 /** Build branded HTML email (RTL, palette). Fonts fall back in clients. */
 function alipasandi_mail_html( $title, $rows ) {
 	$cream    = '#F2E9DA';
@@ -129,7 +158,7 @@ function alipasandi_handle_contact() {
 		)
 	);
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-	$sent    = wp_mail( alipasandi_form_recipients(), $mail_subject, $html, $headers );
+	$sent    = alipasandi_plugin_send_form_mail( 'contact', alipasandi_form_recipients(), $mail_subject, $html, $headers );
 
 	alipasandi_form_redirect( 'contact', $sent ? 'success' : 'mail_error' );
 }
@@ -186,7 +215,7 @@ function alipasandi_handle_appointment() {
 		)
 	);
 	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-	$sent    = wp_mail( alipasandi_form_recipients(), $mail_subject, $html, $headers );
+	$sent    = alipasandi_plugin_send_form_mail( 'appointment', alipasandi_form_recipients(), $mail_subject, $html, $headers );
 
 	alipasandi_form_redirect( 'appointments', $sent ? 'success' : 'mail_error' );
 }

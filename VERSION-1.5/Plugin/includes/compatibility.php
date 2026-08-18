@@ -6,6 +6,16 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 define( 'ALIPASANDI_SERVICE_SUPPORTED_THEME_MIN', '1.4.24' );
 define( 'ALIPASANDI_SERVICE_SUPPORTED_THEME_MAX_API', '1.x' );
 
+if ( ! function_exists( 'alipasandi_log' ) ) {
+	function alipasandi_log( $message, $context = array() ) {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+			return;
+		}
+		$details = is_array( $context ) && $context ? ' ' . wp_json_encode( $context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) : '';
+		error_log( '[Alipasandi] ' . sanitize_text_field( $message ) . $details ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+	}
+}
+
 function alipasandi_plugin_theme_compatibility() {
 	$theme = wp_get_theme();
 	if ( 'alipasandi-clinic' !== $theme->get_stylesheet() ) {

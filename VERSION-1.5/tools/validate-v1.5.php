@@ -19,15 +19,19 @@ foreach ([$theme . '/style.css', $theme . '/functions.php', $theme . '/front-pag
     }
 }
 
-$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
-foreach ($iterator as $file) {
-    if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
-        continue;
-    }
-    $path = $file->getPathname();
-    $contents = file_get_contents($path);
-    if ($contents !== false && str_starts_with($contents, "\xEF\xBB\xBF")) {
-        $errors[] = 'UTF-8 BOM: ' . $path;
+foreach ([$theme, $plugin, $root . '/VERSION-1.5/tools'] as $sourceRoot) {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sourceRoot, FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
+        if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
+            continue;
+        }
+        $path = $file->getPathname();
+        $contents = file_get_contents($path);
+        if ($contents === false) {
+            $errors[] = 'Unreadable PHP file: ' . $path;
+        } elseif (str_starts_with($contents, "\xEF\xBB\xBF")) {
+            $errors[] = 'UTF-8 BOM: ' . $path;
+        }
     }
 }
 
